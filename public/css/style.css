@@ -442,6 +442,12 @@ body {
   margin: 0 auto;
 }
 
+/*- Anuncie -*/
+.plans-section h3 {
+  margin-top: 20px;
+}
+
+
 footer {
   color: var(--white);
   background: var(--blue2);
