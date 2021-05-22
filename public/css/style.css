@@ -442,6 +442,12 @@ body {
   margin: 0 auto;
 }
 
+/*- Login -*/
+.col-12 p{
+  text-align:left;
+  
+}
+
 footer {
   color: var(--white);
   background: var(--blue2);
