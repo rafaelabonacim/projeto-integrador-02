@@ -1,0 +1,507 @@
+/*- Fonts -*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/*- Colors -*/
+:root {
+  --blue1: #253149;
+  --blue2: #0F1525;
+  --orange1: #d44e1b;
+  --orange2: #ffa339;
+  --grey1: #040404;
+  --grey2: #666;
+  --grey3: #999;
+  --white: #fff;
+  
+  --orange1hover: #A53d16;
+  --orange2hover: #e08f32;
+  --blue1hover: #131925;
+  --blue2hover: #040404;
+}
+
+/*- Button Styles -*/
+.btn {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  border: none;
+  font-weight: bold;
+}
+
+/* Solid */
+.btn-solid,
+.btn-solid:hover {
+  color: var(--white) !important;
+}
+
+.btn-solid.btn-orange1 {
+  background: var(--orange1);
+}
+
+.btn-solid.btn-orange1:hover {
+  background: var(--orange1hover);
+}
+
+.btn-solid.btn-orange2 {
+  background: var(--orange2);
+}
+
+.btn-solid.btn-orange2:hover {
+  background: var(--orange2hover);
+}
+
+.btn-solid.btn-blue1 {
+  background: var(--blue1);
+}
+
+.btn-solid.btn-blue1:hover {
+  background: var(--blue1hover);
+}
+
+.btn-solid.btn-blue2 {
+  background: var(--blue2);
+}
+
+.btn-solid.btn-blue2:hover {
+  background: var(--blue2hover);
+}
+
+.btn-solid.btn-grey {
+  background: var(--grey1);
+}
+
+.btn-solid.btn-grey:hover {
+  background: var(--grey2);
+}
+
+/* Outline */
+.btn-outline,
+.btn-outline:hover {
+  border-width: 2px;
+  border-style: solid;
+  background: transparent;
+}
+
+.btn-outline.btn-orange1 {
+  color: var(--orange1) !important;
+  border-color: var(--orange1);
+}
+
+.btn-outline.btn-orange1:hover {
+  color: var(--orange1hover) !important;
+  border-color: var(--orange1hover);
+}
+
+.btn-outline.btn-orange2 {
+  color: var(--orange2) !important;
+  border-color: var(--orange2);
+}
+
+.btn-outline.btn-orange2:hover {
+  color: var(--orange2hover) !important;
+  border-color: var(--orange2hover);
+}
+
+.btn-outline.btn-blue1 {
+  color: var(--blue1) !important;
+  border-color: var(--blue1);
+}
+
+.btn-outline.btn-blue1:hover {
+  color: var(--blue1hover) !important;
+  border-color: var(--blue1hover);
+}
+
+.btn-outline.btn-blue2 {
+  color: var(--blue2) !important;
+  border-color: var(--blue2);
+}
+
+.btn-outline.btn-blue2:hover {
+  color: var(--blue2hover) !important;
+  border-color: var(--blue2hover);
+}
+
+.btn-outline.btn-grey {
+  color: var(--grey1) !important;
+  border-color: var(--grey1);
+}
+
+.btn-outline.btn-grey:hover {
+  color: var(--grey2) !important;
+  border-color: var(--grey2);
+}
+
+/* Clean */
+.btn-clean,
+.btn-clean:hover {
+  background: transparent;
+}
+
+.btn-clean.btn-orange1 {
+  color: var(--orange1) !important;
+}
+
+.btn-clean.btn-orange1:hover {
+  color: var(--orange1hover) !important;
+}
+
+.btn-clean.btn-orange2 {
+  color: var(--orange2) !important;
+}
+
+.btn-clean.btn-orange2:hover {
+  color: var(--orange2hover) !important;
+}
+
+.btn-clean.btn-blue1 {
+  color: var(--blue1) !important;
+}
+
+.btn-clean.btn-blue1:hover {
+  color: var(--blue1hover) !important;
+}
+
+.btn-clean.btn-blue2 {
+  color: var(--blue2) !important;
+}
+
+.btn-clean.btn-blue2:hover {
+  color: var(--blue2hover) !important;
+}
+
+.btn-clean.btn-grey {
+  color: var(--grey1) !important;
+}
+
+.btn-clean.btn-grey:hover {
+  color: var(--grey2) !important;
+}
+
+/*- Text -*/
+
+a {
+  color: var(--orange2);
+}
+
+a:hover {
+  text-decoration: none;
+  color: var(--orange2hover);
+}
+
+.text-small,
+.text-small-italic,
+.text-small-bold {
+  font-size: 11px;
+}
+
+.text-small-italic {
+  font-style: italic;
+}
+
+.text-small-bold {
+  font-weight:bold;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  color: var(--blue2);
+}
+
+h3 {
+  color: var(--blue1);
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  color: var(--blue1);
+  font-size: 1.25rem;
+}
+
+hr {
+  border: 1px solid var(--orange1);
+  margin: 1.5rem 0 2rem;
+}
+
+/*- Forms -*/
+select {
+  appearance:none;
+}
+
+select{
+  background-image: url("../img/arrow-select.svg");
+  background-repeat: no-repeat;
+  background-position: right .75rem top 50%;
+  background-size: .75em auto, 100%;
+}
+
+/*- Structure -*/
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--grey2);
+}
+
+/* Navigation Top */
+#main-nav {
+  background: var(--blue2);
+} 
+
+#main-nav a:any-link {
+  color: var(--white);
+}
+
+#main-nav a:hover,
+#main-nav a.active,
+#main-nav .navbar-toggler:hover i {
+  color: var(--orange2);
+}
+
+#main-nav .navbar-toggler {
+  color: var(--white)
+}
+
+#main-nav .nav-item {
+  margin-right: 1rem;
+}
+
+#main-nav .nav-item:last-child {
+  margin-right: 0;
+}
+
+#main-nav .dropdown-menu {
+  background: var(--blue1);
+}
+
+#main-nav .dropdown-item:focus,
+#main-nav .dropdown-item:hover {
+  background: var(--blue1)
+}
+
+
+/* Hero Area */
+.hero {
+  padding: 4rem 0 2rem;
+  background: #2c2c2c url("../img/bg-title.jpg") no-repeat center top;
+}
+
+.hero .titles {
+  color: var(--white);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.hero .titles h1,
+.hero .titles h2 {
+  color: var(--white);
+}
+
+.hero .titles h1 {
+  margin-bottom: 2.25rem;
+}
+
+.hero .titles h2 {
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.hero .titles h2 span {
+  color: var(--orange2);
+}
+
+/* Pages */
+
+/* Home */
+.hero .quote-form form {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.hero .quote-form .container.card {
+  width: 100%;
+  max-width: 48.75rem;
+  padding: 2.25rem 1rem;
+  text-align: center;;
+}
+
+.hero .quote-form h3 {
+  margin-bottom: 1rem;
+}
+
+.hero .quote-form .zipcode {
+  max-width: 30rem;
+  margin: 2.25rem auto 1.5rem auto;
+}
+
+.hero .quote-form .file-upload-input span {
+  background: transparent;
+  padding:0;
+  border: 0;
+}
+
+.hero .quote-form .file-upload-box {
+  color: var(--blue2);
+  border: 2px dashed var(--blue2);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.hero .quote-form .file-upload-box .file-upload-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 6rem;
+}
+
+.hero .quote-form .file-upload-input span button {
+  max-height:38px;
+  border-radius: 0 4px 4px 0;
+}
+
+.hero .quote-form .creat-account {
+  margin-bottom: 1rem;
+}
+
+.hero .quote-form .custom-radio .custom-control-label::before {
+  border-color: var(--orange1) !important;
+}
+
+.hero .quote-form .custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: var(--orange1);
+}
+
+.hero .know-how-cta {
+  display: flex;
+  flex-direction: column;
+  color: var(--white);
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.hero .know-how-cta p {
+  margin-bottom: 0;
+}
+
+.hero .know-how-cta a:any-link {
+  color: var(--white);
+}
+
+.hero .know-how-cta a:hover {
+  color: var(--orange2);
+}
+
+#how-it-works h1 {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+#how-it-works .how-it-works-step {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+#how-it-works .how-it-works-step .margin-left {
+  margin-left: 3rem;
+}
+
+#how-it-works .how-it-works-step .margin-right {
+  margin-right: 3rem;
+}
+
+#how-it-works .how-it-works-step h2 {
+  color: var(--orange1);
+  margin-bottom: 1rem;
+}
+
+.announce {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align:center;
+  padding: 5rem 1rem;
+  color: var(--white);
+  height: 400px;
+  background: var(--orange1) url(../img/bg-announce.jpg) no-repeat center top; 
+}
+
+.announce h1,
+.announce h2 {
+  color: var(--white);
+}
+
+.announce a {
+  width: 100%;
+  max-width: 12rem;
+  margin: 0 auto;
+}
+
+footer {
+  color: var(--white);
+  background: var(--blue2);
+  text-align: center;
+  padding: 1.5rem 1rem;
+}
+
+footer p {
+  margin: 0;
+}
+
+/*- Responsive -*/
+@media only screen and (max-width: 992px) {
+  #main-nav .nav-item a{
+    text-align: center;
+  }
+  
+  #how-it-works {
+    text-align: center !important;
+  }
+
+  #how-it-works .how-it-works-step .margin-left,
+  #how-it-works .how-it-works-step .margin-right {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #how-it-works .how-it-works-step .text {
+    order: 1
+  }
+
+  #how-it-works .how-it-works-step .image {
+    margin-bottom: 1.5rem;
+  }
+
+  #how-it-works .how-it-works-step img {
+    width:60%;
+    max-width: 60%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .btn {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .announce h1,
+  .announce h2,
+  .hero .titles h1,
+  .hero .titles h2 {
+    font-size: 120%;
+  }
+
+  .hero .quote-form .add-products {
+    margin-bottom: 1rem;
+  }
+
+  #how-it-works .how-it-works-step img {
+    width:100%;
+    max-width: 100%;
+  }
+}

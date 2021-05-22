@@ -1,0 +1,241 @@
+<%- include('partials/header') -%>
+
+<main>
+  <section class="hero">
+    <section class="titles">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1>A PORCA E O PARAFUSO</h1>
+            <h2>Utilize nossa ferramenta exclusiva de produtos personalizados para o <span>setor de usinagem</span>.</h2>
+            <h2>Solicite um orçamento personalizado que será enviado a diversas empresas de uma vez, receba os retornos delas e escolha com qual fechar!</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote-form">
+      <form class="needs-validation" novalidate>
+        <div class="container card">
+          
+          <div class="row">
+            <div class="col-12">
+              <h2>Solicite seu Orçamento</h2>
+              <p>Já é Cadastrado? Faça seu login <a href="/login"><b>aqui</b></a>.</p>
+            </div>
+          </div>
+
+          <div class="row zipcode">
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <input type="text" id="zipcode" class="form-control" maxlength="9" placeholder="CEP" required>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <select id="disabledSelect" class="form-control" required>
+                  <option disabled selected>Escolha um Ramo</option>
+                  <option value="micro-usinagem">Micro Usinagem</option>
+                  <option value="usinagem">Usinagem</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row divider">
+            <div class="col-12">
+              <hr>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <h3>Produto #1</h3>
+            </div>
+
+            <div class="col-12">
+              <div class="file-upload-box">
+                <div class="file-upload-message">
+                  <label>Arrasque e solte seus arquivos aqui</label>
+                  <i class="fas fa-images"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-group file-upload-input">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Imagens do Projeto..." aria-describedby="fileButton" required>
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="fileButton">
+                      <button class="btn btn-outline btn-orange1"><i class="fas fa-arrow-circle-up"></i> Procurar</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <input type="number" id="amount" class="form-control" placeholder="Quantidade" required>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <input type="text" id="material" class="form-control" placeholder="Matéria Prima" required>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-group">
+                <input type="text" id="deadline" class="form-control" placeholder="Prazo de Entrega" required>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-group">
+                <textarea class="form-control" id="messaeg" rows="2" placeholder="Mais detalhes (Opcional)"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <button class="btn btn-solid btn-orange1 add-products"><i class="fas fa-plus"></i> Adicionar Produtos</button>
+              <button class="btn btn-solid btn-blue1"><i class="fas fa-check"></i> Finalizar</button>
+            </div>
+          </div>
+
+          <div class="row divider">
+            <div class="col-12">
+              <hr>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <h2>Dados Pessoais</h2>
+              <p>Seus dados servem para que as empresas possam retornar seu orçamento.<br>Nesta etapa, você pode escolher criar para não precisar preencher esses dados novamente.</p>
+            </div>
+          </div>
+          
+          <div class="row creat-account">
+            <div class="col-12">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="createAccount" name="account" class="custom-control-input">
+                <label class="custom-control-label" for="createAccount">Criar Conta</label>
+              </div>
+
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="dontCreate" name="account" class="custom-control-input">
+                <label class="custom-control-label" for="dontCreate">Não Criar</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <input type="text" id="name" class="form-control" placeholder="Nome do Responsável" required>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-group">
+                <input type="email" id="email" class="form-control" placeholder="E-mail" required>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <input type="text" id="phone" class="form-control" placeholder="Telefone (Opcional)">
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <input type="text" id="whatsapp" class="form-control" placeholder="WhatsApp (Opcional)">
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <input type="password" id="password" class="form-control" placeholder="Senha">
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <input type="password" id="confirmPassword" class="form-control" placeholder="Confirmar Senha">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <button class="btn btn-solid btn-blue1"><i class="fas fa-envelope"></i> Enviar Orçamento</button>
+            </div>
+          </div>
+
+        </div>
+      </form>
+
+      <div class="container know-how-cta">
+        <p>Ainda não conhece nossa ferramenta? Clique aqui para saber mais!</p>
+        <a href="#how-it-works"><i class="fas fa-chevron-down"></i></a>
+      </div>
+    </section>
+  </section>
+
+  <section id="how-it-works">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1>COMO FUNCIONA A NOSSA FERRAMENTA?</h1>
+        </div>
+      </div>
+      
+      <div class="row how-it-works-step">
+        <div class="col-md-12 col-lg-auto image margin-right">
+          <img src="/img/home-step-1.png" alt="Como Funciona - Etapa 1">
+        </div>
+        
+        <div class="col-md-12 col-lg text">
+          <h2>Precisa de projetos personalizados no setor de usinagem?</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec nibh rhoncus, pulvinar magna imperdiet, condimentum ligula. Proin et urna convallis, maximus ante quis, tincidunt felis.</p>
+        </div>
+      </div>
+
+      <div class="row how-it-works-step">
+        <div class="col-sm-12 col-md text text-lg-right">
+          <h2>Preencha os dados e envie seu projeto para diversas empresas de uma vez</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec nibh rhoncus, pulvinar magna imperdiet, condimentum ligula. Proin et urna convallis, maximus ante quis, tincidunt felis.</p>
+        </div>
+
+        <div class="col-md-12 col-lg-auto image margin-left">
+          <img src="/img/home-step-2.png" alt="Como Funciona - Etapa 1">
+        </div>
+      </div>
+
+      <div class="row how-it-works-step">
+        <div class="col-md-12 col-lg-auto image margin-right">
+          <img src="/img/home-step-3.png" alt="Como Funciona - Etapa 1">
+        </div>
+
+        <div class="col-md-12 col-lg text">
+          <h2>Receba muitos orçamentos e escolha o melhor para você ou sua empresa!</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec nibh rhoncus, pulvinar magna imperdiet, condimentum ligula. Proin et urna convallis, maximus ante quis, tincidunt felis.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="announce">
+    <h1>É UMA FABRICA OU FORNECEDOR?</h1>
+    <h2>Faça parte da nossa ferramenta, receba orçamentos e aumente o seu número de clientes!</h2>
+    <a href="#" class="btn btn-solid btn-orange2"><i class="fas fa-chart-line"></i> Anuncie Agora</a>
+  </section>
+</main>
+
+<%- include('partials/footer') -%>
