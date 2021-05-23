@@ -13,9 +13,10 @@ router.get('/anuncie', institutionalController.anuncie);
 
 // Rotas para páginas de login
 router.get('/login',loginController.login);
+router.get('/esquecisenha',loginController.forgotpassword)
 
 // Rotas para páginas de cadastro
-router.get('/register-type',cadastroController.cadastro);
+router.get('/registrar',cadastroController.cadastro);
 
 
 
