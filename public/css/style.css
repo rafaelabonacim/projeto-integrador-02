@@ -443,7 +443,12 @@ body {
 }
 
 /*- Anuncie -*/
-.plans-section h3 {
+.announce-plans {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.announce-plans .plan-item h3 {
   margin-top: 20px;
 }
 
