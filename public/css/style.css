@@ -443,9 +443,15 @@ body {
 }
 
 /*- Login -*/
-.col-12 p{
+.col-12 .forgot-login p {
   text-align:left;
-  
+
+}
+.col-12 .not-register p{
+  margin-bottom: 0;
+  text-align:left;
+
+
 }
 
 footer {
