@@ -452,6 +452,26 @@ body {
   margin-top: 20px;
 }
 
+/*- Login -*/
+.col-12 .forgot-login p {
+  text-align:left;
+
+}
+.col-12 .not-register p{
+  margin-bottom: 0;
+  text-align:left;
+}
+
+/* Esqueci a senha */
+
+.col-12 .button-send{
+  margin-bottom: 0;
+}
+
+/* Recuperar senha */
+.col-12 .button-salve{
+  margin-bottom: 0;
+}
 
 footer {
   color: var(--white);
