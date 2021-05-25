@@ -326,7 +326,8 @@ body {
 
 /* Home */
 .hero .quote-form form,
-.hero .login-form {
+.hero .login-form,
+.hero .announce-plans {
   margin-left: 1rem;
   margin-right: 1rem;
 }
@@ -452,53 +453,80 @@ body {
 }
 
 /*- Anuncie -*/
-
-.announce-plans .container.card {
-  width: 100%;
-  max-width: 70rem;
-  padding: 2.25rem 1rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.announce-plans hr{
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.announce-plans p,
-.announce-plans h2,
-.announce-plans h3 {
+.announce-plans {
   text-align: center;
 }
 
-.announce-plans .plan-title h2 {
-  margin-bottom: 2.5rem;
+.announce-plans .container.card {
+  width: 100%;
+  padding: 2.25rem 1rem;
+}
+
+.announce-plans .announce-benefits {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.announce-plans .announce-benefits h3 {
+  color: var(--grey2);
+}
+
+.announce-plans .announce-benefits h3,
+.announce-plans .announce-benefits i {
+  margin: 0;
+}
+
+.announce-plans .announce-benefits i {
+  color: var(--grey3);
+  margin-left: .5rem;
+  font-size: 20px;
+}
+
+.announce-plans hr{
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .announce-plans .plan-item h3 {
   margin-top: 1.25rem;
 }
+.announce-plans .plan-item .img-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  margin: 2.5rem auto 1.5rem auto;
+  border: 1px solid var(--grey3);
+  border-radius: 4px;
+}
+
 
 .announce-plans .plan-item img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 1.563rem;
+  width: 36px;
+  height: 40px;
 }
 
 .announce-plans i {
   font-size: 2.188rem;
-  margin: 1.25rem 0 0.938rem 9.625rem;
+  margin: 1.25rem 0 .938rem;
 }
 
-.announce-plans #check i {
+.announce-plans .fa-check-circle {
   color: var(--orange1);
 }
 
-.announce-plans .plan-prices span {
+.announce-plans .plan-prices h3 span {
+  display: block;
   color: var(--orange2);
+}
+
+.announce-plans .plan-prices .total-price span {
+  display: block;
+  margin-bottom: 1.5rem;
+  color: var(--grey1);
 }
 
 .announce-plans .plan-btn {
@@ -519,7 +547,6 @@ body {
 .login-form .divider hr{
   margin: 1rem 0;
 }
-
 
 footer {
   color: var(--white);
@@ -582,5 +609,25 @@ footer p {
   #how-it-works .how-it-works-step img {
     width:100%;
     max-width: 100%;
+  }
+
+  /*- Anuncie -*/
+  .announce-plans .plan-item h3 {
+    font-size: 1rem;
+  }
+
+  .announce-plans .announce-benefits h3,
+  .announce-plans .announce-benefits i {
+    font-size: .688rem;
+  }
+
+  .announce-plans i {
+    font-size: 1.5rem;
+  }
+
+  .announce-plans .subscribe {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100% !important;
   }
 }
