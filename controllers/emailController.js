@@ -1,6 +1,6 @@
 const emailController = {
     recuperarsenha: (req, res) => {
-        return res.render('recuperarsenha', { title: 'Recuperar senha'})
+        return res.render('recuperar-senha', { title: 'Recuperar senha'})
     }
 }; 
 

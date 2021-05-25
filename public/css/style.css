@@ -247,6 +247,10 @@ body {
   color: var(--grey2);
 }
 
+.no-margin-bottom{
+  margin-bottom: 0;
+}
+
 /* Navigation Top */
 #main-nav {
   background: var(--blue2);
@@ -290,6 +294,10 @@ body {
   background: #2c2c2c url("../img/bg-title.jpg") no-repeat center top;
 }
 
+.hero.full-height{
+  min-height: calc(100vh - 160px);
+}
+
 .hero .titles {
   color: var(--white);
   text-align: center;
@@ -317,7 +325,8 @@ body {
 /* Pages */
 
 /* Home */
-.hero .quote-form form {
+.hero .quote-form form,
+.hero .login-form {
   margin-left: 1rem;
   margin-right: 1rem;
 }
@@ -443,25 +452,20 @@ body {
 }
 
 /*- Login -*/
-.col-12 .forgot-login p {
-  text-align:left;
-
-}
-.col-12 .not-register p{
-  margin-bottom: 0;
-  text-align:left;
+.hero .login-form .container.card {
+  width: 100%;
+  max-width: 30rem;
+  padding: 2.25rem 1rem;
 }
 
-/* Esqueci a senha */
-
-.col-12 .button-send{
-  margin-bottom: 0;
+.login-form .forgot-login a {
+  margin-bottom:1rem;
+  display: block;
+}
+.login-form .divider hr{
+  margin: 1rem 0;
 }
 
-/* Recuperar senha */
-.col-12 .button-salve{
-  margin-bottom: 0;
-}
 
 footer {
   color: var(--white);

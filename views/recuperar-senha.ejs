@@ -1,7 +1,7 @@
 <%- include('partials/header') -%>
 
 <main>
-    <section class="hero">
+    <section class="hero full-height">
         <section class="titles">
             <div class="container">
                 <div class="row">
@@ -13,18 +13,18 @@
             </div>
         </section>
 
-        <section class="quote-form">
+        <section class="login-form">
             <form class="needs-validation" novalidate>
                 <div class="container card">
 
                     <div class="row">
                         <div class="col-12">
-                            <div class="form-group ">
+                            <div class="form-group">
                                 <input type="password" id="password" class=form-control placeholder="Senha" required>
                             </div>                        
                         </div>
 
-                        <div class="col-12 ">
+                        <div class="col-12">
                             <div class="form-group">
                               <input type="password" id="confirmPassword" class="form-control" placeholder="Confirmar Senha" required>
                             </div>
@@ -33,22 +33,17 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <div class="form-group button-salve">
+                            <div class="form-group no-margin-bottom">
                                 <button class="btn btn-solid btn-orange1"><i class="fas fa-check"></i> Salvar</button>
                             </div>
-                        </div>
-                        
+                        </div> 
                     </div>
+
                 </div>
                 
             </form>
 
         </section>
-
-
-
-
-
     </section>
 </main>
 <%- include('partials/footer') -%>

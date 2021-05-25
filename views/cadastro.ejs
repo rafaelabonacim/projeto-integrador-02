@@ -1,7 +1,7 @@
 <%- include('partials/header') -%>
 
 <main>
-    <section class="hero">
+    <section class="hero full-height">
         <section class="titles">
             <div class="container">
                 <div class="row">
@@ -13,14 +13,14 @@
             </div>
         </section>
 
-        <section class="quote-form">
+        <section class="login-form register">
             <form class="needs-validation" novalidate>
                 <div class="container card">
 
                     <div class="row">
 
                         <div class="col-12">
-                            <div class="form-group ">
+                            <div class="form-group">
                                 <select id="disabledSelect" class="form-control" required>
                                     <option disabled selected>Escolha um Plano</option>
                                     <option value="plano-parafuso">Plano parafuso</option>
@@ -31,14 +31,14 @@
                         </div>
 
                         <div class="col-12">
-                            <div class="form-group ">
+                            <div class="form-group">
                                 <input type="text" id="name" class=form-control placeholder="Nome completo" required>
                             </div>
                         </div>
 
 
                         <div class="col-12">
-                            <div class="form-group ">
+                            <div class="form-group">
                                 <input type="email" id="email" class=form-control placeholder="E-mail" required>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="col-12 col-md-6">
-                            <div class="form-group ">
+                            <div class="form-group">
                                 <input type="password" id="password" class=form-control placeholder="Senha" required>
                             </div>                        
                         </div>
@@ -71,11 +71,14 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <div class="form-group ">
+                            <div class="form-group">
                                 <button class="btn btn-solid btn-orange1"><i class="fas fa-user-check"></i> Cadastrar</button>
                             </div>
-                            <div class= not-register>
-                                <p>Já tem login? <a href="/login"><b>Entrar</b></a></p>
+                            <div class="divider">
+                                <hr>
+                            </div>
+                            <div>
+                                <p class="no-margin-bottom">Já tem login? <a href="/login">Entrar</a></p>
                             </div>
                         </div>
                         
@@ -85,11 +88,6 @@
             </form>
 
         </section>
-
-
-
-
-
     </section>
 </main>
 <%- include('partials/footer') -%>
