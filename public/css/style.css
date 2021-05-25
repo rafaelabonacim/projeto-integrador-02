@@ -443,13 +443,57 @@ body {
 }
 
 /*- Anuncie -*/
-.announce-plans {
-  margin-left: 1rem;
-  margin-right: 1rem;
+
+.announce-plans .container.card {
+  width: 100%;
+  max-width: 70rem;
+  padding: 2.25rem 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.announce-plans hr{
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.announce-plans p,
+.announce-plans h2,
+.announce-plans h3 {
+  text-align: center;
+}
+
+.announce-plans .plan-title h2 {
+  margin-bottom: 2.5rem;
 }
 
 .announce-plans .plan-item h3 {
-  margin-top: 20px;
+  margin-top: 1.25rem;
+}
+
+.announce-plans .plan-item img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.563rem;
+}
+
+.announce-plans i {
+  font-size: 2.188rem;
+  margin: 1.25rem 0 0.938rem 9.625rem;
+}
+
+.announce-plans #check i {
+  color: var(--orange1);
+}
+
+.announce-plans .plan-prices span {
+  color: var(--orange2);
+}
+
+.announce-plans .plan-btn {
+  text-align: center;
 }
 
 /*- Login -*/
