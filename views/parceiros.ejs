@@ -8,8 +8,7 @@
                         <div class="col-12">
                             <h1>CONHEÇA NOSSOS PARCEIROS</h1>
                             <h2>Essas são todas as empresas que irão receber o seu orçamento</h2>
-                            <h2>A Porca e o Parafuso agradece a parceria de distintas empresas do <span
-                                    STYLE="font-weight:bold"> setor de usinagem </span>, seja tambem um parceiro.</h2>
+                            <h2>A Porca e o Parafuso agradece a parceria de distintas empresas do <span>setor de usinagem</span>, seja tambem um parceiro.</h2>
                         </div>
                     </div>
                 </div>
@@ -18,23 +17,20 @@
             <section class="partners-form">
                 <form class="needs-validation" novalidate>
                     <div class="container card">
-                        
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="input-group rounded">
-                                    <input type="search" class="form-control rounded" placeholder="Busca" aria-label="Search"
-                                      aria-describedby="search-addon" />
-                                    <span class="input-group-text border-0" id="search-addon">
-                                      <i class="fas fa-search"></i>
-                                    </span>
-                                  </div>
-                            </div>
-                        </div>
 
-                        <div class = row>
-                            <div class="col-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4">
+                                <div class="input-group mb-3">
+                                    <input type="search" class="form-control" placeholder="Busca" name="search" />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline btn-blue1 search-button" type="button"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-4">
                                 <div class="form-group">
-                                    <select id="disabledSelect" class="form-control" required>
+                                    <select id="disabledSelect" class="form-control">
                                         <option value="">Procure por Estado</option>
                                         <option value="AC">Acre</option>
                                         <option value="AL">Alagoas</option>
@@ -66,12 +62,10 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class = row>
-                            <div class="col-12">
+                            <div class="col-sm-12 col-md-4">
                                 <div class="form-group">
-                                    <select id="disabledSelect" class="form-control" required>
+                                    <select id="disabledSelect" class="form-control">
                                         <option value="">Qual é sua cidade</option>
                                         <option value="AC">Cidade 1</option>
                                         <option value="AL">Cidade 2</option>
@@ -81,10 +75,36 @@
                                 </div>
                             </div>
                         </div>
-                        
-                    </div>
 
-                    
+                        <div class="partners-list">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Estado</th>
+                                        <th>Cidade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Heja</td>
+                                        <td>São Paulo</td>
+                                        <td>Ribeirão Preto</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hoje</td>
+                                        <td>São Paulo</td>
+                                        <td>Ribeirão Preto</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Haja</td>
+                                        <td>São Paulo</td>
+                                        <td>Ribeirão Preto</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </form>
             </section>
         </section>
