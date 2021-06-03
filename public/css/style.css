@@ -325,14 +325,16 @@ body {
 /* Pages */
 
 /* Home */
-.hero .quote-form form,
+.hero .quote-form,
 .hero .login-form,
-.hero .announce-plans {
+.hero .announce-plans,
+.hero .partners-form {
   margin-left: 1rem;
   margin-right: 1rem;
 }
 
-.hero .quote-form .container.card {
+.hero .quote-form .container.card,
+.hero .partners-form .container.card {
   width: 100%;
   max-width: 48.75rem;
   padding: 2.25rem 1rem;
