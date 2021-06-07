@@ -49,7 +49,7 @@
           </div>
 
           <div class="row">
-            <div class="col-12">
+            <div class="col-12 mt-4">
               <h3>Produto #1</h3>
             </div>
 
@@ -101,7 +101,7 @@
           </div>
 
           <div class="row">
-            <div class="col-12">
+            <div class="col-12 mt-3">
               <button class="btn btn-solid btn-orange1 add-products"><i class="fas fa-plus"></i> Adicionar Produtos</button>
               <button class="btn btn-solid btn-blue1"><i class="fas fa-check"></i> Finalizar</button>
             </div>
@@ -114,7 +114,7 @@
           </div>
 
           <div class="row">
-            <div class="col-12">
+            <div class="col-12 mt-4">
               <h2>Dados Pessoais</h2>
               <p>Seus dados servem para que as empresas possam retornar seu orçamento.<br>Nesta etapa, você pode escolher criar para não precisar preencher esses dados novamente.</p>
             </div>
@@ -172,14 +172,113 @@
             </div>
           </div>
 
-          <div class="row">
+          <div class="row divider">
             <div class="col-12">
+              <hr>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 mt-4">
+              <h2>Dados de Entrega</h2>
+              <p>Dados do endereço onde deseja rececer os produtos orçados.</p>
+            </div>
+
+            <div class="col-sm-12 col-md-4">
+              <div class="form-group">
+                <input type="text" id="zipcode" class="form-control" placeholder="CEP">
+              </div>
+            </div>
+  
+            <div class="col-sm-12 col-md-8">
+              <div class="form-group">
+                <input type="text" id="address" class="form-control" placeholder="Logradouro">
+              </div>
+            </div>
+  
+            <div class="col-sm-12 col-md-4">
+              <div class="form-group">
+                <input type="number" id="Número " class="form-control" placeholder="Número">
+              </div>
+            </div>
+  
+            <div class="col-sm-12 col-md-4">
+              <div class="form-group">
+                <input type="text" id="complement" class="form-control" placeholder="Complemento">
+              </div>
+            </div>
+  
+            <div class="col-sm-12 col-md-4">
+              <div class="form-group">
+                <input type="text" id="district" class="form-control" placeholder="Bairro">
+              </div>
+            </div>
+  
+            <div class="col-sm-12 col-md-4">
+              <div class="form-group">
+                <select id="state" class="form-control" required>
+                  <option disabled selected>Estado</option>
+                  <option value="AC">Acre</option>
+                  <option value="AL">Alagoas</option>
+                  <option value="AP">Amapá</option>
+                  <option value="AM">Amazonas</option>
+                  <option value="BA">Bahia</option>
+                  <option value="CE">Ceará</option>
+                  <option value="DF">Distrito Federal</option>
+                  <option value="ES">Espírito Santo</option>
+                  <option value="GO">Goiás</option>
+                  <option value="MA">Maranhão</option>
+                  <option value="MT">Mato Grosso</option>
+                  <option value="MS">Mato Grosso do Sul</option>
+                  <option value="MG">Minas Gerais</option>
+                  <option value="PA">Pará</option>
+                  <option value="PB">Paraíba</option>
+                  <option value="PR">Paraná</option>
+                  <option value="PE">Pernambuco</option>
+                  <option value="PI">Piauí</option>
+                  <option value="RJ">Rio de Janeiro</option>
+                  <option value="RN">Rio Grande do Norte</option>
+                  <option value="RS">Rio Grande do Sul</option>
+                  <option value="RO">Rondônia</option>
+                  <option value="RR">Roraima</option>
+                  <option value="SC">Santa Catarina</option>
+                  <option value="SP">São Paulo</option>
+                  <option value="SE">Sergipe</option>
+                  <option value="TO">Tocantins</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="col-sm-12 col-md-8">
+              <div class="form-group">
+                <input type="text" id="city" class="form-control" placeholder="Cidade">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 mt-3">
               <button class="btn btn-solid btn-blue1"><i class="fas fa-envelope"></i> Enviar Orçamento</button>
             </div>
           </div>
 
         </div>
       </form>
+
+      <section class="quote-form sucess">
+        <div class="container card">
+            <div class="row">
+              <div class="col-12">
+                <h2>Orçamento enviado com Sucesso!</h2>
+                <i class="fas fa-check-circle success-quote mt-3 mb-4"></i>
+              </div>
+
+              <div class="col-12">
+                <button class="btn btn-solid btn-orange1"><i class="fas fa-file"></i> Novo Orçamento</button>
+              </div>
+          </div>
+        </div>
+      </section>
 
       <div class="container know-how-cta">
         <p>Ainda não conhece nossa ferramenta? Clique aqui para saber mais!</p>

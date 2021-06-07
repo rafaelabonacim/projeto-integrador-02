@@ -7,6 +7,18 @@ const institutionalController = {
     },
     parceiros: (req, res) => {
         return res.render('parceiros', { title: 'Parceiros'})
+    },
+    cadastro: (req, res) => {
+        return res.render('cadastro', { title: 'Cadastro'})
+    },
+    login: (req, res) => {
+        return res.render('login', { title: 'Login'})
+    },
+    forgotpassword: (req,res)=> {
+        return res.render('esqueci-senha', {title: 'Esqueci senha'})
+    },
+    recuperarsenha: (req, res) => {
+        return res.render('recuperar-senha', { title: 'Recuperar senha'})
     }
 };
 

@@ -18,6 +18,35 @@
   --blue2hover: #040404;
 }
 
+/*- Colors -*/
+.color-blue1{
+  color: var(--blue1);
+}
+
+.color-blue2{
+  color: var(--blue2);
+}
+
+.color-orange1{
+  color: var(--orange1);
+}
+
+.color-orange2{
+  color: var(--orange2);
+}
+
+.color-grey1{
+  color: var(--grey1);
+}
+
+.color-grey2{
+  color: var(--grey2);
+}
+
+.color-grey3{
+  color: var(--grey3);
+}
+
 /*- Button Styles -*/
 .btn {
   padding-left: 1rem !important;
@@ -247,8 +276,12 @@ body {
   color: var(--grey2);
 }
 
-.no-margin-bottom{
+.no-margin-bottom {
   margin-bottom: 0;
+}
+
+.full-height {
+  min-height: calc(100vh - 158px);
 }
 
 /* Navigation Top */
@@ -294,10 +327,6 @@ body {
   background: #2c2c2c url("../img/bg-title.jpg") no-repeat center top;
 }
 
-.hero.full-height{
-  min-height: calc(100vh - 160px);
-}
-
 .hero .titles {
   color: var(--white);
   text-align: center;
@@ -322,7 +351,7 @@ body {
   color: var(--orange2);
 }
 
-/* Pages */
+/*- Pages -*/
 
 /* Home */
 .hero .quote-form,
@@ -406,6 +435,16 @@ body {
 
 .hero .know-how-cta a:hover {
   color: var(--orange2);
+}
+
+.hero i.success-quote {
+  font-size:3rem;
+  color: var(--orange2) !important;
+}
+
+.hero .quote-form.sucess {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 #how-it-works h1 {
@@ -571,6 +610,50 @@ footer p {
   margin: 0;
 }
 
+/*- Área Administrativa  -*/
+.admin-dashboard .hero {
+  background-image: none;
+  padding: 2rem 0;
+  margin-bottom: 3rem;
+}
+
+.admin-dashboard .hero .titles,
+.admin-dashboard .hero .titles h2{
+  margin-bottom: 0;
+}
+
+.admin-dashboard .container.card {
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+}
+
+.admin-dashboard .admin-container h2 {
+  text-align: center;
+}
+
+
+/* Lista de Fornecedores */
+.admin-list-supplier .table-actions {
+  font-size: 1.2rem;
+}
+.admin-list-supplier .table-actions a {
+  display: inline-block;
+  margin-right: .5rem;
+}
+
+.admin-list-supplier .table-actions a:last-child {
+  margin-right: 0;
+}
+
+.admin-list-supplier td {
+  vertical-align: middle;
+}
+
+.admin-list-supplier table tr:last-child td:first-child {
+  border-bottom-left-radius: 4px;
+}
+
+
 /*- Responsive -*/
 @media only screen and (max-width: 992px) {
   #main-nav .nav-item a{
@@ -605,12 +688,10 @@ footer p {
   .btn {
     max-width: 100% !important;
     width: 100% !important;
+    margin-bottom: .5rem;
   }
 
-  .announce h1,
-  .announce h2,
-  .hero .titles h1,
-  .hero .titles h2 {
+  h1, h2 {
     font-size: 120%;
   }
 
@@ -644,22 +725,37 @@ footer p {
   }
 
   /* Parceiros */
-  .partners-form table,
-  .partners-form thead,
-  .partners-form tbody,
-  .partners-form th,
-  .partners-form td,
-  .partners-form tr { 
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr { 
     display: block; 
   }
   
-  .partners-form thead tr { 
+  .admin-list-supplier table,
+  .admin-list-supplier th {
+    border: 0;
+  }
+
+  .admin-list-supplier th {
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .admin-list-supplier tr {
+    border: 1px solid #dee2e6;
+  }
+
+  .partners-form thead tr,
+  .admin-list-supplier thead tr { 
     position: absolute;
     top: -9999px;
     left: -9999px;
   }
 
-  .partners-form tbody tr { 
+  .partners-form tbody tr,
+  .admin-list-supplier tbody tr { 
     border-radius: 4px;
     margin-bottom: 8px;
   }
@@ -668,7 +764,8 @@ footer p {
     border: 0;
   }
   
-  .partners-form td { 
+  .partners-form td,
+  .admin-list-supplier td { 
     border: none;
     border-bottom: 1px solid #eee; 
     position: relative;
@@ -676,7 +773,8 @@ footer p {
     text-align: right;
   }
   
-  .partners-form td:before { 
+  .partners-form td:before,
+  .admin-list-supplier td:before { 
     position: absolute;
     top: 12px;
     left: 12px;
@@ -690,4 +788,18 @@ footer p {
   .partners-form td:nth-of-type(1):before { content: "Nome"; }
   .partners-form td:nth-of-type(2):before { content: "Estado"; }
   .partners-form td:nth-of-type(3):before { content: "Cidade"; }
+
+  .admin-list-supplier td:nth-of-type(1):before { content: "ID"; }
+  .admin-list-supplier td:nth-of-type(2):before { content: "Nome"; }
+  .admin-list-supplier td:nth-of-type(3):before { content: "Plano"; }
+  .admin-list-supplier td:nth-of-type(4):before { content: "Expiração"; }
+  .admin-list-supplier td:nth-of-type(5):before { content: "Ações"; }
+  .admin-list-supplier td:nth-of-type(6):before { content: "Status"; }
+
+
+  /*- Área Administrativa -*/
+  .admin-dashboard .admin-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }

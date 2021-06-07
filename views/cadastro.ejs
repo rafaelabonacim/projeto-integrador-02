@@ -1,7 +1,7 @@
 <%- include('partials/header') -%>
 
-<main>
-    <section class="hero full-height">
+<main class="full-height">
+    <section class="hero">
         <section class="titles">
             <div class="container">
                 <div class="row">
@@ -16,6 +16,12 @@
         <section class="login-form register">
             <form class="needs-validation" novalidate>
                 <div class="container card">
+
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h2>Dados do Plano</h2>
+                        </div>
+                    </div>
 
                     <div class="row">
 
@@ -67,6 +73,95 @@
                             </div>
                         </div>
 
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 text-center mt-3">
+                            <h2>Localização</h2>
+                        </div>
+
+                        <div class="col-sm-12">
+                        <div class="form-group">
+                            <input type="text" id="zipcode" class="form-control" placeholder="CEP">
+                        </div>
+                        </div>
+            
+                        <div class="col-sm-12">
+                        <div class="form-group">
+                            <input type="text" id="address" class="form-control" placeholder="Logradouro">
+                        </div>
+                        </div>
+            
+                        <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <input type="number" id="Número " class="form-control" placeholder="Número">
+                        </div>
+                        </div>
+            
+                        <div class="col-sm-12 col-md-8">
+                        <div class="form-group">
+                            <input type="text" id="complement" class="form-control" placeholder="Complemento">
+                        </div>
+                        </div>
+            
+                        <div class="col-sm-12">
+                        <div class="form-group">
+                            <input type="text" id="district" class="form-control" placeholder="Bairro">
+                        </div>
+                        </div>
+            
+                        <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <select id="state" class="form-control" required>
+                            <option disabled selected>Estado</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                            </select>
+                        </div>
+                        </div>
+            
+                        <div class="col-sm-12 col-md-8">
+                            <div class="form-group">
+                                <input type="text" id="city" class="form-control" placeholder="Cidades (Separe por virgula)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mt-3">
+                            <h2 class="text-center">Área de Atendimento</h2>
+                            <p>Insira abaixo os estados que sua empresa efetura entrega ou então Brasil se entrar para todo país.</p>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input type="text" id="city" class="form-control" placeholder="Cidades (Separe por virgula)">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row">
