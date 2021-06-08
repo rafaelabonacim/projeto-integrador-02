@@ -7,6 +7,7 @@ const institutionalController = require('../controllers/institutionalController'
 // Rotas para páginas institucionais
 router.get('/', institutionalController.index);
 router.get('/anuncie', institutionalController.anuncie);
+router.get('/perfilCadastro', institutionalController.perfil);
 
 // Rotas para páginas de login
 router.get('/login', institutionalController.login);

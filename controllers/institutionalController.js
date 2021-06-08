@@ -8,6 +8,9 @@ const institutionalController = {
     parceiros: (req, res) => {
         return res.render('parceiros', { title: 'Parceiros'})
     },
+    perfil: (req, res) => {
+        return res.render('perfilCadastro', { title: 'Cadastro'})
+    },
     cadastro: (req, res) => {
         return res.render('cadastro', { title: 'Cadastro'})
     },
