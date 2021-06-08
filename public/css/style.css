@@ -284,6 +284,20 @@ body {
   min-height: calc(100vh - 158px);
 }
 
+.pagination-container {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-container a {
+  color: var(--blue1);
+}
+
+.pagination-container .active a {
+  background: var(--blue1) !important;
+  border-color: var(--blue1) !important;;
+}
+
 /* Navigation Top */
 #main-nav {
   background: var(--blue2);
