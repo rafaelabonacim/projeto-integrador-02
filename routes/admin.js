@@ -19,4 +19,13 @@ router.put('/editarFornecedor', adminController.atualizarFornecedor);
 router.delete('/excluirFornecedor', adminController.atualizarFornecedor);
 router.delete('/listarFornecedor/deletar/:id', adminController.excluirFornecedor);
 
+
+// Rotas de Clientes
+router.get('/listarCliente', adminController.listarCliente);
+
+router.get('/adicionarCliente', adminController.adicionarCliente);
+router.post('/adicionarCliente', adminController.salvarCliente);
+
+router.get('/editarCliente', adminController.editarCliente);
+router.put('/editarCliente', adminController.atualizarCliente);
 module.exports = router;

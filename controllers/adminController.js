@@ -22,7 +22,24 @@ const adminController = {
         let serviceFound = services.findIndex(fornecedor => fornecedor.id == id);
         
         return res.redirect('admin/listaServicos');
-    }
+    },
+
+    listarCliente:  (req, res) => {
+        return res.render('admin/listarCliente', { title: 'Listar Clientes'})
+    },
+    adicionarCliente: (req,res) => {
+        return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
+    },
+    salvarCliente: (req,res) => {
+        return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
+    },
+    editarCliente: (req,res) => {
+        return res.render('admin/editarCliente', { title: 'Editar Clientes'})
+    },
+    atualizarCliente: (req,res) => {
+        return res.render('admin/editarCliente', { title: 'Editar Clientes'})
+    },
+
 };
 
 module.exports = adminController;
