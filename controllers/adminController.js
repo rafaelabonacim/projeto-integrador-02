@@ -38,7 +38,7 @@ const adminController = {
     },
     atualizarCliente: (req,res) => {
         return res.render('admin/editarCliente', { title: 'Editar Clientes'})
-    },
+    }
 
 };
 

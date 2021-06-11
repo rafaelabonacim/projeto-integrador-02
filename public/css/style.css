@@ -699,26 +699,30 @@ footer p {
 
 
 /* Lista de Fornecedores */
-.admin-list-supplier .table-actions {
+.admin-list-supplier .table-actions,
+.admin-list-client .table-actions {
   font-size: 1.2rem;
 }
-.admin-list-supplier .table-actions a {
+.admin-list-supplier .table-actions a,
+.admin-list-client .table-actions a {
   display: inline-block;
   margin-right: .5rem;
 }
 
-.admin-list-supplier .table-actions a:last-child {
+.admin-list-supplier .table-actions a:last-child,
+.admin-list-client .table-actions a:last-child {
   margin-right: 0;
 }
 
-.admin-list-supplier td {
+.admin-list-supplier td,
+.admin-list-client td{
   vertical-align: middle;
 }
 
-.admin-list-supplier table tr:last-child td:first-child {
+.admin-list-supplier table tr:last-child td:first-child
+.admin-list-client table tr:last-child td:first-child {
   border-bottom-left-radius: 4px;
 }
-
 
 /*- Responsive -*/
 @media only screen and (max-width: 992px) {
