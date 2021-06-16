@@ -38,7 +38,13 @@ const adminController = {
     },
     atualizarCliente: (req,res) => {
         return res.render('admin/editarCliente', { title: 'Editar Clientes'})
-    }
+    },
+    excluirCliente: (req,res) => {
+        let { id } = req.params;
+        let clienteFound = clientes.findIndex(cliente => cliente.id == id);
+        
+        return res.redirect('admin/listarCliente');
+    },
 
 };
 
