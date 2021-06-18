@@ -14,6 +14,9 @@ const institutionalController = {
     cadastro: (req, res) => {
         return res.render('cadastro', { title: 'Cadastro'})
     },
+    cadastrocliente: (req, res) => {
+        return res.render('cadastroCliente', { title: 'Cadastro'})
+    },
     login: (req, res) => {
         return res.render('login', { title: 'Login'})
     },
