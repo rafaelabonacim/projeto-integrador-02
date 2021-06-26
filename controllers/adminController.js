@@ -49,6 +49,9 @@ const adminController = {
     listarOrcamentos:  (req, res) => {
         return res.render('admin/listarOrcamentos', { title: 'Listar Orçamentos'})
     },
+    orcamentoDetalhado:  (req, res) => {
+        return res.render('admin/orcamentoDetalhado', { title: 'Orçamento Detalhado'})
+    },
 
 };
 
