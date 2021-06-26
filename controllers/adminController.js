@@ -46,6 +46,10 @@ const adminController = {
         return res.redirect('admin/listarCliente');
     },
 
+    listarOrcamentos:  (req, res) => {
+        return res.render('admin/listarOrcamentos', { title: 'Listar Orçamentos'})
+    },
+
 };
 
 module.exports = adminController;
