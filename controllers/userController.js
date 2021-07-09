@@ -1,27 +1,11 @@
-const Sequelize = require('sequelize');
-const config = require('../database/config/config');
-const { AreaDeAtendimento, Cliente, Endereco, Fornecedor, Orcamento, Plano, PlanoFornecedor, Usuario } = require('../database/models');
-
-const adminController = {
+const userController = {
     index: (req, res) => {
         return res.render('admin/index', { title: 'Painel Administrativo'})
     },
-    listarFornecedor: async (req, res) => {
-        const fornecedores = await Usuario.findAll({
-            include: {
-                model: Usuario,
-                required: true
-            }
-        })
-        return res.render('admin/listarFornecedor', { title: 'Listar de Fornecedores', fornecedores: fornecedores })
+    listarFornecedor:  (req, res) => {
+        return res.render('admin/listarFornecedor', { title: 'Listar de Fornecedores'})
     },
-    adicionarFornecedor: async (req, res) => {
-        const { plan, name, document, email, phone, whatsapp, password, zipcode, address, numero, complement, district, state, city, stateArea } = req.body;
-
-        await Usuario.create({
-            plan, name, document, email, phone, whatsapp, password, zipcode, address, numero, complement, district, state, city, stateArea
-        })
-        
+    adicionarFornecedor:  (req, res) => {
         return res.render('admin/adicionarFornecedor', { title: 'Adicionar Fornecedor'})
     },
     salvarFornecedor:  (req, res) => {
@@ -39,11 +23,11 @@ const adminController = {
         
         return res.redirect('admin/listaServicos');
     },
+
     listarCliente:  (req, res) => {
         return res.render('admin/listarCliente', { title: 'Listar Clientes'})
     },
     adicionarCliente: (req,res) => {
-        // const { name, email, phone, whatsapp, password, confirmPassword, zipcode, address, numero, complement, district, state, city } = req.body;
         return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
     },
     salvarCliente: (req,res) => {
@@ -64,4 +48,4 @@ const adminController = {
 
 };
 
-module.exports = adminController;
+module.exports = userController;

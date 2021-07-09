@@ -14,8 +14,10 @@ router.get('/login', institutionalController.login);
 router.get('/esqueci-senha', institutionalController.forgotpassword)
 
 // Rotas para páginas de cadastro
-router.get('/cadastro', institutionalController.cadastro);
-router.get('/cadastroCliente', institutionalController.cadastrocliente);
+router.get('/cadastro-fornecedor', institutionalController.cadastroFornecedor);
+router.post('/cadastro-fornecedor', institutionalController.cadastroFornecedorCreate);
+
+router.get('/cadastro-cliente', institutionalController.cadastrocliente);
 
 // Rotas do link que será enviado para o email
 router.get('/recuperar-senha', institutionalController.recuperarsenha);

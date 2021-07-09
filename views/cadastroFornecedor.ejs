@@ -14,7 +14,7 @@
         </section>
 
         <section class="login-form register">
-            <form class="needs-validation" novalidate>
+            <form class="needs-validation" action="/cadastro-fornecedor" method="POST" novalidate>
                 <div class="container card">
 
                     <div class="row">
@@ -27,57 +27,57 @@
 
                         <div class="col-12">
                             <div class="form-group">
-                                <select id="disabledSelect" class="form-control" required>
+                                <select id="disabledSelect" name="plan" class="form-control" required>
                                     <option disabled selected>Escolha um Plano</option>
-                                    <option value="plano-parafuso">Plano parafuso</option>
-                                    <option value="plano-porca">Plano porca</option>
-                                    <option value="plano-porcaeparafuso">Plano porca e parafuso</option>
+                                    <option value="Parafuso">Plano parafuso</option>
+                                    <option value="Porca">Plano porca</option>
+                                    <option value="Porca e Parafuso">Plano porca e parafuso</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="col-12">
                             <div class="form-group">
-                                <input type="text" id="name" class=form-control placeholder="Nome da Empresa" required>
+                                <input type="text" id="name" name="name" class=form-control placeholder="Nome da Empresa" required>
                             </div>
                         </div>
 
                         <div class="col-12">
                             <div class="form-group">
-                                <input type="text" id="document" class=form-control placeholder="CNPJ" required>
+                                <input type="text" id="document" name="document" class=form-control placeholder="CNPJ" required>
                             </div>
                         </div>
 
 
                         <div class="col-12">
                             <div class="form-group">
-                                <input type="email" id="email" class=form-control placeholder="E-mail" required>
+                                <input type="email" id="email" name="email" class=form-control placeholder="E-mail" required>
                             </div>
                         </div>
 
                         <div class="col-12 col-md-6">
                             <div class="form-group">
-                                <input type="tel" id="phone" class=form-control placeholder="Telefone (Opcional)">
+                                <input type="tel" id="phone" name="phone" class=form-control placeholder="Telefone (Opcional)">
                             </div>
                         </div>
 
                         <div class="col-12 col-md-6">
                             <div class="form-group">
-                                <input type="tel" id="whatsapp" class=form-control placeholder="Whatsapp (Opcional)">
+                                <input type="tel" id="whatsapp" name="whatsapp" class=form-control placeholder="Whatsapp (Opcional)">
                             </div>
                         </div>
 
                         <div class="col-12 col-md-6">
                             <div class="form-group">
-                                <input type="password" id="password" class=form-control placeholder="Senha" required>
+                                <input type="password" id="password" name="password" class=form-control placeholder="Senha" required>
                             </div>                        
                         </div>
 
-                        <div class="col-sm-12 col-md-6">
+                        <!-- <div class="col-sm-12 col-md-6">
                             <div class="form-group">
-                              <input type="password" id="confirmPassword" class="form-control" placeholder="Confirmar Senha" required>
+                              <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirmar Senha" required>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
 
@@ -88,37 +88,37 @@
 
                         <div class="col-sm-12">
                         <div class="form-group">
-                            <input type="text" id="zipcode" class="form-control" placeholder="CEP">
+                            <input type="text" id="zipcode" name="zipcode" class="form-control" placeholder="CEP">
                         </div>
                         </div>
             
                         <div class="col-sm-12">
                         <div class="form-group">
-                            <input type="text" id="address" class="form-control" placeholder="Logradouro">
+                            <input type="text" id="address" name="address" class="form-control" placeholder="Logradouro">
                         </div>
                         </div>
             
                         <div class="col-sm-12 col-md-4">
                         <div class="form-group">
-                            <input type="number" id="Número " class="form-control" placeholder="Número">
+                            <input type="number" id="Número" name="number" class="form-control" placeholder="Número">
                         </div>
                         </div>
             
                         <div class="col-sm-12 col-md-8">
                         <div class="form-group">
-                            <input type="text" id="complement" class="form-control" placeholder="Complemento">
+                            <input type="text" id="complement" name="complement" class="form-control" placeholder="Complemento">
                         </div>
                         </div>
             
                         <div class="col-sm-12">
                         <div class="form-group">
-                            <input type="text" id="district" class="form-control" placeholder="Bairro">
+                            <input type="text" id="district" name="district" class="form-control" placeholder="Bairro">
                         </div>
                         </div>
             
                         <div class="col-sm-12 col-md-4">
                         <div class="form-group">
-                            <select id="state" class="form-control" required>
+                            <select id="state" name="state" class="form-control" required>
                             <option disabled selected>Estado</option>
                             <option value="AC">Acre</option>
                             <option value="AL">Alagoas</option>
@@ -153,7 +153,7 @@
             
                         <div class="col-sm-12 col-md-8">
                             <div class="form-group">
-                                <input type="text" id="city" class="form-control" placeholder="Cidade">
+                                <input type="text" id="city" name="city" class="form-control" placeholder="Cidade">
                             </div>
                         </div>
                     </div>
@@ -166,7 +166,7 @@
                        
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <select id="state" class="form-control multi-select" title="Selecione aqui os estados" data-selected-text-format="count > 3" data-size="5" data-actions-box="true"  data-dropup-auto="false" required multiple>
+                                <select id="stateArea" name="stateArea" class="form-control multi-select" title="Selecione aqui os estados" data-selected-text-format="count > 3" data-size="5" data-actions-box="true"  data-dropup-auto="false" required multiple>
                                     <option value="AC">Acre</option>
                                     <option value="AL">Alagoas</option>
                                     <option value="AP">Amapá</option>
