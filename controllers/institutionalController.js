@@ -28,33 +28,25 @@ const institutionalController = {
             nome: name,
             email,
             senha: password,
+            cep: zipcode,
+            logradouro: address,
+            numero: number,
+            complemento: complement,
+            bairro: district,
+            estado: state,
+            cidade: city,
+            estado: stateArea,
+            endereco_id: teste.id,
+            usuario_id: usuario.id,
+            telefone: phone,
+            whatsapp,
+            cnpj: document,
+            plano: plan,
+            valor: 500,
         })
-        .then ((usuario) => {
-            var teste = Endereco.create({                
-                cep: zipcode,
-                logradouro: address,
-                numero: number,
-                complemento: complement,
-                bairro: district,
-                estado: state,
-                cidade: city,
-                estado: stateArea
-            });
 
-            console.log(teste);
-
-            Fornecedor.create({
-                endereco_id: teste.id,
-                usuario_id: usuario.id,
-                telefone: phone,
-                whatsapp,
-                cnpj: document,
-                plano: plan,
-                valor: 500,
-            });
-        })        
-            
         return res.redirect('/login')
+        
     },
     cadastrocliente: (req, res) => {
         return res.render('cadastroCliente', { title: 'Cadastro'})
