@@ -1,7 +1,7 @@
+const uuid4 = require("uuid4");
 const Sequelize = require('sequelize');
 const config = require('../database/config/config');
-const uuid4 = require("uuid4");
-const { AreaDeAtendimento, Cliente, Endereco, Fornecedor, Orcamento, Plano, PlanoFornecedor, Usuario } = require('../database/models');
+const { AreaDeAtendimento, Cliente, Endereco, Fornecedor, Orcamento, Plano, PlanoFornecedor, TipoUsuario, Usuario } = require('../database/models');
 
 const institutionalController = {
     index: (req, res) => {
@@ -24,24 +24,36 @@ const institutionalController = {
 
         await Usuario.create({
             id: uuid4(),
-            tipo: 'Fornecedor',
-            plano: plan,
+            tipo_usuario_id: 2,
             nome: name,
-            cnpj: document,
             email,
-            telefone: phone,
-            whatsapp,
             senha: password,
-            cep: zipcode,
-            logradouro: address,
-            numero: number,
-            complemento: complement,
-            bairro: district,
-            estado: state,
-            cidade: city,
-            estado: stateArea
         })
-        
+        .then ((usuario) => {
+            var teste = Endereco.create({                
+                cep: zipcode,
+                logradouro: address,
+                numero: number,
+                complemento: complement,
+                bairro: district,
+                estado: state,
+                cidade: city,
+                estado: stateArea
+            });
+
+            console.log(teste);
+
+            Fornecedor.create({
+                endereco_id: teste.id,
+                usuario_id: usuario.id,
+                telefone: phone,
+                whatsapp,
+                cnpj: document,
+                plano: plan,
+                valor: 500,
+            });
+        })        
+            
         return res.redirect('/login')
     },
     cadastrocliente: (req, res) => {

@@ -9,14 +9,10 @@ module.exports = (sequelize, DataTypes) => {
             },
             cep: {
                 type: DataTypes.INTEGER,
-                allowNull: true
+                allowNull: false
             },
             logradouro: {
                 type: DataTypes.STRING,
-                allowNull: true
-            },
-            numero: {
-                type: DataTypes.INTEGER,
                 allowNull: false
             },
             complemento: {
@@ -24,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: true
             },
             bairro: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            numero: {
                 type: DataTypes.STRING,
                 allowNull: false
             },

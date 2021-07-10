@@ -7,15 +7,26 @@ module.exports = (sequelize, DataTypes) => {
                 autoIncrement: true,
                 allowNull: false
             },
-            telefone: {
+            quantidade: {
                 type: DataTypes.INTEGER,
-                allowNull: true
+                allowNull: false
             },
-            whatsapp: {
-                type: DataTypes.INTEGER,
-                allowNull: true
+            prazo: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            materia_prima: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            detalhes: {
+                type: DataTypes.STRING,
+                allowNull: false
             },
             fornecedor_id: {
+                type: DataTypes.INTEGER,
+            },
+            cliente_id: {
                 type: DataTypes.INTEGER,
             }
         },
@@ -28,14 +39,14 @@ module.exports = (sequelize, DataTypes) => {
     Orcamento.associate = function(models){
         Orcamento.belongsTo(models.Fornecedor, {
             as : "Orçamento",
-            foreignKey: "usuario_id"
+            foreignKey: "fornecedor_id"
         }
     )};
 
     Orcamento.associate = function(models){
         Orcamento.belongsTo(models.Cliente, {
             as : "Orçamento",
-            foreignKey: "usuario_id"
+            foreignKey: "cliente_id"
         }
     )};
 

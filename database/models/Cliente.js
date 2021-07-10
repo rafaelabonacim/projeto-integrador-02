@@ -16,20 +16,20 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: true
             },
             usuario_id: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
             },
             endereco_id: {
                 type: DataTypes.INTEGER,
             }
         },
         {
-            tableName: 'fornecedor',
+            tableName: 'cliente',
             timestamps: true
         }
     );
 
     Cliente.associate = function(models){
-        Cliente.hasMany(models.Usuario, {
+        Cliente.belongTo(models.Usuario, {
             as : "Cliente",
             foreignKey: "usuario_id"
         }

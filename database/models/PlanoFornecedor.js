@@ -9,19 +9,19 @@ module.exports = (sequelize, DataTypes) => {
             },
             nome: {
                 type: DataTypes.STRING,
-                allowNull: true
+                allowNull: false
             },
-            valor: {
+            preco: {
                 type: DataTypes.INTEGER,
-                allowNull: true
+                allowNull: false
             },
             data_inicio: {
-                type: DataTypes.INTEGER,
-                allowNull: true
+                type: DataTypes.STRING,
+                allowNull: false
             },
             data_fim: {
-                type: DataTypes.INTEGER,
-                allowNull: true
+                type: DataTypes.STRING,
+                allowNull: false
             },
             plano_id: {
                 type: DataTypes.INTEGER,
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         {
-            tableName: 'area_de_atendimento',
+            tableName: 'plano_fornecedor',
             timestamps: true
         }
     );

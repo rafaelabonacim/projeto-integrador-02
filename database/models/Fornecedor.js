@@ -19,23 +19,11 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false
             },
-            plano: {
-                type: DataTypes.STRING,
-                allowNull: false
-            },
-            valor: {
-                type: DataTypes.INTEGER,
-                allowNull: false
-            },
-            tipo: {
-                type: DataTypes.INTEGER,
-                allowNull: false
-            },
-            usuario_id: {
-                type: DataTypes.INTEGER,
-            },
             endereco_id: {
                 type: DataTypes.INTEGER,
+            },
+            usuario_id: {
+                type: DataTypes.STRING,
             }
         },
         {
@@ -45,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     Fornecedor.associate = function(models){
-        Fornecedor.hasMany(models.Usuario, {
+        Fornecedor.belongsTo(models.Usuario, {
             as : "Fornecedor",
             foreignKey: "usuario_id"
         }

@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             id: {
                 primaryKey: true,
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: false
             },
             nome: {
@@ -18,9 +18,8 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            tipo: {
+            tipo_usuario_id: {
                 type: DataTypes.INTEGER,
-                allowNull: false
             }
         },
         {
@@ -28,6 +27,13 @@ module.exports = (sequelize, DataTypes) => {
             timestamps: true
         }
     );
+
+    Usuario.associate = function(models){
+        Usuario.belongsTo(models.TipoUsuario, {
+            as : "Usuários",
+            foreignKey: "usuario_id"
+        }
+    )};
     
     return Usuario;
 };
