@@ -28,4 +28,9 @@ router.post('/adicionarCliente', adminController.salvarCliente);
 
 router.get('/editarCliente', adminController.editarCliente);
 router.put('/editarCliente', adminController.atualizarCliente);
+
+// Rotas orçamentos
+router.get('/listarOrcamentos', adminController.listarOrcamentos);
+router.get('/orcamentoDetalhado', adminController.orcamentoDetalhado);
+
 module.exports = router;
