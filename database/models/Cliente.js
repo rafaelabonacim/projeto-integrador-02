@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     Cliente.associate = function(models){
-        Cliente.belongTo(models.Usuario, {
+        Cliente.belongsTo(models.Usuario, {
             as : "Cliente",
             foreignKey: "usuario_id"
         }
