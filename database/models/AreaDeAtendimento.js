@@ -23,10 +23,10 @@ module.exports = (sequelize, DataTypes) => {
 
     Area.associate = function(models){
         Area.belongsTo(models.Fornecedor, {
-            as : "Área de Atendimento",
+            as : "area",
             foreignKey: "fornecedor_id"
-        }
-    )};
+        })
+    };
 
     return Area;
 };

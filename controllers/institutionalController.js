@@ -1,4 +1,5 @@
 const uuid4 = require("uuid4");
+const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
 const config = require('../database/config/config');
 const { AreaDeAtendimento, Cliente, Endereco, Fornecedor, Orcamento, Plano, PlanoFornecedor, TipoUsuario, Usuario } = require('../database/models');
@@ -20,6 +21,7 @@ const institutionalController = {
         return res.render('cadastroFornecedor', { title: 'Cadastro de Fornecedor'})
     },
     cadastroFornecedorCreate: async (req, res) => {
+        /*
         const { plan, name, document, email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city, stateArea } = req.body;
 
         await Usuario.create({
@@ -44,6 +46,7 @@ const institutionalController = {
             plano: plan,
             valor: 500,
         })
+        */
 
         return res.redirect('/login')
         
@@ -60,6 +63,21 @@ const institutionalController = {
     recuperarsenha: (req, res) => {
         return res.render('recuperar-senha', { title: 'Recuperar senha'})
     }
+    /*
+    teste: async (req, res) => {
+        const listarUsuario = Usuario.findAll()
+        
+        const createUser = Usuario.create({
+            id: uuid4(),
+            nome: 'Victor',
+            email: 'victoramota@gmail.com',
+            senha: bcrypt.hashSync('123456', 10),
+            tipo_usuario_id: 3
+        })
+        
+        return res.redirect('login');
+    }
+    */
 };
 
 module.exports = institutionalController;

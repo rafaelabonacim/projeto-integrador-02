@@ -34,10 +34,30 @@ module.exports = (sequelize, DataTypes) => {
 
     Fornecedor.associate = function(models){
         Fornecedor.belongsTo(models.Usuario, {
-            as : "Fornecedor",
+            as : "usuario",
             foreignKey: "usuario_id"
-        }
-    )};
+        });
+
+        Fornecedor.belongsTo(models.Endereco, {
+            as : "endereco",
+            foreignKey: "endereco_id"
+        });
+
+        Fornecedor.hasMany(models.Orcamento, {
+            as : "orcamento_fornecedor",
+            foreignKey: "fornecedor_id"
+        });
+
+        Fornecedor.hasMany(models.Area, {
+            as : "area",
+            foreignKey: "fornecedor_id"
+        });
+
+        Fornecedor.hasOne(models.PlanoFornecedor, {
+            as : "plano_contratado",
+            foreignKey: "fornecedor_id"
+        });
+    };
 
     return Fornecedor;
 };
