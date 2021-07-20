@@ -22,9 +22,12 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     Area.associate = function(models){
-        Area.belongsTo(models.Fornecedor, {
-            as : "area",
-            foreignKey: "fornecedor_id"
+        Area.belongsToMany(models.Fornecedor, {
+            as : 'area',
+            through: 'fornecedor_has_area',
+            foreignKey: 'area_de_atendimento_id',
+            otherKey: 'fornecedor_id',
+            timestamps: false
         })
     };
 

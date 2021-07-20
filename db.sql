@@ -1,11 +1,7 @@
--- MySQL Workbench Forward Engineering
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
--- -----------------------------------------------------
--- Schema porca_parafuso
--- -----------------------------------------------------
+
 CREATE SCHEMA IF NOT EXISTS `porca_parafuso` DEFAULT CHARACTER SET utf8 ;
 USE `porca_parafuso` ;
 
@@ -220,13 +216,30 @@ CREATE TABLE IF NOT EXISTS `porca_parafuso`.`area_de_atendimento` (
   `estado` VARCHAR(2) NOT NULL,
   `createdAt` TIMESTAMP NULL,
   `updatedAt` TIMESTAMP NULL,
-  `fonecedor_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_area_de_atendimento_fonecedor1_idx` (`fonecedor_id` ASC),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
-  CONSTRAINT `fk_area_de_atendimento_fonecedor1`
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `porca_parafuso`.`fonecedor_has_area`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `porca_parafuso`.`fonecedor_has_area` (
+  `fonecedor_id` INT NOT NULL,
+  `area_de_atendimento_id` INT NOT NULL,
+  PRIMARY KEY (`fonecedor_id`, `area_de_atendimento_id`),
+  INDEX `fk_fonecedor_has_area_de_atendimento_area_de_atendimento1_idx` (`area_de_atendimento_id` ASC),
+  INDEX `fk_fonecedor_has_area_de_atendimento_fonecedor1_idx` (`fonecedor_id` ASC),
+  CONSTRAINT `fk_fonecedor_has_area_de_atendimento_fonecedor1`
     FOREIGN KEY (`fonecedor_id`)
     REFERENCES `porca_parafuso`.`fonecedor` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_fonecedor_has_area_de_atendimento_area_de_atendimento1`
+    FOREIGN KEY (`area_de_atendimento_id`)
+    REFERENCES `porca_parafuso`.`area_de_atendimento` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

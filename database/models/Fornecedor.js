@@ -48,9 +48,12 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: "fornecedor_id"
         });
 
-        Fornecedor.hasMany(models.Area, {
-            as : "area",
-            foreignKey: "fornecedor_id"
+        Fornecedor.belongsToMany(models.Area, {
+            as : 'area',
+            through: 'fornecedor_has_area',
+            foreignKey: 'fornecedor_id',
+            otherKey: 'area_de_atendimento_id',
+            timestamps: true
         });
 
         Fornecedor.hasOne(models.PlanoFornecedor, {
