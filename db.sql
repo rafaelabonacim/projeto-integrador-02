@@ -63,9 +63,9 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `porca_parafuso`.`fonecedor`
+-- Table `porca_parafuso`.`fornecedor`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `porca_parafuso`.`fonecedor` (
+CREATE TABLE IF NOT EXISTS `porca_parafuso`.`fornecedor` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `telefone` INT(11) NULL,
   `whatsapp` INT(11) NULL,
@@ -76,14 +76,14 @@ CREATE TABLE IF NOT EXISTS `porca_parafuso`.`fonecedor` (
   `usuario_id` VARCHAR(36) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
-  INDEX `fk_fonecedor_endereco1_idx` (`endereco_id` ASC),
-  INDEX `fk_fonecedor_usuario1_idx` (`usuario_id` ASC),
-  CONSTRAINT `fk_fonecedor_endereco1`
+  INDEX `fk_fornecedor_endereco1_idx` (`endereco_id` ASC),
+  INDEX `fk_fornecedor_usuario1_idx` (`usuario_id` ASC),
+  CONSTRAINT `fk_fornecedor_endereco1`
     FOREIGN KEY (`endereco_id`)
     REFERENCES `porca_parafuso`.`endereco` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_fonecedor_usuario1`
+  CONSTRAINT `fk_fornecedor_usuario1`
     FOREIGN KEY (`usuario_id`)
     REFERENCES `porca_parafuso`.`usuario` (`id`)
     ON DELETE NO ACTION
@@ -134,15 +134,15 @@ CREATE TABLE IF NOT EXISTS `porca_parafuso`.`orcamento` (
   `detalhes` VARCHAR(1000) NOT NULL,
   `createdAt` TIMESTAMP NULL,
   `updatedAt` TIMESTAMP NULL,
-  `fonecedor_id` INT NOT NULL,
+  `fornecedor_id` INT NOT NULL,
   `cliente_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
-  INDEX `fk_orcamento_fonecedor1_idx` (`fonecedor_id` ASC),
+  INDEX `fk_orcamento_fornecedor1_idx` (`fornecedor_id` ASC),
   INDEX `fk_orcamento_cliente1_idx` (`cliente_id` ASC),
-  CONSTRAINT `fk_orcamento_fonecedor1`
-    FOREIGN KEY (`fonecedor_id`)
-    REFERENCES `porca_parafuso`.`fonecedor` (`id`)
+  CONSTRAINT `fk_orcamento_fornecedor1`
+    FOREIGN KEY (`fornecedor_id`)
+    REFERENCES `porca_parafuso`.`fornecedor` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_orcamento_cliente1`
@@ -188,19 +188,19 @@ CREATE TABLE IF NOT EXISTS `porca_parafuso`.`plano_fornecedor` (
   `createdAt` TIMESTAMP NULL,
   `updatedAt` TIMESTAMP NULL,
   `plano_id` INT NOT NULL,
-  `fonecedor_id` INT NOT NULL,
+  `fornecedor_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_plano_fornecedor_plano1_idx` (`plano_id` ASC),
-  INDEX `fk_plano_fornecedor_fonecedor1_idx` (`fonecedor_id` ASC),
+  INDEX `fk_plano_fornecedor_fornecedor1_idx` (`fornecedor_id` ASC),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   CONSTRAINT `fk_plano_fornecedor_plano1`
     FOREIGN KEY (`plano_id`)
     REFERENCES `porca_parafuso`.`plano` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_plano_fornecedor_fonecedor1`
-    FOREIGN KEY (`fonecedor_id`)
-    REFERENCES `porca_parafuso`.`fonecedor` (`id`)
+  CONSTRAINT `fk_plano_fornecedor_fornecedor1`
+    FOREIGN KEY (`fornecedor_id`)
+    REFERENCES `porca_parafuso`.`fornecedor` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -224,20 +224,20 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `porca_parafuso`.`fonecedor_has_area`
+-- Table `porca_parafuso`.`fornecedor_has_area`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `porca_parafuso`.`fonecedor_has_area` (
-  `fonecedor_id` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `porca_parafuso`.`fornecedor_has_area` (
+  `fornecedor_id` INT NOT NULL,
   `area_de_atendimento_id` INT NOT NULL,
-  PRIMARY KEY (`fonecedor_id`, `area_de_atendimento_id`),
-  INDEX `fk_fonecedor_has_area_de_atendimento_area_de_atendimento1_idx` (`area_de_atendimento_id` ASC),
-  INDEX `fk_fonecedor_has_area_de_atendimento_fonecedor1_idx` (`fonecedor_id` ASC),
-  CONSTRAINT `fk_fonecedor_has_area_de_atendimento_fonecedor1`
-    FOREIGN KEY (`fonecedor_id`)
-    REFERENCES `porca_parafuso`.`fonecedor` (`id`)
+  PRIMARY KEY (`fornecedor_id`, `area_de_atendimento_id`),
+  INDEX `fk_fornecedor_has_area_de_atendimento_area_de_atendimento1_idx` (`area_de_atendimento_id` ASC),
+  INDEX `fk_fornecedor_has_area_de_atendimento_fornecedor1_idx` (`fornecedor_id` ASC),
+  CONSTRAINT `fk_fornecedor_has_area_de_atendimento_fornecedor1`
+    FOREIGN KEY (`fornecedor_id`)
+    REFERENCES `porca_parafuso`.`fornecedor` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_fonecedor_has_area_de_atendimento_area_de_atendimento1`
+  CONSTRAINT `fk_fornecedor_has_area_de_atendimento_area_de_atendimento1`
     FOREIGN KEY (`area_de_atendimento_id`)
     REFERENCES `porca_parafuso`.`area_de_atendimento` (`id`)
     ON DELETE NO ACTION
