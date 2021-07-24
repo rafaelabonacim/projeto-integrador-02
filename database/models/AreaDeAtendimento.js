@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             tableName: 'area_de_atendimento',
-            timestamps: true
+            timestamps: false
         }
     );
 

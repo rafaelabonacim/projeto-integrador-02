@@ -57,7 +57,7 @@ const institutionalController = {
             console.log('Erro ao criar Fornecedor', err)
         });
 
-        //Área de Atendimento
+        //Area de Atendimento
         if (typeof stateArea === 'object') {
             await stateArea.forEach(state => {
                 FornecedorHasArea.create({
