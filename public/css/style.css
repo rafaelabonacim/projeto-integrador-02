@@ -52,7 +52,6 @@
   padding-left: 1rem !important;
   padding-right: 1rem !important;
   border: none;
-  font-weight: bold;
 }
 
 /* Solid */
@@ -268,6 +267,34 @@ select{
   background-position: right .75rem top 50%;
   background-size: .75em auto, 100%;
 }
+
+.form-control{
+  border: 1px solid var(--grey3);
+}
+
+input.form-control::placeholder,
+.bootstrap-select > .dropdown-toggle.bs-placeholder {
+  color: var(--grey3);
+}
+
+/* Multiple Select */
+
+button.btn-light,
+button.btn-light:hover,
+.show > .btn-light.dropdown-toggle,
+.btn-light:not(:disabled):not(.disabled):active {
+  background: #fff !important;
+  border: 1px solid var(--grey3) !important;
+}
+
+button.btn-light:focus,
+.show > .btn-light.dropdown-toggle:focus,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:focus{
+  border-color: #80bdff !important;
+  box-shadow: 0 0 0 .2rem rgba(0,123,255,.25) !important;
+  outline: none !important;
+}
+
 
 /*- Structure -*/
 

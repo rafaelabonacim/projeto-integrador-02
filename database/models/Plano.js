@@ -24,11 +24,11 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             },
             preco: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: false
             },
             preco_promocional: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: false
             },
             parcelas: {
