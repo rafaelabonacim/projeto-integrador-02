@@ -54,19 +54,23 @@ const institutionalController = {
             usuario_id: usuarioCriado.id,
             endereco_id: enderecoCriado.id,
         }).catch(function (err) {
-            console.log('Erro ao criar Fornecedor', err)
+            console.log('Erro ao criar Fornecedor')
+            console.log(err, req.body)
         });
 
-        //Area de Atendimento
+        console.log('--Fim Fornecedor--')
+
+        // Areas de atendimento
         if (typeof stateArea === 'object') {
-            await stateArea.forEach(state => {
-                FornecedorHasArea.create({
+            for(const state of stateArea){
+                console.log(state)
+                await FornecedorHasArea.create({
                     fornecedor_id: fornecedorCriado.id,
                     area_de_atendimento_id: stateArea[state]
                 }).catch(function (err) {
                     console.log('Erro ao criar Área de Atendimento')
                 });
-            });
+            };
         } else {
             await FornecedorHasArea.create({
                 fornecedor_id: fornecedorCriado.id,
