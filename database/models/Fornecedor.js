@@ -8,15 +8,15 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             },
             telefone: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: true
             },
             whatsapp: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: true
             },
             cnpj: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: false
             },
             endereco_id: {

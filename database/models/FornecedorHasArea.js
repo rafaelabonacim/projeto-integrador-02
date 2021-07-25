@@ -12,9 +12,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             tableName: 'fornecedor_has_area',
-            timestamps: false
+            timestamps: false,
         }
     );
+
+    FornecedorHasArea.removeAttribute('id');
 
     return FornecedorHasArea;
 };

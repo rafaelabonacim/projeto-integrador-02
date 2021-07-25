@@ -11,13 +11,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: true
             },
-            fornecedor_id: {
-                type: DataTypes.INTEGER,
-            }
         },
         {
             tableName: 'area_de_atendimento',
-            timestamps: true
+            timestamps: false
         }
     );
 
@@ -25,9 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         Area.belongsToMany(models.Fornecedor, {
             as : 'area',
             through: 'fornecedor_has_area',
+            unique: false,
             foreignKey: 'area_de_atendimento_id',
             otherKey: 'fornecedor_id',
-            timestamps: false
+            timestamps: true
         })
     };
 
