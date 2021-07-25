@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Area = sequelize.define("Area",
-        {
+    const Area = sequelize.define("Area", {
             id: {
                 primaryKey: true,
                 type: DataTypes.INTEGER,
@@ -15,8 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             tableName: 'area_de_atendimento',
             timestamps: false
-        }
-    );
+    });
 
     Area.associate = function(models){
         Area.belongsToMany(models.Fornecedor, {

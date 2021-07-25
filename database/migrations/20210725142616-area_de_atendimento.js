@@ -12,13 +12,19 @@ module.exports = {
         estado: {
             type: DataTypes.STRING,
             allowNull: true
-        },
-        fornecedor_id: {
-            type: DataTypes.INTEGER,
-        },
-        createdAt: Sequelize.DATE,
-        updatedAt: Sequelize.DATE
+        }
     });
+
+    Area.associate = function(models){
+      Area.belongsToMany(models.Fornecedor, {
+          as : 'area',
+          through: 'fornecedor_has_area',
+          unique: false,
+          foreignKey: 'area_de_atendimento_id',
+          otherKey: 'fornecedor_id',
+          timestamps: true
+      });
+    };
   },
 
   down: async (queryInterface, Sequelize) => {
