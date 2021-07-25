@@ -81,23 +81,33 @@ const institutionalController = {
         }
 
         // Plano
-        /*
         const planoSelecionado = await Plano.findByPk(plan);
 
-        const dataAtual = new Date();
-        const dataFim = dataAtual.setFullYear(dataAtual.getFullYear() + 1);
+        // Tratamento da data
+        const dataAtual = () => {
+            return new Date().toLocaleDateString('pt-PT');
+        };
+        
+        const dataExpiracao = () => {
+            const dataFim = new Date();
+            dataFim.setFullYear(dataFim.getFullYear() + 1);
+            const dataFimBr = dataFim.toLocaleDateString('pt-PT');
+            return dataFimBr;
+        };
+        
+        const dataInicio = dataAtual();
+        const dataFim = dataExpiracao();
 
         const planoFornecedor = await PlanoFornecedor.create({
             nome: planoSelecionado.nome,
             preco: planoSelecionado.preco,
-            data_inicio: dataAtual,
+            data_inicio: dataInicio,
             data_fim: dataFim,
             plano_id: planoSelecionado.id,
             fornecedor_id: fornecedorCriado.id
         }).catch(function (err) {
             console.log('Erro ao criar Plano', err)
         });
-        */
 
         return res.redirect('/login')
         
