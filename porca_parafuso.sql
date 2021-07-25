@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 25-Jul-2021 às 04:06
+-- Tempo de geração: 25-Jul-2021 às 19:12
 -- Versão do servidor: 10.4.20-MariaDB
 -- versão do PHP: 8.0.8
 
@@ -75,10 +75,10 @@ CREATE TABLE `cliente` (
   `id` int(11) NOT NULL,
   `telefone` varchar(11) COLLATE utf8_unicode_ci DEFAULT NULL,
   `whatsapp` varchar(11) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `createdAt` timestamp NULL DEFAULT NULL,
-  `updatedAt` timestamp NULL DEFAULT NULL,
   `endereco_id` int(11) NOT NULL,
-  `usuario_id` varchar(36) COLLATE utf8_unicode_ci NOT NULL
+  `usuario_id` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+  `createdAt` timestamp NULL DEFAULT NULL,
+  `updatedAt` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -105,8 +105,8 @@ CREATE TABLE `endereco` (
 --
 
 INSERT INTO `endereco` (`id`, `cep`, `logradouro`, `complemento`, `bairro`, `numero`, `estado`, `cidade`, `createdAt`, `updatedAt`) VALUES
-(90, '02254001', 'Av Guapira', 'Casa 3', 'Tucuruvi', '945', 'SP', 'São Paulo', '2021-07-25 01:13:03', '2021-07-25 01:13:03'),
-(91, '11111111', 'Rua da Selva', 'Galpão 1000', 'Jungle', '50', 'AM', 'Manaus', '2021-07-25 02:04:24', '2021-07-25 02:04:24');
+(100, '02265001', 'Av Guapira', 'Casa 3', 'Tucuruvi', '945', 'SP', 'São Paulo', '2021-07-25 16:45:26', '2021-07-25 16:45:26'),
+(102, '05425001', 'Rua da Selva', 'Galpão 1000', 'Jungle', '4', 'AM', 'Manaus', '2021-07-25 17:00:16', '2021-07-25 17:00:16');
 
 -- --------------------------------------------------------
 
@@ -119,19 +119,19 @@ CREATE TABLE `fornecedor` (
   `telefone` varchar(11) COLLATE utf8_unicode_ci DEFAULT NULL,
   `whatsapp` varchar(11) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cnpj` varchar(14) COLLATE utf8_unicode_ci NOT NULL,
-  `createdAt` timestamp NULL DEFAULT NULL,
-  `updatedAt` timestamp NULL DEFAULT NULL,
   `endereco_id` int(11) NOT NULL,
-  `usuario_id` varchar(36) COLLATE utf8_unicode_ci NOT NULL
+  `usuario_id` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+  `createdAt` timestamp NULL DEFAULT NULL,
+  `updatedAt` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `fornecedor`
 --
 
-INSERT INTO `fornecedor` (`id`, `telefone`, `whatsapp`, `cnpj`, `createdAt`, `updatedAt`, `endereco_id`, `usuario_id`) VALUES
-(71, '11999999999', '11555555555', '12345678000169', '2021-07-25 01:13:04', '2021-07-25 01:13:04', 90, '2663fe5f-1535-4560-849b-d755fca75a9b'),
-(72, '11999999999', '11555555555', '45678912000156', '2021-07-25 02:04:24', '2021-07-25 02:04:24', 91, 'fe7475e9-aff8-4ad5-bedd-eec6f69c8d77');
+INSERT INTO `fornecedor` (`id`, `telefone`, `whatsapp`, `cnpj`, `endereco_id`, `usuario_id`, `createdAt`, `updatedAt`) VALUES
+(78, '11111111111', '11111111111', '11111111111111', 100, '2a893f30-a786-4d87-8902-eb78fe8e2090', '2021-07-25 16:45:26', '2021-07-25 16:45:26'),
+(80, '22222222222', '22222222222', '22222222222222', 102, '2a4a6c3d-0f99-402c-bfe1-bca19f0b283a', '2021-07-25 17:00:16', '2021-07-25 17:00:16');
 
 -- --------------------------------------------------------
 
@@ -149,33 +149,34 @@ CREATE TABLE `fornecedor_has_area` (
 --
 
 INSERT INTO `fornecedor_has_area` (`fornecedor_id`, `area_de_atendimento_id`) VALUES
-(71, 2),
-(71, 3),
-(71, 4),
-(71, 5),
-(71, 6),
-(71, 7),
-(71, 8),
-(71, 9),
-(71, 10),
-(71, 11),
-(71, 12),
-(71, 13),
-(71, 14),
-(71, 15),
-(71, 16),
-(71, 17),
-(71, 18),
-(71, 19),
-(71, 20),
-(71, 21),
-(71, 22),
-(71, 23),
-(71, 24),
-(71, 25),
-(71, 26),
-(71, 27),
-(72, 2);
+(78, 25),
+(80, 1),
+(80, 2),
+(80, 3),
+(80, 4),
+(80, 5),
+(80, 6),
+(80, 7),
+(80, 8),
+(80, 9),
+(80, 10),
+(80, 11),
+(80, 12),
+(80, 13),
+(80, 14),
+(80, 15),
+(80, 16),
+(80, 17),
+(80, 18),
+(80, 19),
+(80, 20),
+(80, 21),
+(80, 22),
+(80, 23),
+(80, 24),
+(80, 25),
+(80, 26),
+(80, 27);
 
 -- --------------------------------------------------------
 
@@ -189,10 +190,10 @@ CREATE TABLE `orcamento` (
   `prazo` date NOT NULL,
   `materia_prima` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `detalhes` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
-  `createdAt` timestamp NULL DEFAULT NULL,
-  `updatedAt` timestamp NULL DEFAULT NULL,
   `fornecedor_id` int(11) NOT NULL,
-  `cliente_id` int(11) NOT NULL
+  `cliente_id` int(11) NOT NULL,
+  `createdAt` timestamp NULL DEFAULT NULL,
+  `updatedAt` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -207,8 +208,8 @@ CREATE TABLE `plano` (
   `orcamentos` tinyint(1) NOT NULL,
   `listagem` tinyint(1) NOT NULL,
   `publicidade` tinyint(1) NOT NULL,
-  `preco` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
-  `preco_promocional` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `preco` decimal(10,0) NOT NULL,
+  `preco_promocional` decimal(10,0) NOT NULL,
   `parcelas` tinyint(2) NOT NULL,
   `createdAt` timestamp NULL DEFAULT NULL,
   `updatedAt` timestamp NULL DEFAULT NULL
@@ -232,22 +233,22 @@ INSERT INTO `plano` (`id`, `nome`, `orcamentos`, `listagem`, `publicidade`, `pre
 CREATE TABLE `plano_fornecedor` (
   `id` int(11) NOT NULL,
   `nome` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `preco` int(5) NOT NULL,
-  `data_inicio` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `data_fim` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `createdAt` timestamp NULL DEFAULT NULL,
-  `updatedAt` timestamp NULL DEFAULT NULL,
+  `preco` decimal(10,0) NOT NULL,
+  `data_inicio` date NOT NULL,
+  `data_fim` date NOT NULL,
   `plano_id` int(11) NOT NULL,
-  `fornecedor_id` int(11) NOT NULL
+  `fornecedor_id` int(11) NOT NULL,
+  `createdAt` timestamp NULL DEFAULT NULL,
+  `updatedAt` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `plano_fornecedor`
 --
 
-INSERT INTO `plano_fornecedor` (`id`, `nome`, `preco`, `data_inicio`, `data_fim`, `createdAt`, `updatedAt`, `plano_id`, `fornecedor_id`) VALUES
-(1, 'Porca e Parafuso', 550, '24/07/2021', '24/07/2022', NULL, NULL, 3, 71),
-(2, 'Porca', 680, '24/07/2021', '24/07/2022', '2021-07-25 02:04:24', '2021-07-25 02:04:24', 2, 72);
+INSERT INTO `plano_fornecedor` (`id`, `nome`, `preco`, `data_inicio`, `data_fim`, `plano_id`, `fornecedor_id`, `createdAt`, `updatedAt`) VALUES
+(1, 'Porca e Parafuso', '800', '2021-07-25', '2022-07-25', 3, 78, '2021-07-25 16:45:26', '2021-07-25 16:45:26'),
+(2, 'Parafuso', '550', '2021-07-25', '2022-07-25', 1, 80, '2021-07-25 17:00:16', '2021-07-25 17:00:16');
 
 -- --------------------------------------------------------
 
@@ -280,18 +281,18 @@ CREATE TABLE `usuario` (
   `nome` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `senha` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `tipo_usuario_id` int(11) NOT NULL,
   `createdAt` timestamp NULL DEFAULT NULL,
-  `updatedAt` timestamp NULL DEFAULT NULL,
-  `tipo_usuario_id` int(11) NOT NULL
+  `updatedAt` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `createdAt`, `updatedAt`, `tipo_usuario_id`) VALUES
-('2663fe5f-1535-4560-849b-d755fca75a9b', 'Usinagem Bombástica', 'contato@bombastica.com.br', '$2b$10$1ZlKrTgxwAhwLoeqxs/M0uEtzLA89HdkFQ.XO4P/.aZfMiYLImFea', '2021-07-25 01:13:03', '2021-07-25 01:13:03', 2),
-('fe7475e9-aff8-4ad5-bedd-eec6f69c8d77', 'Usinagem da Selva', 'contato@usinadaselva.com.br', '$2b$10$LDeKHkmm8HhQKy3d0mXGr.LI3gqytmUFKjWiZI.cnvkxrElTK4i.2', '2021-07-25 02:04:24', '2021-07-25 02:04:24', 2);
+INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `tipo_usuario_id`, `createdAt`, `updatedAt`) VALUES
+('2a4a6c3d-0f99-402c-bfe1-bca19f0b283a', 'Usinagem da Selva', 'contato@usinadaselva.com.br', '$2b$10$w3w57GE8fvnVY0NMUfp5Quvo50GzkOtaQjQdS44CqFtMR9ObczDku', 2, '2021-07-25 17:00:16', '2021-07-25 17:00:16'),
+('2a893f30-a786-4d87-8902-eb78fe8e2090', 'Usinagem Bombástica', 'contato@bombastica.com.br', '$2b$10$37JLdOQugi7y1.DTVg0gUO9Vq1KgUojPK8HLrqj/H1aw4.W0s8NUO', 2, '2021-07-25 16:45:26', '2021-07-25 16:45:26');
 
 --
 -- Índices para tabelas despejadas
@@ -392,19 +393,19 @@ ALTER TABLE `area_de_atendimento`
 -- AUTO_INCREMENT de tabela `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT de tabela `fornecedor`
 --
 ALTER TABLE `fornecedor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT de tabela `orcamento`
@@ -445,8 +446,8 @@ ALTER TABLE `cliente`
 -- Limitadores para a tabela `fornecedor`
 --
 ALTER TABLE `fornecedor`
-  ADD CONSTRAINT `fk_fornecedor_endereco1` FOREIGN KEY (`endereco_id`) REFERENCES `endereco` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_fornecedor_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_fornecedor_endereco1` FOREIGN KEY (`endereco_id`) REFERENCES `endereco` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_fornecedor_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `fornecedor_has_area`
