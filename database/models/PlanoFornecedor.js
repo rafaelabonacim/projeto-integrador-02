@@ -16,11 +16,11 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             },
             data_inicio: {
-                type: DataTypes.STRING,
+                type: DataTypes.DATEONLY,
                 allowNull: false
             },
             data_fim: {
-                type: DataTypes.STRING,
+                type: DataTypes.DATEONLY,
                 allowNull: false
             },
             plano_id: {

@@ -1,4 +1,3 @@
-const uuid4 = require("uuid4");
 const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
 const config = require('../database/config/config');
@@ -26,7 +25,6 @@ const institutionalController = {
         const cadastroRegex = /[ \(\)\x2D-\/]/g;
 
         const usuarioCriado = await Usuario.create({
-            id: uuid4(),
             nome: name,
             email,
             senha: bcrypt.hashSync(password, 10),
@@ -58,41 +56,30 @@ const institutionalController = {
             console.log(err, req.body)
         });
 
-        console.log('--Fim Fornecedor--')
-
         // Areas de atendimento
-        if (typeof stateArea === 'object') {
-            for(const state of stateArea){
-                console.log(state)
-                await FornecedorHasArea.create({
-                    fornecedor_id: fornecedorCriado.id,
-                    area_de_atendimento_id: stateArea[state]
-                }).catch(function (err) {
-                    console.log('Erro ao criar Área de Atendimento')
-                });
-            };
-        } else {
+        const areas = Array.isArray(stateArea) ? stateArea : [stateArea]
+
+        for(const state of areas){
             await FornecedorHasArea.create({
                 fornecedor_id: fornecedorCriado.id,
-                area_de_atendimento_id: stateArea
+                area_de_atendimento_id: state
             }).catch(function (err) {
                 console.log('Erro ao criar Área de Atendimento', err)
             });
-        }
+        };
 
         // Plano
         const planoSelecionado = await Plano.findByPk(plan);
 
         // Tratamento da data
         const dataAtual = () => {
-            return new Date().toLocaleDateString('pt-PT');
+            return new Date();
         };
-        
+
         const dataExpiracao = () => {
-            const dataFim = new Date();
-            dataFim.setFullYear(dataFim.getFullYear() + 1);
-            const dataFimBr = dataFim.toLocaleDateString('pt-PT');
-            return dataFimBr;
+            const dataFinal = dataAtual();
+            dataFinal.setFullYear(dataFinal.getFullYear() + 1);
+            return dataFinal;
         };
         
         const dataInicio = dataAtual();
@@ -124,21 +111,6 @@ const institutionalController = {
     recuperarsenha: (req, res) => {
         return res.render('recuperar-senha', { title: 'Recuperar senha'})
     }
-    /*
-    teste: async (req, res) => {
-        const listarUsuario = Usuario.findAll()
-        
-        const createUser = Usuario.create({
-            id: uuid4(),
-            nome: 'Victor',
-            email: 'victoramota@gmail.com',
-            senha: bcrypt.hashSync('123456', 10),
-            tipo_usuario_id: 3
-        })
-        
-        return res.redirect('login');
-    }
-    */
 };
 
 module.exports = institutionalController;

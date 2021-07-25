@@ -1,4 +1,3 @@
-const uuid4 = require("uuid4");
 const Sequelize = require('sequelize');
 const config = require('../database/config/config');
 const { AreaDeAtendimento, Cliente, Endereco, Fornecedor, Orcamento, Plano, PlanoFornecedor, TipoUsuario, Usuario } = require('../database/models');

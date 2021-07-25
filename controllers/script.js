@@ -1,12 +1,12 @@
+// Tratamento da data
 const dataAtual = () => {
-    return new Date().toLocaleDateString('pt-PT');
+    return new Date();
 };
 
 const dataExpiracao = () => {
-    const dataFim = new Date();
-    dataFim.setFullYear(dataFim.getFullYear() + 1);
-    const dataFimBr = dataFim.toLocaleDateString('pt-PT');
-    return dataFimBr;
+    const dataFinal = new Date;
+    dataFinal.setFullYear(dataFinal.getFullYear() + 1);
+    return dataFinal;
 };
 
 const dataInicio = dataAtual();

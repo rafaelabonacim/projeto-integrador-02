@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     );
 
+    // inserir id
     FornecedorHasArea.removeAttribute('id');
 
     return FornecedorHasArea;
