@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 25-Jul-2021 às 19:12
+-- Tempo de geração: 26-Jul-2021 às 03:11
 -- Versão do servidor: 10.4.20-MariaDB
 -- versão do PHP: 8.0.8
 
@@ -106,7 +106,8 @@ CREATE TABLE `endereco` (
 
 INSERT INTO `endereco` (`id`, `cep`, `logradouro`, `complemento`, `bairro`, `numero`, `estado`, `cidade`, `createdAt`, `updatedAt`) VALUES
 (100, '02265001', 'Av Guapira', 'Casa 3', 'Tucuruvi', '945', 'SP', 'São Paulo', '2021-07-25 16:45:26', '2021-07-25 16:45:26'),
-(102, '05425001', 'Rua da Selva', 'Galpão 1000', 'Jungle', '4', 'AM', 'Manaus', '2021-07-25 17:00:16', '2021-07-25 17:00:16');
+(102, '05425001', 'Rua da Selva', 'Galpão 1000', 'Jungle', '4', 'AM', 'Manaus', '2021-07-25 17:00:16', '2021-07-25 17:00:16'),
+(104, '55555555', 'Rua Forever', 'Para Sempre', 'Forever', '658', 'DF', 'Brasilia', '2021-07-26 01:08:03', '2021-07-26 01:08:03');
 
 -- --------------------------------------------------------
 
@@ -131,7 +132,8 @@ CREATE TABLE `fornecedor` (
 
 INSERT INTO `fornecedor` (`id`, `telefone`, `whatsapp`, `cnpj`, `endereco_id`, `usuario_id`, `createdAt`, `updatedAt`) VALUES
 (78, '11111111111', '11111111111', '11111111111111', 100, '2a893f30-a786-4d87-8902-eb78fe8e2090', '2021-07-25 16:45:26', '2021-07-25 16:45:26'),
-(80, '22222222222', '22222222222', '22222222222222', 102, '2a4a6c3d-0f99-402c-bfe1-bca19f0b283a', '2021-07-25 17:00:16', '2021-07-25 17:00:16');
+(80, '22222222222', '22222222222', '22222222222222', 102, '2a4a6c3d-0f99-402c-bfe1-bca19f0b283a', '2021-07-25 17:00:16', '2021-07-25 17:00:16'),
+(82, '33333333333', '33333333333', '33333333333333', 104, '8410aa15-4e9b-45da-8e71-009dfe956730', '2021-07-26 01:08:03', '2021-07-26 01:08:03');
 
 -- --------------------------------------------------------
 
@@ -176,7 +178,31 @@ INSERT INTO `fornecedor_has_area` (`fornecedor_id`, `area_de_atendimento_id`) VA
 (80, 24),
 (80, 25),
 (80, 26),
-(80, 27);
+(80, 27),
+(82, 2),
+(82, 3),
+(82, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `fornecedor_has_ramo`
+--
+
+CREATE TABLE `fornecedor_has_ramo` (
+  `fornecedor_id` int(11) NOT NULL,
+  `ramo_atendimento_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `fornecedor_has_ramo`
+--
+
+INSERT INTO `fornecedor_has_ramo` (`fornecedor_id`, `ramo_atendimento_id`) VALUES
+(78, 1),
+(80, 2),
+(82, 1),
+(82, 2);
 
 -- --------------------------------------------------------
 
@@ -248,7 +274,37 @@ CREATE TABLE `plano_fornecedor` (
 
 INSERT INTO `plano_fornecedor` (`id`, `nome`, `preco`, `data_inicio`, `data_fim`, `plano_id`, `fornecedor_id`, `createdAt`, `updatedAt`) VALUES
 (1, 'Porca e Parafuso', '800', '2021-07-25', '2022-07-25', 3, 78, '2021-07-25 16:45:26', '2021-07-25 16:45:26'),
-(2, 'Parafuso', '550', '2021-07-25', '2022-07-25', 1, 80, '2021-07-25 17:00:16', '2021-07-25 17:00:16');
+(2, 'Parafuso', '550', '2021-07-25', '2022-07-25', 1, 80, '2021-07-25 17:00:16', '2021-07-25 17:00:16'),
+(3, 'Porca e Parafuso', '800', '2021-07-25', '2022-07-25', 3, 82, '2021-07-26 01:08:03', '2021-07-26 01:08:03');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `ramo_atendimento`
+--
+
+CREATE TABLE `ramo_atendimento` (
+  `id` int(11) NOT NULL,
+  `ramo` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `ramo_atendimento`
+--
+
+INSERT INTO `ramo_atendimento` (`id`, `ramo`) VALUES
+(1, 'Usinagem'),
+(2, 'Micro Usinagem');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `sequelizemeta`
+--
+
+CREATE TABLE `sequelizemeta` (
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -292,7 +348,8 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `tipo_usuario_id`, `createdAt`, `updatedAt`) VALUES
 ('2a4a6c3d-0f99-402c-bfe1-bca19f0b283a', 'Usinagem da Selva', 'contato@usinadaselva.com.br', '$2b$10$w3w57GE8fvnVY0NMUfp5Quvo50GzkOtaQjQdS44CqFtMR9ObczDku', 2, '2021-07-25 17:00:16', '2021-07-25 17:00:16'),
-('2a893f30-a786-4d87-8902-eb78fe8e2090', 'Usinagem Bombástica', 'contato@bombastica.com.br', '$2b$10$37JLdOQugi7y1.DTVg0gUO9Vq1KgUojPK8HLrqj/H1aw4.W0s8NUO', 2, '2021-07-25 16:45:26', '2021-07-25 16:45:26');
+('2a893f30-a786-4d87-8902-eb78fe8e2090', 'Usinagem Bombástica', 'contato@bombastica.com.br', '$2b$10$37JLdOQugi7y1.DTVg0gUO9Vq1KgUojPK8HLrqj/H1aw4.W0s8NUO', 2, '2021-07-25 16:45:26', '2021-07-25 16:45:26'),
+('8410aa15-4e9b-45da-8e71-009dfe956730', 'Usinagem Forever', 'contato@forever.com.br', '$2b$10$0PGxY04jxnRzTNZ4u1OGrOS5k6pOJIE.rb.W/Kq3WCaHiTRhkzQxG', 2, '2021-07-26 01:08:03', '2021-07-26 01:08:03');
 
 --
 -- Índices para tabelas despejadas
@@ -339,6 +396,14 @@ ALTER TABLE `fornecedor_has_area`
   ADD KEY `fk_fornecedor_has_area_de_atendimento_fornecedor1_idx` (`fornecedor_id`);
 
 --
+-- Índices para tabela `fornecedor_has_ramo`
+--
+ALTER TABLE `fornecedor_has_ramo`
+  ADD PRIMARY KEY (`fornecedor_id`,`ramo_atendimento_id`),
+  ADD KEY `fk_fornecedor_has_ramo_atendimento_ramo_atendimento1_idx` (`ramo_atendimento_id`),
+  ADD KEY `fk_fornecedor_has_ramo_atendimento_fornecedor1_idx` (`fornecedor_id`);
+
+--
 -- Índices para tabela `orcamento`
 --
 ALTER TABLE `orcamento`
@@ -362,6 +427,19 @@ ALTER TABLE `plano_fornecedor`
   ADD UNIQUE KEY `id_UNIQUE` (`id`),
   ADD KEY `fk_plano_fornecedor_plano1_idx` (`plano_id`),
   ADD KEY `fk_plano_fornecedor_fornecedor1_idx` (`fornecedor_id`);
+
+--
+-- Índices para tabela `ramo_atendimento`
+--
+ALTER TABLE `ramo_atendimento`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `sequelizemeta`
+--
+ALTER TABLE `sequelizemeta`
+  ADD PRIMARY KEY (`name`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Índices para tabela `tipo_usuario`
@@ -399,13 +477,13 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de tabela `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT de tabela `fornecedor`
 --
 ALTER TABLE `fornecedor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT de tabela `orcamento`
@@ -423,6 +501,12 @@ ALTER TABLE `plano`
 -- AUTO_INCREMENT de tabela `plano_fornecedor`
 --
 ALTER TABLE `plano_fornecedor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `ramo_atendimento`
+--
+ALTER TABLE `ramo_atendimento`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -455,6 +539,13 @@ ALTER TABLE `fornecedor`
 ALTER TABLE `fornecedor_has_area`
   ADD CONSTRAINT `fk_fornecedor_has_area_de_atendimento_area_de_atendimento1` FOREIGN KEY (`area_de_atendimento_id`) REFERENCES `area_de_atendimento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_fornecedor_has_area_de_atendimento_fornecedor1` FOREIGN KEY (`fornecedor_id`) REFERENCES `fornecedor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `fornecedor_has_ramo`
+--
+ALTER TABLE `fornecedor_has_ramo`
+  ADD CONSTRAINT `fk_fornecedor_has_ramo_fornecedor1` FOREIGN KEY (`fornecedor_id`) REFERENCES `fornecedor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_fornecedor_has_ramo_ramo_atendimento2` FOREIGN KEY (`ramo_atendimento_id`) REFERENCES `ramo_atendimento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `orcamento`

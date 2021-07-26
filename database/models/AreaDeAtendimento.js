@@ -9,12 +9,13 @@ module.exports = (sequelize, DataTypes) => {
             estado: {
                 type: DataTypes.STRING,
                 allowNull: true
-            },
+            }
         },
         {
             tableName: 'area_de_atendimento',
             timestamps: false
-    });
+        }
+    );
 
     Area.associate = function(models){
         Area.belongsToMany(models.Fornecedor, {
@@ -23,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
             unique: false,
             foreignKey: 'area_de_atendimento_id',
             otherKey: 'fornecedor_id',
-            timestamps: true
+            timestamps: false
         })
     };
 

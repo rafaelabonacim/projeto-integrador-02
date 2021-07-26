@@ -53,7 +53,15 @@ module.exports = (sequelize, DataTypes) => {
             through: 'fornecedor_has_area',
             foreignKey: 'fornecedor_id',
             otherKey: 'area_de_atendimento_id',
-            timestamps: true
+            timestamps: false
+        });
+
+        Fornecedor.belongsToMany(models.RamoAtendimento, {
+            as : 'ramo_atendimento',
+            through: 'fornecedor_has_ramo',
+            foreignKey: 'fornecedor_id',
+            otherKey: 'ramo_atendimento_id',
+            timestamps: false
         });
 
         Fornecedor.hasOne(models.PlanoFornecedor, {

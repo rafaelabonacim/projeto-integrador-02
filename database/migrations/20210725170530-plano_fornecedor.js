@@ -5,31 +5,31 @@ module.exports = {
     await queryInterface.createTable('plano_fornecedor', {
       id: {
         primaryKey: true,
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false
       },
       nome: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           allowNull: false
       },
       preco: {
-          type: DataTypes.INTEGER,
+          type: Sequelize.INTEGER,
           allowNull: false
       },
       data_inicio: {
-          type: DataTypes.DATEONLY,
+          type: Sequelize.DATEONLY,
           allowNull: false
       },
       data_fim: {
-          type: DataTypes.DATEONLY,
+          type: Sequelize.DATEONLY,
           allowNull: false
       },
       plano_id: {
-          type: DataTypes.INTEGER,
+          type: Sequelize.INTEGER,
       },
       fornecedor_id: {
-          type: DataTypes.INTEGER,
+          type: Sequelize.INTEGER,
       },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE

@@ -22,7 +22,8 @@ router.get('/cadastro-cliente', institutionalController.cadastrocliente);
 // Rotas do link que será enviado para o email
 router.get('/recuperar-senha', institutionalController.recuperarsenha);
 
-// Rotas do link que será enviado para o email
+// Rotas para página de Parceiros
 router.get('/parceiros', institutionalController.parceiros);
+router.get('/parceiros/resultado/', institutionalController.parceirosBusca);
 
 module.exports = router;

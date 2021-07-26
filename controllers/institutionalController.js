@@ -1,7 +1,9 @@
 const bcrypt = require('bcrypt');
-const Sequelize = require('sequelize');
 const config = require('../database/config/config');
-const { AreaDeAtendimento, Cliente, Endereco, Fornecedor, Orcamento, Plano, PlanoFornecedor, TipoUsuario, Usuario, FornecedorHasArea } = require('../database/models');
+const { AreaDeAtendimento, Cliente, Endereco, Fornecedor, Orcamento, Plano, PlanoFornecedor, TipoUsuario, Usuario, FornecedorHasArea, FornecedorHasRamo } = require('../database/models');
+
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const institutionalController = {
     index: (req, res) => {
@@ -10,8 +12,40 @@ const institutionalController = {
     anuncie: (req, res) => {
         return res.render('anuncie', { title: 'Anuncie'})
     },
-    parceiros: (req, res) => {
-        return res.render('parceiros', { title: 'Parceiros'})
+    parceiros: async (req, res) => {
+        // Listagem de Fornecedores
+        const fornecedores = await Fornecedor.findAll({
+            include: ['usuario', 'endereco'],
+            order: [['usuario', 'nome', 'ASC']],
+            limit: 20
+        });
+        
+        return res.render('parceiros', { title: 'Parceiros', fornecedores: fornecedores})
+    },
+    parceirosBusca: async (req, res) => {
+        // Busca pelo nome
+        const { name, state, city } = req.query;
+
+        const buscaFornecedores = await Fornecedor.findAll({
+            include: [{
+                model: Usuario,
+                as: 'usuario',
+                where: {
+                    nome: { [Op.like]: `%${name}%` }
+                }
+            },
+            {
+                model: Endereco,
+                as: 'endereco',
+                // where: {
+                //     cidade: { [Op.like]: `%${state}%` },
+                //     estado: { [Op.like]: `%${city}%` },
+                // }
+            }],
+            order: [['usuario', 'nome', 'ASC']],
+        });
+
+        return res.render('parceiros', { title: 'Parceiros', fornecedores: buscaFornecedores})
     },
     perfil: (req, res) => {
         return res.render('perfilCadastro', { title: 'Cadastro'})
@@ -20,7 +54,7 @@ const institutionalController = {
         return res.render('cadastroFornecedor', { title: 'Cadastro de Fornecedor'})
     },
     cadastroFornecedorCreate: async (req, res) => {
-        const { plan, name, document, email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city, stateArea } = req.body;
+        const { plan, branch, name, document, email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city, stateArea } = req.body;
 
         const cadastroRegex = /[ \(\)\x2D-\/]/g;
 
@@ -63,6 +97,18 @@ const institutionalController = {
             await FornecedorHasArea.create({
                 fornecedor_id: fornecedorCriado.id,
                 area_de_atendimento_id: state
+            }).catch(function (err) {
+                console.log('Erro ao criar Área de Atendimento', err)
+            });
+        };
+
+        // Ramo de Atuacao
+        const ramos = Array.isArray(branch) ? branch : [branch]
+
+        for(const ramo of ramos){
+            await FornecedorHasRamo.create({
+                fornecedor_id: fornecedorCriado.id,
+                ramo_atendimento_id: ramo
             }).catch(function (err) {
                 console.log('Erro ao criar Área de Atendimento', err)
             });

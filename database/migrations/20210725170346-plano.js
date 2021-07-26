@@ -5,36 +5,36 @@ module.exports = {
     await queryInterface.createTable('plano', {
       id: {
         primaryKey: true,
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false
       },
       nome: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           allowNull: false
       },
       orcamentos: {
-          type: DataTypes.BOOLEAN,
+          type: Sequelize.BOOLEAN,
           allowNull: false
       },
       listagem: {
-          type: DataTypes.BOOLEAN,
+          type: Sequelize.BOOLEAN,
           allowNull: false
       },
       publicidade: {
-          type: DataTypes.BOOLEAN,
+          type: Sequelize.BOOLEAN,
           allowNull: false
       },
       preco: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           allowNull: false
       },
       preco_promocional: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           allowNull: false
       },
       parcelas: {
-          type: DataTypes.INTEGER,
+          type: Sequelize.INTEGER,
           allowNull: false
       },
       createdAt: Sequelize.DATE,

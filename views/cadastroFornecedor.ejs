@@ -27,11 +27,20 @@
 
                         <div class="col-12">
                             <div class="form-group">
-                                <select id="disabledSelect" name="plan" class="form-control" required>
+                                <select id="planSelect" name="plan" class="form-control" required>
                                     <option disabled selected>Escolha um Plano</option>
                                     <option value="1">Parafuso</option>
                                     <option value="2">Porca</option>
                                     <option value="3">Porca e Parafuso</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <select id="branchSelect" name="branch" class="form-control multi-select" title="Ramo de Atuação" data-selected-text-format="count > 3" data-size="5" data-actions-box="true"  data-dropup-auto="false" multiple required>
+                                    <option value="1">Usinagem</option>
+                                    <option value="2">Micro Usinagem</option>
                                 </select>
                             </div>
                         </div>

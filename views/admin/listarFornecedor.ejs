@@ -31,19 +31,19 @@
         </div>
 
         <div id="filterResults" class="row list-filters collapse">
-          <div class="col-sm-12 col-md-3">
+          <div class="col-sm-12 col-md">
             <div class="form-group">
               <input type="text" name="id" class="form-control" placeholder="ID">
             </div>
           </div>
 
-          <div class="col-sm-12 col-md-3">
+          <div class="col-sm-12 col-md">
             <div class="form-group">
               <input type="text" name="name" class="form-control" placeholder="Nome">
             </div>
           </div>
 
-          <div class="col-sm-12 col-md-3">
+          <div class="col-sm-12 col-md">
             <div class="form-group">
               <select name="choosePlan" class="form-control" required>
                 <option disabled selected>Plano</option>
@@ -54,9 +54,15 @@
             </div>
           </div>
 
-          <div class="col-sm-12 col-md-3">
+          <div class="col-sm-12 col-md">
             <div class="form-group">
               <input type="text" name="date" class="form-control" placeholder="Data de Expiração">
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-auto">
+            <div class="form-group">
+                <button type="search" class="btn btn-solid btn-blue1"><i class="fas fa-search"></i> Procurar</button>
             </div>
           </div>
         </div>
@@ -75,15 +81,16 @@
                 </tr>
               </thead>
               <tbody>
+                <% fornecedores.forEach(fornecedor => { %>
                 <tr>
-                  <th scope="row">1</th>
-                  <td>Aporca</td>
-                  <td>Porca</td>
-                  <td>24/05/2022</td>
+                  <th scope="row"><%= fornecedor.id %></th>
+                  <td><%= fornecedor.usuario.nome %></td>
+                  <td><%= fornecedor.plano_contratado.nome %></td>
+                  <td><%= fornecedor.plano_contratado.data_fim %></td>
                   <td class="table-actions">
-                    <a href="#" title="Orçamentos"><i class="far fa-file-alt color-blue1"></i></a>
-                    <a href="/admin/editarFornecedor" title="Editar"><i class="far fa-edit color-orange2"></i></a>
-                    <a href="#" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
+                    <a href="/admin/orcamentosFornecedor/<%= fornecedor.id %>" title="Orçamentos"><i class="far fa-file-alt color-blue1"></i></a>
+                    <a href="/admin/editarFornecedor/<%= fornecedor.id %>" title="Editar"><i class="far fa-edit color-orange2"></i></a>
+                    <a href="#" data-toggle="modal" data-target="#removeModal" data-url="/admin/excluirFornecedor/<%= fornecedor.id %>" class="delete-button" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
                   </td>
                   <td>
                     <div class="custom-control custom-switch">
@@ -92,40 +99,7 @@
                     </div>
                   </td>
                 </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Hoja</td>
-                  <td>Parafuso</td>
-                  <td>24/05/2022</td>
-                  <td class="table-actions">
-                    <a href="#" title="Orçamentos"><i class="far fa-file-alt color-blue1"></i></a>
-                    <a href="/admin/editarFornecedor" title="Editar"><i class="far fa-edit color-orange2"></i></a>
-                    <a href="#" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
-                  </td>
-                  <td>
-                    <div class="custom-control custom-switch">
-                      <input type="checkbox" class="custom-control-input" id="status2">
-                      <label class="custom-control-label" for="status2"></label>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Haja</td>
-                  <td>Porca e Parafuso</td>
-                  <td>24/05/2022</td>
-                  <td class="table-actions">
-                    <a href="#" title="Orçamentos"><i class="far fa-file-alt color-blue1"></i></a>
-                    <a href="/admin/editarFornecedor" title="Editar"><i class="far fa-edit color-orange2"></i></a>
-                    <a href="#" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
-                  </td>
-                  <td>
-                    <div class="custom-control custom-switch">
-                      <input type="checkbox" class="custom-control-input" id="status3" checked>
-                      <label class="custom-control-label" for="status3"></label>
-                    </div>
-                  </td>
-                </tr>
+                <% }); %>
               </tbody>
             </table>
           </div>

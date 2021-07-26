@@ -14,92 +14,84 @@
         </section>
 
         <section class="partners-form">
-            <form class="needs-validation" novalidate>
+            <form action="/parceiros/resultado" method="GET" novalidate>
                 <div class="container card">
 
-                    <div class="row">
-                        <div class="col-sm-12 col-md-4">
-                            <div class="input-group mb-3">
-                                <input type="search" class="form-control" placeholder="Nome" name="search" />
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline btn-blue1 search-button" type="button"><i class="fas fa-search"></i></button>
-                                </div>
+                    <div id="filterResults" class="row list-filters">
+                        <div class="col-sm-12 col-md">
+                            <div class="form-group">
+                                <input type="search" class="form-control" placeholder="Nome" name="name" />
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-4">
+                        <div class="col-sm-12 col-md">
                             <div class="form-group">
-                                <select id="disabledSelect" class="form-control">
-                                    <option value="">Estado</option>
-                                    <option value="AC">Acre</option>
-                                    <option value="AL">Alagoas</option>
-                                    <option value="AP">Amapá</option>
-                                    <option value="AM">Amazonas</option>
-                                    <option value="BA">Bahia</option>
-                                    <option value="CE">Ceará</option>
-                                    <option value="DF">Distrito Federal</option>
-                                    <option value="ES">Espirito Santo</option>
-                                    <option value="GO">Goiás</option>
-                                    <option value="MA">Maranhão</option>
-                                    <option value="MS">Mato Grosso do Sul</option>
-                                    <option value="MT">Mato Grosso</option>
-                                    <option value="MG">Minas Gerais</option>
-                                    <option value="PA">Pará</option>
-                                    <option value="PB">Paraíba</option>
-                                    <option value="PR">Paraná</option>
-                                    <option value="PE">Pernambuco</option>
-                                    <option value="PI">Piauí</option>
-                                    <option value="RJ">Rio de Janeiro</option>
-                                    <option value="RN">Rio Grande do Norte</option>
-                                    <option value="RS">Rio Grande do Sul</option>
-                                    <option value="RO">Rondônia</option>
-                                    <option value="RR">Roraima</option>
-                                    <option value="SC">Santa Catarina</option>
-                                    <option value="SP">São Paulo</option>
-                                    <option value="SE">Sergipe</option>
-                                    <option value="TO">Tocantins</option>
+                                <select id="disabledSelect" name="state" class="form-control">
+                                    <option selected disabled>Estado</option>
+                                    <option value="1">AC</option>
+                                    <option value="2">AL</option>
+                                    <option value="3">AP</option>
+                                    <option value="4">AM</option>
+                                    <option value="5">BA</option>
+                                    <option value="6">CE</option>
+                                    <option value="7">DF</option>
+                                    <option value="8">ES</option>
+                                    <option value="9">GO</option>
+                                    <option value="10">MA</option>
+                                    <option value="11">MT</option>
+                                    <option value="12">MS</option>
+                                    <option value="13">MG</option>
+                                    <option value="14">PA</option>
+                                    <option value="15">PB</option>
+                                    <option value="16">PR</option>
+                                    <option value="17">PE</option>
+                                    <option value="18">PI</option>
+                                    <option value="19">RJ</option>
+                                    <option value="20">RN</option>
+                                    <option value="21">RS</option>
+                                    <option value="22">RO</option>
+                                    <option value="23">RR</option>
+                                    <option value="24">SC</option>
+                                    <option value="SP">SP</option>
+                                    <option value="26">SE</option>
+                                    <option value="27">TO</option>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-4">
+                        <div class="col-sm-12 col-md">
                             <div class="form-group">
-                                <select id="disabledSelect" class="form-control">
-                                    <option value="">Cidade</option>
-                                    <option value="AC">Cidade 1</option>
-                                    <option value="AL">Cidade 2</option>
-                                    <option value="AP">Cidade 3</option>
-                                    <option value="AM">Cidade 4</option>
+                                <select id="disabledSelect" name="city" class="form-control">
+                                    <option selected disabled>Cidade</option>
+                                    <option value="">Cidade 1</option>
                                 </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-auto">
+                            <div class="form-group">
+                                <button type="search" class="btn btn-solid btn-blue1"><i class="fas fa-search"></i> Procurar</button>
                             </div>
                         </div>
                     </div>
 
                     <div class="partners-list">
-                        <table class="table table-striped no-margin-bottom">
+                        <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Nome</th>
-                                    <th>Estado</th>
-                                    <th>Cidade</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Cidade</th>
+                                    <th scope="col">Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <% fornecedores.forEach(fornecedor => { %>
                                 <tr>
-                                    <td>Heja</td>
-                                    <td>São Paulo</td>
-                                    <td>Ribeirão Preto</td>
+                                    <th scope="row"><%= fornecedor.usuario.nome %></th>
+                                    <td><%= fornecedor.endereco.cidade %></td>
+                                    <td><%= fornecedor.endereco.estado %></td>
                                 </tr>
-                                <tr>
-                                    <td>Hoje</td>
-                                    <td>São Paulo</td>
-                                    <td>Ribeirão Preto</td>
-                                </tr>
-                                <tr>
-                                    <td>Haja</td>
-                                    <td>São Paulo</td>
-                                    <td>Ribeirão Preto</td>
-                                </tr>
+                                <% }); %>
                             </tbody>
                         </table>
                     </div>
