@@ -73,17 +73,15 @@ const adminController = {
         const planoSelecionado = await Plano.findByPk(plan);
 
         // Tratamento da data
-        const dataAtual = () => {
-            return new Date();
-        };
+        const dataAtual = new Date();
 
         const dataExpiracao = () => {
-            const dataFinal = dataAtual();
+            const dataFinal = dataAtual;
             dataFinal.setFullYear(dataFinal.getFullYear() + 1);
             return dataFinal;
         };
         
-        const dataInicio = dataAtual();
+        const dataInicio = dataAtual;
         const dataFim = dataExpiracao();
 
         const planoFornecedor = await PlanoFornecedor.create({

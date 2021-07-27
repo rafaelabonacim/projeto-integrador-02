@@ -24,7 +24,12 @@ const institutionalController = {
     },
     parceirosBusca: async (req, res) => {
         // Busca pelo nome
-        const { name, state, city } = req.query;
+        let { name, state, city } = req.query;
+
+        state = state ? state : ""
+        city = city ? city : ""
+
+        console.log(name, state, city)
 
         const buscaFornecedores = await Fornecedor.findAll({
             include: [{
@@ -37,10 +42,9 @@ const institutionalController = {
             {
                 model: Endereco,
                 as: 'endereco',
-                // where: {
-                //     cidade: { [Op.like]: `%${state}%` },
-                //     estado: { [Op.like]: `%${city}%` },
-                // }
+                where: {
+                    estado: { [Op.like]: `%${state}%` },
+                }
             }],
             order: [['usuario', 'nome', 'ASC']],
         });
