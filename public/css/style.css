@@ -52,7 +52,6 @@
   padding-left: 1rem !important;
   padding-right: 1rem !important;
   border: none;
-  font-weight: bold;
 }
 
 /* Solid */
@@ -269,6 +268,34 @@ select{
   background-size: .75em auto, 100%;
 }
 
+input.form-control::placeholder,
+.bootstrap-select > .dropdown-toggle.bs-placeholder {
+  color: var(--grey3);
+}
+
+.input-group-append .search-button {
+  border: 1px solid #ced4da;
+}
+
+/* Multiple Select */
+
+button.btn-light,
+button.btn-light:hover,
+.show > .btn-light.dropdown-toggle,
+.btn-light:not(:disabled):not(.disabled):active {
+  background: #fff !important;
+  border: 1px solid var(--grey3) !important;
+}
+
+button.btn-light:focus,
+.show > .btn-light.dropdown-toggle:focus,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:focus{
+  border-color: #80bdff !important;
+  box-shadow: 0 0 0 .2rem rgba(0,123,255,.25) !important;
+  outline: none !important;
+}
+
+
 /*- Structure -*/
 
 body {
@@ -338,7 +365,6 @@ main {
   background: var(--blue1)
 }
 
-
 /* Hero Area */
 .hero {
   padding: 4rem 0 2rem;
@@ -367,6 +393,52 @@ main {
 
 .hero .titles h2 span {
   color: var(--orange2);
+}
+
+/* Tabelas Responsivas */
+.table-actions,
+.table-actions {
+  font-size: 1.2rem;
+}
+.table-actions a,
+.table-actions a {
+  display: inline-block;
+  margin-right: .5rem;
+}
+
+.table-actions a:last-child,
+.table-actions a:last-child {
+  margin-right: 0;
+}
+
+table td,
+table td{
+  vertical-align: middle;
+}
+
+table tr:last-child td:first-child
+table tr:last-child td:first-child {
+  border-bottom-left-radius: 4px;
+}
+
+/* Listas de Filtros */
+.list-filters {
+  background: #efefef;
+  padding:.5rem;
+  margin: 0 0 1rem 0;
+  border-radius: 4px;
+}
+
+.list-filters .form-group {
+  margin: 0;
+}
+
+.list-filters div:first-child {
+  padding-left: 0;
+}
+
+.list-filters div:last-child {
+  padding-right: 0;
 }
 
 /*- Pages -*/
@@ -619,8 +691,8 @@ main {
 }
 
 /*- Parceiros -*/
-.partners-form .input-group-append .search-button {
-  border: 1px solid #ced4da;
+.hero .partners-form .container.card {
+  max-width: 1140px !important;
 }
 
 .partners-form thead,
@@ -678,52 +750,6 @@ footer p {
   justify-content: space-between;
 }
 
-.admin-dashboard .list-filters {
-  background: #efefef;
-  padding:.5rem;
-  margin: 0 0 1rem 0;
-  border-radius: 4px;
-}
-
-.admin-dashboard .list-filters .form-group {
-  margin: 0;
-}
-
-.admin-dashboard .list-filters div:first-child {
-  padding-left: 0;
-}
-
-.admin-dashboard .list-filters div:last-child {
-  padding-right: 0;
-}
-
-
-/* Lista de Fornecedores */
-.admin-list-supplier .table-actions,
-.admin-list-client .table-actions {
-  font-size: 1.2rem;
-}
-.admin-list-supplier .table-actions a,
-.admin-list-client .table-actions a {
-  display: inline-block;
-  margin-right: .5rem;
-}
-
-.admin-list-supplier .table-actions a:last-child,
-.admin-list-client .table-actions a:last-child {
-  margin-right: 0;
-}
-
-.admin-list-supplier td,
-.admin-list-client td{
-  vertical-align: middle;
-}
-
-.admin-list-supplier table tr:last-child td:first-child
-.admin-list-client table tr:last-child td:first-child {
-  border-bottom-left-radius: 4px;
-}
-
 /*- Responsive -*/
 @media only screen and (max-width: 992px) {
   #main-nav .nav-item a{
@@ -774,6 +800,77 @@ footer p {
     max-width: 100%;
   }
 
+  /*- Tabelas Responsivas -*/
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr { 
+    display: block; 
+  }
+  
+  table,
+  table th,
+  table td {
+    border: 0 !important;
+  }
+
+  table th,
+  table td {
+    border-bottom: 1px solid #dee2e6 !important;
+  }
+
+  table  tr {
+    border: 1px solid #dee2e6;
+  }
+
+  table  thead tr,
+  table  thead tr { 
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  table tbody tr { 
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+
+  table tbody tr td:last-child { 
+    border: 0 !important;
+  }
+  
+  table tbody th,
+  table td {
+    border: none;
+    border-bottom: 1px solid #eee; 
+    position: relative;
+    padding-left: 50%; 
+    text-align: right;
+  }
+  
+  table tbody th:before,
+  table td:before { 
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 45%; 
+    padding-right: 10px; 
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  /* Filtros */
+  .list-filters .form-group {
+    margin: .5rem;
+  }
+
+  .list-filters div {
+    padding: 0 !important;
+  }
+
   /*- Anuncie -*/
   .announce-plans .plan-item h3 {
     font-size: 1rem;
@@ -794,65 +891,7 @@ footer p {
     width: 100% !important;
   }
   
-    /*- Área Administrativa -*/
-  table,
-  thead,
-  tbody,
-  th,
-  td,
-  tr { 
-    display: block; 
-  }
-  
-  .admin-container table,
-  .admin-container th {
-    border: 0;
-  }
-
-  .admin-container th {
-    border-bottom: 1px solid #dee2e6;
-  }
-
-  .admin-container tr {
-    border: 1px solid #dee2e6;
-  }
-
-  .admin-container thead tr,
-  .admin-container thead tr { 
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-
-  .admin-container tbody tr { 
-    border-radius: 4px;
-    margin-bottom: 8px;
-  }
-
-  .admin-container tbody tr td:last-child { 
-    border: 0;
-  }
-  
-  .admin-container tbody th,
-  .admin-container td {
-    border: none;
-    border-bottom: 1px solid #eee; 
-    position: relative;
-    padding-left: 50%; 
-    text-align: right;
-  }
-  
-  .admin-container tbody th:before,
-  .admin-container td:before { 
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    width: 45%; 
-    padding-right: 10px; 
-    white-space: nowrap;
-    text-align: left;
-    font-weight: bold;
-  }
+  /* Area Administrativa */
   
   .admin-dashboard .admin-container {
     padding-left: 1rem;
@@ -863,14 +902,6 @@ footer p {
     flex-direction: column;
   }
 
-  .admin-dashboard .list-filters .form-group {
-    margin: .5rem;
-  }
-
-  .admin-dashboard .list-filters div {
-    padding: 0 !important;
-  }
-
   .admin-list-supplier th:nth-of-type(1):before { content: "ID"; }
   .admin-list-supplier td:nth-of-type(1):before { content: "Nome"; }
   .admin-list-supplier td:nth-of-type(2):before { content: "Plano"; }
@@ -879,9 +910,9 @@ footer p {
   .admin-list-supplier td:nth-of-type(5):before { content: "Status"; }
 
   /* Parceiros */
-  .partners-form td:nth-of-type(1):before { content: "Nome"; }
+  .partners-form th:nth-of-type(1):before { content: "Nome"; }
+  .partners-form td:nth-of-type(1):before { content: "Cidade"; }
   .partners-form td:nth-of-type(2):before { content: "Estado"; }
-  .partners-form td:nth-of-type(3):before { content: "Cidade"; }
 }
 
 /* Orçamentos */

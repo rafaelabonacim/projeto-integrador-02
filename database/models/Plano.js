@@ -24,11 +24,11 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             },
             preco: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: false
             },
             preco_promocional: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: false
             },
             parcelas: {
@@ -43,11 +43,11 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     Plano.associate = function(models){
-        Plano.belongsTo(models.PlanoFornecedor, {
-            as : "Plano",
+        Plano.hasOne(models.PlanoFornecedor, {
+            as : "plano",
             foreignKey: "plano_id"
-        }
-    )};
+        });
+    };
 
     return Plano;
 };

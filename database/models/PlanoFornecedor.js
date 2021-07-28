@@ -16,11 +16,11 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             },
             data_inicio: {
-                type: DataTypes.STRING,
+                type: DataTypes.DATEONLY,
                 allowNull: false
             },
             data_fim: {
-                type: DataTypes.STRING,
+                type: DataTypes.DATEONLY,
                 allowNull: false
             },
             plano_id: {
@@ -38,10 +38,15 @@ module.exports = (sequelize, DataTypes) => {
 
     PlanoFornecedor.associate = function(models){
         PlanoFornecedor.belongsTo(models.Fornecedor, {
-            as : "Plano Contratado",
+            as : "plano_contratado",
             foreignKey: "fornecedor_id"
-        }
-    )};
+        });
+
+        PlanoFornecedor.belongsTo(models.Plano, {
+            as : "plano",
+            foreignKey: "plano_id"
+        });
+    };
 
     return PlanoFornecedor;
 };

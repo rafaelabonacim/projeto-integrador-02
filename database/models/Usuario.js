@@ -1,9 +1,12 @@
+const Sequelize = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
     const Usuario = sequelize.define("Usuario",
         {
             id: {
-                primaryKey: true,
-                type: DataTypes.STRING,
+                primaryKey: true, 
+                type: DataTypes.UUID,
+                defaultValue: Sequelize.UUIDV4,
                 allowNull: false
             },
             nome: {
@@ -30,10 +33,20 @@ module.exports = (sequelize, DataTypes) => {
 
     Usuario.associate = function(models){
         Usuario.belongsTo(models.TipoUsuario, {
-            as : "Usuários",
+            as : "tipo_usuario",
+            foreignKey: "tipo_usuario_id"
+        });
+
+        Usuario.hasOne(models.Fornecedor, {
+            as : "fornecedor",
             foreignKey: "usuario_id"
-        }
-    )};
+        });
+
+        Usuario.hasOne(models.Cliente, {
+            as : "cliente",
+            foreignKey: "usuario_id"
+        });
+    };
     
     return Usuario;
 };

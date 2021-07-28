@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Area = sequelize.define("Area",
-        {
+    const Area = sequelize.define("Area", {
             id: {
                 primaryKey: true,
                 type: DataTypes.INTEGER,
@@ -10,23 +9,24 @@ module.exports = (sequelize, DataTypes) => {
             estado: {
                 type: DataTypes.STRING,
                 allowNull: true
-            },
-            fornecedor_id: {
-                type: DataTypes.INTEGER,
             }
         },
         {
             tableName: 'area_de_atendimento',
-            timestamps: true
+            timestamps: false
         }
     );
 
     Area.associate = function(models){
-        Area.belongsTo(models.Fornecedor, {
-            as : "Área de Atendimento",
-            foreignKey: "fornecedor_id"
-        }
-    )};
+        Area.belongsToMany(models.Fornecedor, {
+            as : 'area',
+            through: 'fornecedor_has_area',
+            unique: false,
+            foreignKey: 'area_de_atendimento_id',
+            otherKey: 'fornecedor_id',
+            timestamps: false
+        })
+    };
 
     return Area;
 };

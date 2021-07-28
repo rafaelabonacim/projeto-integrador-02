@@ -8,15 +8,15 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             },
             telefone: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: true
             },
             whatsapp: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: true
             },
             cnpj: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: false
             },
             endereco_id: {
@@ -34,10 +34,41 @@ module.exports = (sequelize, DataTypes) => {
 
     Fornecedor.associate = function(models){
         Fornecedor.belongsTo(models.Usuario, {
-            as : "Fornecedor",
+            as : "usuario",
             foreignKey: "usuario_id"
-        }
-    )};
+        });
+
+        Fornecedor.belongsTo(models.Endereco, {
+            as : "endereco",
+            foreignKey: "endereco_id"
+        });
+
+        Fornecedor.hasMany(models.Orcamento, {
+            as : "orcamento_fornecedor",
+            foreignKey: "fornecedor_id"
+        });
+
+        Fornecedor.belongsToMany(models.Area, {
+            as : 'area',
+            through: 'fornecedor_has_area',
+            foreignKey: 'fornecedor_id',
+            otherKey: 'area_de_atendimento_id',
+            timestamps: false
+        });
+
+        Fornecedor.belongsToMany(models.RamoAtendimento, {
+            as : 'ramo_atendimento',
+            through: 'fornecedor_has_ramo',
+            foreignKey: 'fornecedor_id',
+            otherKey: 'ramo_atendimento_id',
+            timestamps: false
+        });
+
+        Fornecedor.hasOne(models.PlanoFornecedor, {
+            as : "plano_contratado",
+            foreignKey: "fornecedor_id"
+        });
+    };
 
     return Fornecedor;
 };

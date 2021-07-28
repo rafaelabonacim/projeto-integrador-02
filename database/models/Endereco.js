@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             },
             cep: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: false
             },
             logradouro: {
@@ -43,18 +43,16 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     Endereco.associate = function(models){
-        Endereco.belongsTo(models.Fornecedor, {
-            as : "Endereço",
+        Endereco.hasOne(models.Fornecedor, {
+            as : "endereco_fornecedor",
             foreignKey: "endereco_id"
-        }
-    )};
+        });
 
-    Endereco.associate = function(models){
-        Endereco.belongsTo(models.Cliente, {
-            as : "Endereço",
+        Endereco.hasOne(models.Cliente, {
+            as : "endereco_cliente",
             foreignKey: "endereco_id"
-        }
-    )};
+        });
+    };
 
     return Endereco;
 };

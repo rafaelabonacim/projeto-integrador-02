@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             },
             telefone: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: true
             },
             whatsapp: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 allowNull: true
             },
             usuario_id: {
@@ -30,10 +30,20 @@ module.exports = (sequelize, DataTypes) => {
 
     Cliente.associate = function(models){
         Cliente.belongsTo(models.Usuario, {
-            as : "Cliente",
+            as : "usuario",
             foreignKey: "usuario_id"
-        }
-    )};
+        });
+
+        Cliente.belongsTo(models.Endereco, {
+            as : "endereco",
+            foreignKey: "endereco_id"
+        });
+
+        Cliente.hasMany(models.Orcamento, {
+            as : "orcamento_cliente",
+            foreignKey: "cliente_id"
+        });
+    };
 
     return Cliente;
 };

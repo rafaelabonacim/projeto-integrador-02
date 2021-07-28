@@ -11,12 +11,15 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false
             }
-        },
-        {
-            tableName: 'tipo_usuario',
-            timestamps: true
         }
     );
+    
+    TipoUsuario.associate = function(models){
+        TipoUsuario.hasOne(models.Usuario, {
+            as : "tipo_usuario",
+            foreignKey: "tipo_usuario_id"
+        });
+    };
     
     return TipoUsuario;
 };
