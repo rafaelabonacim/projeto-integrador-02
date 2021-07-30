@@ -127,8 +127,10 @@ const adminController = {
         return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
     },
     salvarCliente: async(req, res) => {
-        const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
+        const{name,email, phone, whatsapp, password, zipcode, address, numero, complement, district, state, city} = req.body
 
+        console.log(name,email, phone, whatsapp, password, zipcode, address, numero, complement, district, state, city)
+        
         const usuarioCriado = await Usuario.create({
             nome: name,
             email,
@@ -141,7 +143,7 @@ const adminController = {
         const enderecoCriado = await Endereco.create({
             cep: zipcode,
             logradouro: address,
-            numero: parseInt(number),
+            numero: Number(numero),
             complemento: complement,
             bairro: district, 
             estado:state,
@@ -159,17 +161,16 @@ const adminController = {
             console.log('Erro ao criar Fornecedor')
             console.log(err, req.body)
         });
-
-        return res.redirect('admin/listarCliente')
+        return res.redirect('/admin/listarCliente')
     },
     editarCliente: async (req,res) => {
         const {id} = req.params;
     
         const cliente = await Cliente.findByPk(id)
 
-        return res.json(cliente).status(200);
+        //return res.json(cliente).status(200);
     
-        //return res.redirect('admin/listarCliente')
+        return res.redirect('/admin/listarCliente')
     },
     atualizarCliente: async (req,res) => {
         const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
