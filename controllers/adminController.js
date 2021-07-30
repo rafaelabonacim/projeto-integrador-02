@@ -123,8 +123,10 @@ const adminController = {
 
         return res.render('admin/listarCliente', { title: 'Listar Clientes', clientes:clientes})
     },
-
-    adicionarCliente: async(req, res) => {
+    adicionarCliente: (req,res) => {
+        return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
+    },
+    salvarCliente: async(req, res) => {
         const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
 
         const usuarioCriado = await Usuario.create({
@@ -158,22 +160,41 @@ const adminController = {
             console.log(err, req.body)
         });
 
-        return res.render('admin/listarCliente', { title: 'Listar Clientes'})
+        return res.redirect('admin/listarCliente')
     },
-    salvarCliente: (req,res) => {
-        return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
-    },
-    editarCliente: (req,res) => {
-        return res.render('admin/editarCliente', { title: 'Editar Clientes'})
+    editarCliente: async (req,res) => {
+        const {id} = req.params;
+    
+        const cliente = await Cliente.findByPk(id)
+
+        return res.json(cliente).status(200);
+    
+        //return res.redirect('admin/listarCliente')
     },
     atualizarCliente: (req,res) => {
-        return res.render('admin/editarCliente', { title: 'Editar Clientes'})
+        const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
+        const {id} = req.params;
+    
+        const cliente = await Cliente.update({
+            telefone: phone,
+            whatsapp: whatsapp,
+            usuario_id: usuarioCriado.id,
+            endereco_id: enderecoCriado.id
+        }, {
+            where: {id}
+        });
+        return res.json(cliente);
     },
-    excluirCliente: (req,res) => {
-        let { id } = req.params;
-        let clienteEncontrado = clientes.findIndex(cliente => cliente.id == id);
-        
-        return res.redirect('admin/listarCliente');
+    excluirCliente: async (req,res) =>{
+        const {id} = req.params;
+
+        const cliente = await Cliente.destroy({
+            where:{
+                id
+            }
+        });
+        return res.json(cliente);
+    
     },
 
     listarOrcamentos:  (req, res) => {
