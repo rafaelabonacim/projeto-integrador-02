@@ -123,7 +123,7 @@ const adminController = {
 
         return res.render('admin/listarCliente', { title: 'Listar Clientes', clientes:clientes})
     },
-    adicionarCliente: (req,res) => {
+    adicionarCliente: async (req,res) => {
         return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
     },
     salvarCliente: async(req, res) => {
@@ -171,7 +171,7 @@ const adminController = {
     
         //return res.redirect('admin/listarCliente')
     },
-    atualizarCliente: (req,res) => {
+    atualizarCliente: async (req,res) => {
         const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
         const {id} = req.params;
     
