@@ -63,36 +63,28 @@
                 </tr>
               </thead>
               <tbody>
+                <% clientes.forEach(cliente => { %>
+
                 <tr>
-                  <th>1</th>
-                  <td>BelaParafuso</td>
-                  <td>Porca</td>
+                  
+                  <th scope="row"><%= cliente.id %></th>
+                  <td><%= cliente.usuario.nome %> </td>
+                  <td><%= cliente.usuario.email %> </td>
                   <td class="table-actions">
                     <a href="#" title="Orçamentos"><i class="far fa-file-alt color-blue1"></i></a>
                     <a href="/admin/editarCliente" title="Editar"><i class="far fa-edit color-orange2"></i></a>
                     <a href="#" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
                   </td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>OcaUsinagem</td>
-                  <td>Parafuso</td>
-                  <td class="table-actions">
-                    <a href="#" title="Orçamentos"><i class="far fa-file-alt color-blue1"></i></a>
-                    <a href="/admin/editarCliente" title="Editar"><i class="far fa-edit color-orange2"></i></a>
-                    <a href="#" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
+                  <td>
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="status1" checked>
+                      <label class="custom-control-label" for="status1"></label>
+                    </div>
                   </td>
-                </tr>                           
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Aba</td>
-                  <td>Porca e Parafuso</td>
-                  <td class="table-actions">
-                    <a href="#" title="Orçamentos"><i class="far fa-file-alt color-blue1"></i></a>
-                    <a href="/admin/editarFornecedor" title="Editar"><i class="far fa-edit color-orange2"></i></a>
-                    <a href="#" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
-                  </td>
+
                 </tr>
+                
+                <% }); %>
               </tbody>
             </table>
           </div>

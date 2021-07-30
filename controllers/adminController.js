@@ -114,9 +114,16 @@ const adminController = {
         
         return res.redirect('admin/listaServicos');
     },
-    listarCliente:  (req, res) => {
-        return res.render('admin/listarCliente', { title: 'Listar Clientes'})
+    listarCliente: async (req, res) => {
+        const clientes = await Cliente.findAll({
+            include: ['usuario'],
+            order: [['id', 'ASC']]
+            
+        });
+
+        return res.render('admin/listarCliente', { title: 'Listar Clientes', clientes:clientes})
     },
+
     adicionarCliente: async(req, res) => {
         const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
 
