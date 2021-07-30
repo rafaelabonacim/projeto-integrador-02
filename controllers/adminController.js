@@ -117,9 +117,41 @@ const adminController = {
     listarCliente:  (req, res) => {
         return res.render('admin/listarCliente', { title: 'Listar Clientes'})
     },
-    adicionarCliente: (req,res) => {
-        // const { name, email, phone, whatsapp, password, confirmPassword, zipcode, address, numero, complement, district, state, city } = req.body;
-        return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
+    adicionarCliente: async(req, res) => {
+        const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
+
+        const usuarioCriado = await Usuario.create({
+            nome: name,
+            email,
+            senha: bcrypt.hashSync(password, 10),
+            tipo_usuario_id: 1,
+        }).catch(function (err) {
+            console.log('Erro ao criar usuário', err)
+        });
+
+        const enderecoCriado = await Endereco.create({
+            cep: zipcode,
+            logradouro: address,
+            numero: parseInt(number),
+            complemento: complement,
+            bairro: district, 
+            estado:state,
+            cidade: city      
+        }).catch(function (err) {
+            console.log('Erro ao criar Endereço', err)
+        });
+
+        const clienteCriado = await Cliente.create({
+            telefone: phone,
+            whatsapp: whatsapp,
+            usuario_id: usuarioCriado.id,
+            endereco_id: enderecoCriado.id
+        }).catch(function (err) {
+            console.log('Erro ao criar Fornecedor')
+            console.log(err, req.body)
+        });
+
+        return res.render('admin/listarCliente', { title: 'Listar Clientes'})
     },
     salvarCliente: (req,res) => {
         return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
