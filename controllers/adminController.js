@@ -166,11 +166,17 @@ const adminController = {
     editarCliente: async (req,res) => {
         const {id} = req.params;
     
-        const cliente = await Cliente.findByPk(id)
+        const cliente = await Cliente.findByPk(id,{
+            include: ['usuario'],
+            order: [['id', 'ASC']]
+            
+        });
+        //return res.json(cliente).status(200);
 
-        return res.json(cliente).status(200);
+        return res.render('admin/editarCliente', {cliente:cliente})
     
-        //return res.redirect('/admin/listarCliente')
+     
+        //return res.redirect('/admin/editarCliente')
     },
     atualizarCliente: async (req,res) => {
         const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
@@ -190,9 +196,7 @@ const adminController = {
         const {id} = req.params;
 
         const cliente = await Cliente.destroy({
-            where:{
-                id
-            }
+            where:{id}
         });
         return res.json(cliente);
     
