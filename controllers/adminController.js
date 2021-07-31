@@ -168,9 +168,9 @@ const adminController = {
     
         const cliente = await Cliente.findByPk(id)
 
-        //return res.json(cliente).status(200);
+        return res.json(cliente).status(200);
     
-        return res.redirect('/admin/listarCliente')
+        //return res.redirect('/admin/listarCliente')
     },
     atualizarCliente: async (req,res) => {
         const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
