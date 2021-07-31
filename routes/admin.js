@@ -29,6 +29,8 @@ router.post('/adicionarCliente', adminController.salvarCliente);
 router.get('/editarCliente/:id', adminController.editarCliente);
 router.put('/editarCliente/:id', adminController.atualizarCliente);
 
+router.delete('/listarCliente/deletar/:id', adminController.excluirCliente);
+
  
 // Rotas orçamentos
 router.get('/listarOrcamentos', adminController.listarOrcamentos);
