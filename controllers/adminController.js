@@ -176,17 +176,29 @@ const adminController = {
         const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
         const {id} = req.params;
 
+        const clienteAtualizado = await Cliente.update({
+            telefone: phone,
+            whatsapp: whatsapp
+            
+        }, {
+            where: {id}
+        }).catch(function (err) {
+            console.log('Erro ao criar Fornecedor')
+            console.log(err, req.body)
+        });
+
         const usuarioAtualizado = await Usuario.update({
             nome: name,
             email,
             senha: bcrypt.hashSync(password, 10),
             tipo_usuario_id: 3,
-        },{
-            where: {id}
+        }, {
+            where: {usuario_id: enderecoAtualizado.id}
         }).catch(function (err) {
             console.log('Erro ao editar usuário', err)
         });
 
+     
         const enderecoAtualizado = await Endereco.update({
             cep: zipcode,
             logradouro: address,
@@ -196,22 +208,12 @@ const adminController = {
             estado:state,
             cidade: city      
         },{
-            where: {id}
+            where: {usuario_id: usuarioAtualizado.id}
         }).catch(function (err) {
             console.log('Erro ao editar Endereço', err)
         });
 
-        const clienteAtualizado = await Cliente.update({
-            telefone: phone,
-            whatsapp: whatsapp,
-            usuario_id: usuarioCriado.id,
-            endereco_id: enderecoCriado.id
-        }, {
-            where: {id}
-        }).catch(function (err) {
-            console.log('Erro ao criar Fornecedor')
-            console.log(err, req.body)
-        });
+        
         return res.json(clienteAtualizado);
     },
     excluirCliente: async (req,res) =>{
