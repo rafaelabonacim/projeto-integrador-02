@@ -129,27 +129,92 @@ const adminController = {
         
         return res.redirect('admin/listaServicos');
     },
-    listarCliente:  (req, res) => {
-        return res.render('admin/listarCliente', { title: 'Listar Clientes'})
+    listarCliente: async (req, res) => {
+        const clientes = await Cliente.findAll({
+            include: ['usuario'],
+            order: [['id', 'ASC']]
+            
+        });
+
+        return res.render('admin/listarCliente', { title: 'Listar Clientes', clientes:clientes})
     },
-    adicionarCliente: (req,res) => {
-        // const { name, email, phone, whatsapp, password, confirmPassword, zipcode, address, numero, complement, district, state, city } = req.body;
+    adicionarCliente: async (req,res) => {
         return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
     },
-    salvarCliente: (req,res) => {
-        return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
-    },
-    editarCliente: (req,res) => {
-        return res.render('admin/editarCliente', { title: 'Editar Clientes'})
-    },
-    atualizarCliente: (req,res) => {
-        return res.render('admin/editarCliente', { title: 'Editar Clientes'})
-    },
-    excluirCliente: (req,res) => {
-        let { id } = req.params;
-        let clienteEncontrado = clientes.findIndex(cliente => cliente.id == id);
+    salvarCliente: async(req, res) => {
+        const{name,email, phone, whatsapp, password, zipcode, address, numero, complement, district, state, city} = req.body
+
+        console.log(name,email, phone, whatsapp, password, zipcode, address, numero, complement, district, state, city)
         
-        return res.redirect('admin/listarCliente');
+        const usuarioCriado = await Usuario.create({
+            nome: name,
+            email,
+            senha: bcrypt.hashSync(password, 10),
+            tipo_usuario_id: 1,
+        }).catch(function (err) {
+            console.log('Erro ao criar usuário', err)
+        });
+
+        const enderecoCriado = await Endereco.create({
+            cep: zipcode,
+            logradouro: address,
+            numero: Number(numero),
+            complemento: complement,
+            bairro: district, 
+            estado:state,
+            cidade: city      
+        }).catch(function (err) {
+            console.log('Erro ao criar Endereço', err)
+        });
+
+        const clienteCriado = await Cliente.create({
+            telefone: phone,
+            whatsapp: whatsapp,
+            usuario_id: usuarioCriado.id,
+            endereco_id: enderecoCriado.id
+        }).catch(function (err) {
+            console.log('Erro ao criar Fornecedor')
+            console.log(err, req.body)
+        });
+        return res.redirect('/admin/listarCliente')
+    },
+    editarCliente: async (req,res) => {
+        const {id} = req.params;
+    
+        const cliente = await Cliente.findByPk(id,{
+            include: ['usuario'],
+            order: [['id', 'ASC']]
+            
+        });
+        //return res.json(cliente).status(200);
+
+        return res.render('admin/editarCliente', {cliente:cliente})
+    
+     
+        //return res.redirect('/admin/editarCliente')
+    },
+    atualizarCliente: async (req,res) => {
+        const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
+        const {id} = req.params;
+    
+        const cliente = await Cliente.update({
+            telefone: phone,
+            whatsapp: whatsapp,
+            usuario_id: usuarioCriado.id,
+            endereco_id: enderecoCriado.id
+        }, {
+            where: {id}
+        });
+        return res.json(cliente);
+    },
+    excluirCliente: async (req,res) =>{
+        const {id} = req.params;
+
+        const cliente = await Cliente.destroy({
+            where:{id}
+        });
+        return res.json(cliente);
+    
     },
 
     listarOrcamentos:  (req, res) => {
