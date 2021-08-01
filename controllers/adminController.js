@@ -133,7 +133,7 @@ const adminController = {
             nome: name,
             email,
             senha: bcrypt.hashSync(password, 10),
-            tipo_usuario_id: 1,
+            tipo_usuario_id: 3,
         }).catch(function (err) {
             console.log('Erro ao criar usuário', err)
         });
@@ -180,7 +180,7 @@ const adminController = {
             nome: name,
             email,
             senha: bcrypt.hashSync(password, 10),
-            tipo_usuario_id: 1,
+            tipo_usuario_id: 3,
         },{
             where: {id}
         }).catch(function (err) {
