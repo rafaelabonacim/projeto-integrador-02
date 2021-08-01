@@ -11,7 +11,7 @@ router.get('/', adminController.index);
 router.get('/listarFornecedor', adminController.listarFornecedor);
 
 router.get('/adicionarFornecedor', adminController.adicionarFornecedor);
-router.post('/adicionarFornecedor', adminController.salvarFornecedor);
+router.post('/adicionarFornecedor', adminController.adicionarFornecedorCreate);
 
 router.get('/editarFornecedor', adminController.editarFornecedor);
 router.put('/editarFornecedor', adminController.atualizarFornecedor);

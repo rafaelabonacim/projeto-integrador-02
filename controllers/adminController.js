@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const config = require('../database/config/config');
-const { AreaDeAtendimento, Cliente, Endereco, Fornecedor, Orcamento, Plano, PlanoFornecedor, TipoUsuario, Usuario, FornecedorHasArea } = require('../database/models');
+const { AreaDeAtendimento, Cliente, Endereco, Fornecedor, Orcamento, Plano, PlanoFornecedor, TipoUsuario, Usuario, FornecedorHasArea, FornecedorHasRamo } = require('../database/models');
 
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
@@ -21,7 +21,10 @@ const adminController = {
         return res.render('admin/listarFornecedor', { title: 'Listar de Fornecedores', fornecedores: fornecedores});
     },
     adicionarFornecedor: async (req, res) => {
-        const { plan, name, document, email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city, stateArea } = req.body;
+        return res.render('admin/adicionarFornecedor', { title: 'Adicionar Fornecedor'})
+    },
+    adicionarFornecedorCreate: async (req, res) => {
+        const { plan, branch, name, document, email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city, stateArea } = req.body;
 
         const cadastroRegex = /[ \(\)\x2D-\/]/g;
 
@@ -69,19 +72,33 @@ const adminController = {
             });
         };
 
+        // Ramo de Atuacao
+        const ramos = Array.isArray(branch) ? branch : [branch]
+
+        for(const ramo of ramos){
+            await FornecedorHasRamo.create({
+                fornecedor_id: fornecedorCriado.id,
+                ramo_atendimento_id: ramo
+            }).catch(function (err) {
+                console.log('Erro ao criar Área de Atendimento', err)
+            });
+        };
+
         // Plano
         const planoSelecionado = await Plano.findByPk(plan);
 
         // Tratamento da data
-        const dataAtual = new Date();
+        const dataAtual = () => {
+            return new Date();
+        };
 
         const dataExpiracao = () => {
-            const dataFinal = dataAtual;
+            const dataFinal = dataAtual();
             dataFinal.setFullYear(dataFinal.getFullYear() + 1);
             return dataFinal;
         };
         
-        const dataInicio = dataAtual;
+        const dataInicio = dataAtual();
         const dataFim = dataExpiracao();
 
         const planoFornecedor = await PlanoFornecedor.create({
@@ -95,9 +112,7 @@ const adminController = {
             console.log('Erro ao criar Plano', err)
         });
 
-        return res.redirect('/login')
-
-        return res.render('admin/adicionarFornecedor', { title: 'Adicionar Fornecedor'})
+        return res.redirect('/admin/listarFornecedor')
     },
     salvarFornecedor:  (req, res) => {
         return res.render('admin/adicionarFornecedor', { title: 'Adicionar Fornecedor'})
