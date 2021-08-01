@@ -128,8 +128,6 @@ const adminController = {
     },
     salvarCliente: async(req, res) => {
         const{name,email, phone, whatsapp, password, zipcode, address, numero, complement, district, state, city} = req.body
-
-        console.log(name,email, phone, whatsapp, password, zipcode, address, numero, complement, district, state, city)
         
         const usuarioCriado = await Usuario.create({
             nome: name,
@@ -165,32 +163,56 @@ const adminController = {
     },
     editarCliente: async (req,res) => {
         const {id} = req.params;
-    
+        
         const cliente = await Cliente.findByPk(id,{
-            include: ['usuario'],
-            order: [['id', 'ASC']]
-            
+            include: ['usuario','endereco']
         });
         //return res.json(cliente).status(200);
 
         return res.render('admin/editarCliente', {cliente:cliente})
     
-     
-        //return res.redirect('/admin/editarCliente')
     },
     atualizarCliente: async (req,res) => {
-        const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
+        const{name,email, phone, whatsapp, password, zipcode, address, numero, complement, district, state, city} = req.body
         const {id} = req.params;
-    
-        const cliente = await Cliente.update({
+
+        const usuarioAtualizado = await Usuario.update({
+            nome: name,
+            email,
+            senha: bcrypt.hashSync(password, 10),
+            tipo_usuario_id: 1,
+        },{
+            where: {id}
+        }).catch(function (err) {
+            console.log('Erro ao editar usuário', err)
+        });
+
+        const enderecoAtualizado = await Endereco.update({
+            cep: zipcode,
+            logradouro: address,
+            numero: Number(numero),
+            complemento: complement,
+            bairro: district, 
+            estado:state,
+            cidade: city      
+        },{
+            where: {id}
+        }).catch(function (err) {
+            console.log('Erro ao editar Endereço', err)
+        });
+
+        const clienteAtualizado = await Cliente.update({
             telefone: phone,
             whatsapp: whatsapp,
             usuario_id: usuarioCriado.id,
             endereco_id: enderecoCriado.id
         }, {
             where: {id}
+        }).catch(function (err) {
+            console.log('Erro ao criar Fornecedor')
+            console.log(err, req.body)
         });
-        return res.json(cliente);
+        return res.json(clienteAtualizado);
     },
     excluirCliente: async (req,res) =>{
         const {id} = req.params;
