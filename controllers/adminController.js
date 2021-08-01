@@ -12,11 +12,13 @@ const adminController = {
     listarFornecedor: async (req, res) => {
         // Listagem de Fornecedores
         const fornecedores = await Fornecedor.findAll({
-            include: ['usuario', 'endereco', 'plano_contratado'],
-            order: [['usuario', 'nome', 'ASC']],
+        include: ['usuario', 'plano_contratado'],
+            order: [['id', 'ASC']],
             limit: 30,
             //offset: 0
         });
+
+        // res.json(fornecedores)
 
         return res.render('admin/listarFornecedor', { title: 'Listar de Fornecedores', fornecedores: fornecedores});
     },
@@ -124,8 +126,8 @@ const adminController = {
         return res.render('admin/editarFornecedor', { title: 'Editar Fornecedor'})
     },
     excluirFornecedor: (req,res) => {
-        let { id } = req.params;
-        let fornecedorEncontrado = services.findIndex(fornecedor => fornecedor.id == id);
+        // let { id } = req.params;
+        // let fornecedorEncontrado = services.findIndex(fornecedor => fornecedor.id == id);
         
         return res.redirect('admin/listaServicos');
     },
@@ -174,6 +176,7 @@ const adminController = {
             console.log('Erro ao criar Fornecedor')
             console.log(err, req.body)
         });
+        
         return res.redirect('/admin/listarCliente')
     },
     editarCliente: async (req,res) => {
@@ -227,7 +230,9 @@ const adminController = {
             console.log('Erro ao criar Fornecedor')
             console.log(err, req.body)
         });
-        return res.json(clienteAtualizado);
+        //return res.json(clienteAtualizado);
+        
+        return res.redirect('admin/listarCliente')
     },
     excluirCliente: async (req,res) =>{
         const {id} = req.params;
