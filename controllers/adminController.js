@@ -176,28 +176,16 @@ const adminController = {
         const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
         const {id} = req.params;
 
-        const clienteAtualizado = await Cliente.update({
-            telefone: phone,
-            whatsapp: whatsapp
-            
-        }, {
-            where: {id}
-        }).catch(function (err) {
-            console.log('Erro ao criar Fornecedor')
-            console.log(err, req.body)
-        });
-
         const usuarioAtualizado = await Usuario.update({
             nome: name,
             email,
             senha: bcrypt.hashSync(password, 10),
             tipo_usuario_id: 3,
-        }, {
-            where: {usuario_id: enderecoAtualizado.id}
-        }).catch(function (err) {
+        },{where: {id}}
+        ).catch(function (err) {
             console.log('Erro ao editar usuário', err)
         });
-
+        console.log('testeaaaaaaaaaaaaaaaaaaaaaaaaaa')
      
         const enderecoAtualizado = await Endereco.update({
             cep: zipcode,
@@ -207,14 +195,25 @@ const adminController = {
             bairro: district, 
             estado:state,
             cidade: city      
-        },{
-            where: {usuario_id: usuarioAtualizado.id}
-        }).catch(function (err) {
+        },{where: {id}}
+        ).catch(function (err) {
             console.log('Erro ao editar Endereço', err)
-        });
+        });      
+        console.log('testeaaaaaaaaaaaaaaaaaaaaaaaaaa')
 
-        
+        const clienteAtualizado = await Cliente.update({
+            telefone: phone,
+            whatsapp: whatsapp,
+            usuario_id: usuarioAtualizado.id,
+            endereco_id: enderecoAtualizado.id
+        },{where: {id}}
+        ).catch(function (err) {
+            console.log('Erro ao criar Fornecedor')
+            console.log(err, req.body)
+        });
+        console.log('xxxxxxxxxxxxxxxxxxx')
         return res.json(clienteAtualizado);
+        return res.render('admin/editarCliente', {cliente:clienteAtualizado})
     },
     excluirCliente: async (req,res) =>{
         const {id} = req.params;
