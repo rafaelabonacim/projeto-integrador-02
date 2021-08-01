@@ -72,7 +72,7 @@
                   <td><%= cliente.usuario.email %> </td>
                   <td class="table-actions">
                     <a href="/admin/editarCliente/<%= cliente.id %>" title="Editar"><i class="far fa-edit color-orange2"></i></a>
-                    <a href="/admin/listarCliente/deletar/<%= cliente.id %>" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
+                    <a href=# data-toggle="modal" data-target="#removeModal" data-url="/admin/listarCliente/deletar/<%= cliente.id %>" class="delete-button" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
                   </td>
                   <td>
                     <div class="custom-control custom-switch">
