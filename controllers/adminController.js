@@ -127,7 +127,7 @@ const adminController = {
         return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
     },
     salvarCliente: async(req, res) => {
-        const{name,email, phone, whatsapp, password, zipcode, address, numero, complement, district, state, city} = req.body
+        const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
         
         const usuarioCriado = await Usuario.create({
             nome: name,
@@ -141,7 +141,7 @@ const adminController = {
         const enderecoCriado = await Endereco.create({
             cep: zipcode,
             logradouro: address,
-            numero: Number(numero),
+            numero: parseInt(number),
             complemento: complement,
             bairro: district, 
             estado:state,
@@ -173,7 +173,7 @@ const adminController = {
     
     },
     atualizarCliente: async (req,res) => {
-        const{name,email, phone, whatsapp, password, zipcode, address, numero, complement, district, state, city} = req.body
+        const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
         const {id} = req.params;
 
         const usuarioAtualizado = await Usuario.update({
@@ -190,7 +190,7 @@ const adminController = {
         const enderecoAtualizado = await Endereco.update({
             cep: zipcode,
             logradouro: address,
-            numero: Number(numero),
+            numero: parseInt(number),
             complemento: complement,
             bairro: district, 
             estado:state,
