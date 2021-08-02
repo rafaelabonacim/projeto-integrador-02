@@ -257,6 +257,10 @@ hr {
 }
 
 /*- Forms -*/
+form {
+  display: unset;
+}
+
 select {
   appearance:none;
 }

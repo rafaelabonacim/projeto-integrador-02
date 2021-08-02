@@ -31,12 +31,14 @@ module.exports = (sequelize, DataTypes) => {
     Cliente.associate = function(models){
         Cliente.belongsTo(models.Usuario, {
             as : "usuario",
-            foreignKey: "usuario_id"
+            foreignKey: "usuario_id",
+            onDelete: 'cascade'
         });
 
         Cliente.belongsTo(models.Endereco, {
             as : "endereco",
-            foreignKey: "endereco_id"
+            foreignKey: "endereco_id",
+            onDelete: 'cascade'
         });
 
         Cliente.hasMany(models.Orcamento, {

@@ -23,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
             through: 'fornecedor_has_ramo',
             foreignKey: 'ramo_atendimento_id',
             otherKey: 'fornecedor_id',
-            timestamps: false
+            timestamps: false,
+            onDelete: 'cascade'
         });
     };
     

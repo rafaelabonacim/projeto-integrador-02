@@ -5,25 +5,58 @@ const { AreaDeAtendimento, Cliente, Endereco, Fornecedor, Orcamento, Plano, Plan
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
+
 const adminController = {
     index: (req, res) => {
-        return res.render('admin/index', { title: 'Painel Administrativo'})
+        return res.status(200).render('admin/index', { title: 'Painel Administrativo'})
     },
     listarFornecedor: async (req, res) => {
-        // Listagem de Fornecedores
         const fornecedores = await Fornecedor.findAll({
         include: ['usuario', 'plano_contratado'],
-            order: [['id', 'ASC']],
+            order: [['usuario', 'nome', 'ASC']],
             limit: 30,
-            //offset: 0
         });
 
-        // res.json(fornecedores)
+        return res.status(200).render('admin/listarFornecedor', { title: 'Lista de Fornecedores', fornecedores: fornecedores});
+    },
+    buscarFornecedor: async (req, res) => {
+        let { id, name, choosePlan, state, city, date } = req.query;
 
-        return res.render('admin/listarFornecedor', { title: 'Listar de Fornecedores', fornecedores: fornecedores});
+        id = id ? id : "";
+        name = name ? name : "";
+        choosePlan = choosePlan ? choosePlan : "";
+        date = date ? date : "";
+
+        const buscaFornecedores = await Fornecedor.findAll({
+            include: [{
+                model: Usuario,
+                as: 'usuario',
+                where: {
+                    nome: { [Op.like]: `%${name}%` }
+                }
+            
+            },
+            {
+                model: PlanoFornecedor,
+                as: 'plano_contratado',
+                where: {
+                    [Op.or]: [
+                        { nome: { [Op.like]: `${choosePlan}`}},
+                        { data_fim: { [Op.like]: `${date}`}}
+                    ]
+                }
+            
+            }],
+            where: {
+                id: { [Op.like]: `%${id}%` }
+            },
+            order: [['usuario', 'nome', 'ASC']],
+        });
+
+        return res.status(200).render('admin/listarFornecedor', { title: 'Lista de Fornecedores', fornecedores: buscaFornecedores})
     },
     adicionarFornecedor: async (req, res) => {
-        return res.render('admin/adicionarFornecedor', { title: 'Adicionar Fornecedor'})
+        return res.status(200).render('admin/adicionarFornecedor', { title: 'Adicionar Fornecedor'})
     },
     adicionarFornecedorCreate: async (req, res) => {
         const { plan, branch, name, document, email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city, stateArea } = req.body;
@@ -114,22 +147,109 @@ const adminController = {
             console.log('Erro ao criar Plano', err)
         });
 
-        return res.redirect('/admin/listarFornecedor')
+        return res.status(200).redirect('/admin/listarFornecedor')
     },
-    salvarFornecedor:  (req, res) => {
-        return res.render('admin/adicionarFornecedor', { title: 'Adicionar Fornecedor'})
-    },
-    editarFornecedor:  (req, res) => {
-        return res.render('admin/editarFornecedor', { title: 'Editar Fornecedor'})
-    },
-    atualizarFornecedor:  (req, res) => {
-        return res.render('admin/editarFornecedor', { title: 'Editar Fornecedor'})
-    },
-    excluirFornecedor: (req,res) => {
-        // let { id } = req.params;
-        // let fornecedorEncontrado = services.findIndex(fornecedor => fornecedor.id == id);
+    editarFornecedor: async (req, res) => {
+        const {id} = req.params;
         
-        return res.redirect('admin/listaServicos');
+        const fornecedor = await Fornecedor.findByPk(id,{
+            include: ['usuario','endereco', 'area', 'ramo_atendimento', 'plano_contratado']
+        });
+
+        // const branchIds = [];
+        // const branchData = fornecedor.ramo_atendimento
+        
+        // for (let i = 0; i < branchData.length; i++) {
+        //     branchIds.push(fornecedor.ramo_atendimento[i].fornecedor_has_ramo.ramo_atendimento_id)
+        // };
+        
+        return res.status(200).render('admin/editarFornecedor', { title: 'Editar Fornecedor', fornecedor: fornecedor})
+    },
+    atualizarFornecedor: async (req, res) => {
+        const { id } = req.params;
+        const { branch, name, document, email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city, stateArea } = req.body;
+        
+        const cadastroRegex = /[ \(\)\x2D-\/]/g;
+
+        console.log(req.body);
+
+        const fornecedorAtualizado = await Fornecedor.update({
+            telefone: phone.replace(cadastroRegex,''),
+            whatsapp: whatsapp.replace(cadastroRegex,''),
+            cnpj: document.replace(cadastroRegex, ''),
+        },
+        {
+            where: { id }
+        }).catch(function (err) {
+            console.log('Erro ao atualizar Fornecedor')
+        });
+
+        // const usuarioAtualizado = await Usuario.update({
+        //     nome: name,
+        //     email,
+        //     senha: bcrypt.hashSync(password, 10),
+        // },
+        // {
+        //     where: { id }
+        // }).catch(function (err) {
+        //     console.log('Erro ao atualizar usuário', err)
+        // });
+
+        // const enderecoAtualizdo = await Endereco.update({
+        //     cep: zipcode.replace(cadastroRegex,''),
+        //     logradouro: address,
+        //     complemento: complement,
+        //     bairro: district,
+        //     numero: parseInt(number),
+        //     estado: state,
+        //     cidade: city
+        // },
+        // {
+        //     where: { id }
+        // }).catch(function (err) {
+        //     console.log('Erro ao atualizar Endereço', err)
+        // });
+
+        // // Areas de atendimento
+        // const areas = Array.isArray(stateArea) ? stateArea : [stateArea]
+
+        // for(const state of areas){
+        //     await FornecedorHasArea.update({
+        //         fornecedor_id: fornecedorCriado.id,
+        //         area_de_atendimento_id: state
+        //     },
+        //     {
+        //         where: { id }
+        //     }).catch(function (err) {
+        //         console.log('Erro ao atualizar Área de Atendimento', err)
+        //     });
+        // };
+
+        // // Ramo de Atuacao
+        // const ramos = Array.isArray(branch) ? branch : [branch]
+
+        // for(const ramo of ramos){
+        //     await FornecedorHasRamo.update({
+        //         fornecedor_id: fornecedorCriado.id,
+        //         ramo_atendimento_id: ramo
+        //     },
+        //     {
+        //         where: { id }
+        //     }).catch(function (err) {
+        //         console.log('Erro ao atualizar Área de Atendimento', err)
+        //     });
+        // };
+
+        return res.status(200).redirect('admin/listarFornecedor')
+    },
+    excluirFornecedor: async (req,res) => {
+        const { id } = req.params;
+        
+        const fornecedor = await Fornecedor.destroy({
+            where: { id }
+        });
+        
+        return res.redirect('/admin/listarFornecedor')
     },
     listarCliente: async (req, res) => {
         const clientes = await Cliente.findAll({

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 26-Jul-2021 às 03:11
+-- Tempo de geração: 02-Ago-2021 às 02:22
 -- Versão do servidor: 10.4.20-MariaDB
 -- versão do PHP: 8.0.8
 
@@ -105,9 +105,8 @@ CREATE TABLE `endereco` (
 --
 
 INSERT INTO `endereco` (`id`, `cep`, `logradouro`, `complemento`, `bairro`, `numero`, `estado`, `cidade`, `createdAt`, `updatedAt`) VALUES
-(100, '02265001', 'Av Guapira', 'Casa 3', 'Tucuruvi', '945', 'SP', 'São Paulo', '2021-07-25 16:45:26', '2021-07-25 16:45:26'),
-(102, '05425001', 'Rua da Selva', 'Galpão 1000', 'Jungle', '4', 'AM', 'Manaus', '2021-07-25 17:00:16', '2021-07-25 17:00:16'),
-(104, '55555555', 'Rua Forever', 'Para Sempre', 'Forever', '658', 'DF', 'Brasilia', '2021-07-26 01:08:03', '2021-07-26 01:08:03');
+(112, '02265005', 'Rua Nova', 'Galpão 500', 'Bairro Novo', '4545', 'SP', 'São Paulo', '2021-08-01 02:31:55', '2021-08-01 02:31:55'),
+(113, '05425001', 'Rua Velha', '', 'Pinheiros', '582', 'SP', 'São Paulo', '2021-08-01 22:11:34', '2021-08-01 22:11:34');
 
 -- --------------------------------------------------------
 
@@ -123,17 +122,17 @@ CREATE TABLE `fornecedor` (
   `endereco_id` int(11) NOT NULL,
   `usuario_id` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
   `createdAt` timestamp NULL DEFAULT NULL,
-  `updatedAt` timestamp NULL DEFAULT NULL
+  `updatedAt` timestamp NULL DEFAULT NULL,
+  `deletedAt` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `fornecedor`
 --
 
-INSERT INTO `fornecedor` (`id`, `telefone`, `whatsapp`, `cnpj`, `endereco_id`, `usuario_id`, `createdAt`, `updatedAt`) VALUES
-(78, '11111111111', '11111111111', '11111111111111', 100, '2a893f30-a786-4d87-8902-eb78fe8e2090', '2021-07-25 16:45:26', '2021-07-25 16:45:26'),
-(80, '22222222222', '22222222222', '22222222222222', 102, '2a4a6c3d-0f99-402c-bfe1-bca19f0b283a', '2021-07-25 17:00:16', '2021-07-25 17:00:16'),
-(82, '33333333333', '33333333333', '33333333333333', 104, '8410aa15-4e9b-45da-8e71-009dfe956730', '2021-07-26 01:08:03', '2021-07-26 01:08:03');
+INSERT INTO `fornecedor` (`id`, `telefone`, `whatsapp`, `cnpj`, `endereco_id`, `usuario_id`, `createdAt`, `updatedAt`, `deletedAt`) VALUES
+(88, '11111111111', '11111111111', '11111111111111', 112, '16395921-06ef-4420-aa73-dace2883923d', '2021-08-01 02:31:55', '2021-08-01 02:31:55', NULL),
+(89, '22222222222', '22222222222', '22222222222222', 113, '6c991008-580a-4c21-b574-ecc8623b5aa1', '2021-08-01 22:11:34', '2021-08-01 22:11:34', NULL);
 
 -- --------------------------------------------------------
 
@@ -151,37 +150,34 @@ CREATE TABLE `fornecedor_has_area` (
 --
 
 INSERT INTO `fornecedor_has_area` (`fornecedor_id`, `area_de_atendimento_id`) VALUES
-(78, 25),
-(80, 1),
-(80, 2),
-(80, 3),
-(80, 4),
-(80, 5),
-(80, 6),
-(80, 7),
-(80, 8),
-(80, 9),
-(80, 10),
-(80, 11),
-(80, 12),
-(80, 13),
-(80, 14),
-(80, 15),
-(80, 16),
-(80, 17),
-(80, 18),
-(80, 19),
-(80, 20),
-(80, 21),
-(80, 22),
-(80, 23),
-(80, 24),
-(80, 25),
-(80, 26),
-(80, 27),
-(82, 2),
-(82, 3),
-(82, 4);
+(88, 1),
+(88, 2),
+(88, 3),
+(88, 4),
+(88, 5),
+(88, 6),
+(88, 7),
+(88, 8),
+(88, 9),
+(88, 10),
+(88, 11),
+(88, 12),
+(88, 13),
+(88, 14),
+(88, 15),
+(88, 16),
+(88, 17),
+(88, 18),
+(88, 19),
+(88, 20),
+(88, 21),
+(88, 22),
+(88, 23),
+(88, 24),
+(88, 25),
+(88, 26),
+(88, 27),
+(89, 25);
 
 -- --------------------------------------------------------
 
@@ -199,10 +195,10 @@ CREATE TABLE `fornecedor_has_ramo` (
 --
 
 INSERT INTO `fornecedor_has_ramo` (`fornecedor_id`, `ramo_atendimento_id`) VALUES
-(78, 1),
-(80, 2),
-(82, 1),
-(82, 2);
+(88, 1),
+(88, 2),
+(89, 1),
+(89, 2);
 
 -- --------------------------------------------------------
 
@@ -273,9 +269,8 @@ CREATE TABLE `plano_fornecedor` (
 --
 
 INSERT INTO `plano_fornecedor` (`id`, `nome`, `preco`, `data_inicio`, `data_fim`, `plano_id`, `fornecedor_id`, `createdAt`, `updatedAt`) VALUES
-(1, 'Porca e Parafuso', '800', '2021-07-25', '2022-07-25', 3, 78, '2021-07-25 16:45:26', '2021-07-25 16:45:26'),
-(2, 'Parafuso', '550', '2021-07-25', '2022-07-25', 1, 80, '2021-07-25 17:00:16', '2021-07-25 17:00:16'),
-(3, 'Porca e Parafuso', '800', '2021-07-25', '2022-07-25', 3, 82, '2021-07-26 01:08:03', '2021-07-26 01:08:03');
+(7, 'Parafuso', '550', '2021-07-31', '2022-07-31', 1, 88, '2021-08-01 02:31:55', '2021-08-01 02:31:55'),
+(8, 'Porca e Parafuso', '800', '2021-08-01', '2022-08-01', 3, 89, '2021-08-01 22:11:34', '2021-08-01 22:11:34');
 
 -- --------------------------------------------------------
 
@@ -295,16 +290,6 @@ CREATE TABLE `ramo_atendimento` (
 INSERT INTO `ramo_atendimento` (`id`, `ramo`) VALUES
 (1, 'Usinagem'),
 (2, 'Micro Usinagem');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `sequelizemeta`
---
-
-CREATE TABLE `sequelizemeta` (
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -347,9 +332,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `tipo_usuario_id`, `createdAt`, `updatedAt`) VALUES
-('2a4a6c3d-0f99-402c-bfe1-bca19f0b283a', 'Usinagem da Selva', 'contato@usinadaselva.com.br', '$2b$10$w3w57GE8fvnVY0NMUfp5Quvo50GzkOtaQjQdS44CqFtMR9ObczDku', 2, '2021-07-25 17:00:16', '2021-07-25 17:00:16'),
-('2a893f30-a786-4d87-8902-eb78fe8e2090', 'Usinagem Bombástica', 'contato@bombastica.com.br', '$2b$10$37JLdOQugi7y1.DTVg0gUO9Vq1KgUojPK8HLrqj/H1aw4.W0s8NUO', 2, '2021-07-25 16:45:26', '2021-07-25 16:45:26'),
-('8410aa15-4e9b-45da-8e71-009dfe956730', 'Usinagem Forever', 'contato@forever.com.br', '$2b$10$0PGxY04jxnRzTNZ4u1OGrOS5k6pOJIE.rb.W/Kq3WCaHiTRhkzQxG', 2, '2021-07-26 01:08:03', '2021-07-26 01:08:03');
+('16395921-06ef-4420-aa73-dace2883923d', 'Usinagem Nova', 'contato@usinagemnova.com.br', '$2b$10$Dc.KdIxpFfhGhe07S2ZWeOOjDj3mFEhV.XSEY3zhpyh9GD66KnfF.', 2, '2021-08-01 02:31:55', '2021-08-01 02:31:55'),
+('6c991008-580a-4c21-b574-ecc8623b5aa1', 'Usinagem da Selva', 'contato@usinagemselva.com.br', '$2b$10$kZ8Xd8NkxC6DuM/w0NOYK.k4C6DflRJOiwDPf/m9wCMoOzeEuV4DK', 2, '2021-08-01 22:11:34', '2021-08-01 22:11:34'),
+('ecc8623b5aa1-4c21-b574-580a-6c991008', 'admin', 'aporcaeoparafuso@gmail.com', 'aporca5896', 1, NULL, NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -435,13 +420,6 @@ ALTER TABLE `ramo_atendimento`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `sequelizemeta`
---
-ALTER TABLE `sequelizemeta`
-  ADD PRIMARY KEY (`name`),
-  ADD UNIQUE KEY `name` (`name`);
-
---
 -- Índices para tabela `tipo_usuario`
 --
 ALTER TABLE `tipo_usuario`
@@ -471,19 +449,19 @@ ALTER TABLE `area_de_atendimento`
 -- AUTO_INCREMENT de tabela `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT de tabela `fornecedor`
 --
 ALTER TABLE `fornecedor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT de tabela `orcamento`
@@ -501,7 +479,7 @@ ALTER TABLE `plano`
 -- AUTO_INCREMENT de tabela `plano_fornecedor`
 --
 ALTER TABLE `plano_fornecedor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `ramo_atendimento`

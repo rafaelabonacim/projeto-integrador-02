@@ -27,9 +27,6 @@ const institutionalController = {
         let { name, state, city } = req.query;
 
         state = state ? state : ""
-        city = city ? city : ""
-
-        console.log(name, state, city)
 
         const buscaFornecedores = await Fornecedor.findAll({
             include: [{
@@ -189,7 +186,22 @@ const institutionalController = {
         return res.redirect('/login')
     },
     login: (req, res) => {
+        
         return res.render('login', { title: 'Login'})
+    },
+    auth: async (req, res) => {
+        const { email, password } = req.body;
+
+        const usuario = await Usuario.findAll({
+            where: { email }
+        });
+
+        if (usuario && bcrypt.compareSync(password, usuario.senha)) {
+            req.session = usuarioEncontrado;
+            res.redirect('/admin');
+        } else {
+            res.redirect('/login');
+        }
     },
     forgotpassword: (req,res)=> {
         return res.render('esqueci-senha', {title: 'Esqueci senha'})

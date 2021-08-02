@@ -11,6 +11,7 @@ router.get('/perfilCadastro', institutionalController.perfil);
 
 // Rotas para páginas de login
 router.get('/login', institutionalController.login);
+router.post('/login', institutionalController.auth);
 router.get('/esqueci-senha', institutionalController.forgotpassword)
 
 // Rotas para páginas de cadastro

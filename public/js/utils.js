@@ -20,18 +20,20 @@ $(document).ready(function(){
     $('#document').length > 11 ? $('#document').mask('00.000.000/0000-00', documentFormats) : $('#document').mask('000.000.000-00#', documentFormats);
 
     //Comparacao de senhas nos formularios
-    (function () {
-        const password = document.getElementById("password");
-        const confirmPassword = document.getElementById("confirmPassword");
-        const confirmPasswordError = document.getElementsByClassName("confirm-password");
+    // (function () {
+    //     const password = document.getElementById("password");
+    //     const confirmPassword = document.getElementById("confirmPassword");
+    //     const confirmPasswordError = document.getElementsByClassName("confirm-password");
 
-        confirmPassword.addEventListener("keypress", function (){
-            if (password.value  !== confirmPassword.value) {
-                confirmPasswordError.setAttribute("isvalid", "false");
-            } else {
-                confirmPasswordError.setAttribute("isvalid", "true");
-            };
-        });
-    })();
+    //     confirmPassword.addEventListener("keypress", function (){
+    //         if (password.value  !== confirmPassword.value) {
+    //             confirmPasswordError.setAttribute("isvalid", "false");
+    //         } else {
+    //             confirmPasswordError.setAttribute("isvalid", "true");
+    //         };
+    //     });
+    // })();
+
+    // Funcao para percorrer o select e adicionar "selected"
+    // nos itens iguais aos do banco
 });
-

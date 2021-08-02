@@ -14,19 +14,19 @@
         </section>
 
         <section class="login-form">
-            <form class="needs-validation" novalidate>
+            <form action="/login" method="POST" class="needs-validation" novalidate>
                 <div class="container card">
 
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <input type="email" id="email" class=form-control placeholder="E-mail" required>
+                                <input type="email" id="email" name="email" class=form-control placeholder="E-mail" required>
                             </div>
                         </div>
 
                         <div class="col-12">
                             <div class="form-group">
-                                <input type="password" id="password" class=form-control placeholder="Senha" required>
+                                <input type="password" id="password" name="password" class=form-control placeholder="Senha" required>
                             </div>
                             
                             <div class="forgot-login">
