@@ -18,22 +18,36 @@ $(document).ready(function(){
     };
     
     $('#document').length > 11 ? $('#document').mask('00.000.000/0000-00', documentFormats) : $('#document').mask('000.000.000-00#', documentFormats);
-
-    //Comparacao de senhas nos formularios
-    // (function () {
-    //     const password = document.getElementById("password");
-    //     const confirmPassword = document.getElementById("confirmPassword");
-    //     const confirmPasswordError = document.getElementsByClassName("confirm-password");
-
-    //     confirmPassword.addEventListener("keypress", function (){
-    //         if (password.value  !== confirmPassword.value) {
-    //             confirmPasswordError.setAttribute("isvalid", "false");
-    //         } else {
-    //             confirmPasswordError.setAttribute("isvalid", "true");
-    //         };
-    //     });
-    // })();
-
-    // Funcao para percorrer o select e adicionar "selected"
-    // nos itens iguais aos do banco
 });
+
+// Comparacao de senhas nos formularios
+document.addEventListener('DOMContentLoaded', function() {
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirmPassword");
+    const confirmPasswordError = document.querySelector(".confirm-password");
+    console.log(confirmPasswordError)
+    
+    confirmPassword.addEventListener("keyup", function (){
+        console.log(password.value, confirmPassword.value)
+        if (password.value  !== confirmPassword.value) {
+            confirmPassword.setAttribute("isvalid", "false");
+            confirmPassword.classList.add("invalid");
+            confirmPasswordError.style.display = "block"
+        } else {
+            confirmPassword.setAttribute("isvalid", "true");
+            confirmPassword.classList.remove("invalid");
+            confirmPasswordError.style.display = "none"
+        };
+    });
+});
+
+// Loop do Select
+function selectSearch(selectId, dbParameter) {
+    const select = document.getElementById(selectId);
+    
+    for (let i = 0; i < select.length; i++) {
+        if (dbParameter === select[i].value){
+            select[i].setAttribute('selected', 'true');
+        };
+    }
+}

@@ -30,9 +30,9 @@
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
               <select id="choosePlan" name="choosePlan" class="form-control" disabled>
-                <option value="porca">Plano Porca</option>
+                <option value="Porca">Plano Porca</option>
                 <option value="Parafuso">Plano Parafuso</option>
-                <option value="porca-e-parafuso">Plano Porca e Parafuso</option>
+                <option value="Porca e Parafuso">Plano Porca e Parafuso</option>
               </select>
             </div>
           </div>
@@ -238,17 +238,9 @@
 
 <%- include('../partials/footer') -%>
 
-<script>
-  function selectSearch(selectId, dbParameter) {
-    const select = document.getElementById(selectId);
-    
-    for (let i = 0; i < select.length; i++) {
-        if (dbParameter === select[i].value){
-            select[i].setAttribute('selected', 'true');
-        };
-    }
-  }
+<script src="/js/utils.js"></script>
 
+<script>
   selectSearch('choosePlan', '<%= fornecedor.plano_contratado.nome %>');
   selectSearch('state', '<%= fornecedor.endereco.estado %>');
 </script>

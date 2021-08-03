@@ -4,7 +4,7 @@ var router = express.Router();
 const validaLogin = require('../middlewares/auth');
 const adminController = require('../controllers/adminController');
 
-router.use(validaLogin);
+// router.use(validaLogin);
 
 // Roras inicial do Admin
 router.get('/', adminController.index);
