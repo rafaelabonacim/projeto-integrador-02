@@ -17,7 +17,7 @@
 
   </section>
   <section class="admin-container admin-form-supplier">
-    <form action="/admin/editarFornecedor/<%= fornecedor.id %>?_method=PUT" method="POST" class="needs-validation" enctype="application/x-www-form-urlencoded">
+    <form action="/admin/editarFornecedor/<%= fornecedor.id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
       <div class="container card">
         <div class="row">
           <div class="col-12 text-center mb-3">
@@ -38,8 +38,8 @@
           </div>
 
           <div class="col-sm-12 col-md-6">
-            <div id="branchSelect" class="form-group">
-              <select id="branchSelect" name="branch" class="form-control multi-select" title="Ramo de Atuação" data-selected-text-format="count > 3" data-size="5" data-actions-box="true"  data-dropup-auto="false" multiple required>
+            <div id="branchs" class="form-group">
+              <select id="branchSelect" name="branch" class="form-control" multiple required>
                   <option value="1">Usinagem</option>
                   <option value="2">Micro Usinagem</option>
               </select>
@@ -63,7 +63,7 @@
 
           <div class="col-12 col-md-6">
             <div class="form-group">
-              <input type="email" id="email" name="email" class=form-control placeholder="E-mail" value="<%= fornecedor.usuario.email %>" required>
+              <input type="email" id="email" name="email" class="form-control" placeholder="E-mail" value="<%= fornecedor.usuario.email %>" required>
               <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
@@ -186,7 +186,7 @@
 
           <div class="col-sm-12">
             <div class="form-group">
-              <select id="stateArea" name="stateArea" class="form-control multi-select" title="Estados que atende" data-selected-text-format="count > 3" data-size="5" data-actions-box="true"  data-dropup-auto="false" multiple required>
+              <select id="stateArea" name="stateArea" class="form-control" multiple required>
                 <option value="1">AC</option>
                 <option value="2">AL</option>
                 <option value="3">AP</option>
@@ -234,13 +234,16 @@
       </div>
     </form>
   </section>
-</main>
+</main> 
 
 <%- include('../partials/footer') -%>
 
 <script src="/js/utils.js"></script>
 
 <script>
-  selectSearch('choosePlan', '<%= fornecedor.plano_contratado.nome %>');
-  selectSearch('state', '<%= fornecedor.endereco.estado %>');
+  utils.formValidation();
+  utils.selectSearch('choosePlan', '<%= fornecedor.plano_contratado.nome %>');
+  utils.selectSearch('state', '<%= fornecedor.endereco.estado %>');
+  utils.selectSearchMultiple('branchSelect', '<%= ramos %>');
+  utils.selectSearchMultiple('stateArea', '<%= areas %>');
 </script>

@@ -32,13 +32,11 @@ module.exports = (sequelize, DataTypes) => {
         Cliente.belongsTo(models.Usuario, {
             as : "usuario",
             foreignKey: "usuario_id",
-            onDelete: 'cascade'
         });
 
         Cliente.belongsTo(models.Endereco, {
             as : "endereco",
             foreignKey: "endereco_id",
-            onDelete: 'cascade'
         });
 
         Cliente.hasMany(models.Orcamento, {

@@ -40,13 +40,11 @@ module.exports = (sequelize, DataTypes) => {
         Orcamento.belongsTo(models.Fornecedor, {
             as : "orcamento_fornecedor",
             foreignKey: "fornecedor_id",
-            onDelete: 'cascade'
         });
 
         Orcamento.belongsTo(models.Cliente, {
             as : "orcamento_cliente",
             foreignKey: "cliente_id",
-            onDelete: 'cascade'
         });
     };
 

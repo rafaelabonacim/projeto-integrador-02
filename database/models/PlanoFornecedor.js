@@ -40,13 +40,11 @@ module.exports = (sequelize, DataTypes) => {
         PlanoFornecedor.belongsTo(models.Fornecedor, {
             as : "plano_contratado",
             foreignKey: "fornecedor_id",
-            onDelete: 'cascade'
         });
 
         PlanoFornecedor.belongsTo(models.Plano, {
             as : "plano",
             foreignKey: "plano_id",
-            onDelete: 'cascade'
         });
     };
 

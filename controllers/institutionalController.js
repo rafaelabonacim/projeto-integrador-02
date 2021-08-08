@@ -24,8 +24,9 @@ const institutionalController = {
     },
     parceirosBusca: async (req, res) => {
         // Busca pelo nome
-        let { name, state, city } = req.query;
+        let { name, state } = req.query;
 
+        name = name ? name : ""
         state = state ? state : ""
 
         const buscaFornecedores = await Fornecedor.findAll({

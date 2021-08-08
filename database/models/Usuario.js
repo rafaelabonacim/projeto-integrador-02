@@ -35,7 +35,6 @@ module.exports = (sequelize, DataTypes) => {
         Usuario.belongsTo(models.TipoUsuario, {
             as : "tipo_usuario",
             foreignKey: "tipo_usuario_id",
-            onDelete: 'cascade'
         });
 
         Usuario.hasOne(models.Fornecedor, {

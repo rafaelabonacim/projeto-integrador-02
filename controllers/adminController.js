@@ -20,40 +20,36 @@ const adminController = {
         return res.status(200).render('admin/listarFornecedor', { title: 'Lista de Fornecedores', fornecedores: fornecedores});
     },
     buscarFornecedor: async (req, res) => {
-        let { id, name, choosePlan, state, city, date } = req.query;
+        let { id, name, choosePlan, date } = req.query;
 
-        id = id ? id : "";
-        name = name ? name : "";
-        choosePlan = choosePlan ? choosePlan : "";
-        date = date ? date : "";
+        console.log(req.query)
+
+        // id = id ? id : id = "";
+        // name = name ? name :  name = "";
+        // choosePlan = choosePlan ? choosePlan : choosePlan = "";
+        // date = date ? date : date = "";
 
         const buscaFornecedores = await Fornecedor.findAll({
-            include: [{
-                model: Usuario,
-                as: 'usuario',
-                where: {
-                    nome: { [Op.like]: `%${name}%` }
+            include: [ 
+                {
+                    model: Usuario,
+                    as: 'usuario',
+                    where: { nome: { [Op.like]: `%${name}%`} }
+                },
+                { model: PlanoFornecedor, as: 'plano_contratado',
+                    // where: {
+                    //     [Op.or]: [
+                    //         { nome: { [Op.like]: `${choosePlan}` }},
+                    //         { data_fim: { [Op.like]: `%${date}%`}},
+                    //     ]
+                    // }
                 }
-            
-            },
-            {
-                model: PlanoFornecedor,
-                as: 'plano_contratado',
-                where: {
-                    [Op.or]: [
-                        { nome: { [Op.like]: `${choosePlan}`}},
-                        { data_fim: { [Op.like]: `${date}`}}
-                    ]
-                }
-            
-            }],
-            where: {
-                id: { [Op.like]: `%${id}%` }
-            },
-            order: [['usuario', 'nome', 'ASC']],
+            ],
+            where: { id },
+            order: [['id', 'ASC']],
         });
 
-        return res.status(200).render('admin/listarFornecedor', { title: 'Lista de Fornecedores', fornecedores: buscaFornecedores})
+        return res.status(200).render('admin/listarFornecedor', { title: 'Resultados da Busca de Fornecedores', fornecedores: buscaFornecedores})
     },
     adicionarFornecedor: async (req, res) => {
         return res.status(200).render('admin/adicionarFornecedor', { title: 'Adicionar Fornecedor'})
@@ -151,12 +147,32 @@ const adminController = {
     },
     editarFornecedor: async (req, res) => {
         const { id } = req.params;
+        const allAreas = []
+        const allRamos = []
         
         const fornecedor = await Fornecedor.findByPk(id,{
             include: ['usuario','endereco', 'area', 'ramo_atendimento', 'plano_contratado']
         });
         
-        return res.status(200).render('admin/editarFornecedor', { title: 'Editar Fornecedor', fornecedor: fornecedor})
+        // retorno das areas de atendimento
+        const areas = await FornecedorHasArea.findAll({
+            where: { fornecedor_id: id }
+        });
+        
+        for (let area of areas) {
+            allAreas.push(area.area_de_atendimento_id)
+        }
+
+        // retorno dos ramos
+        const ramos = await FornecedorHasRamo.findAll({
+            where: { fornecedor_id: id }
+        });
+        
+        for (let ramo of ramos) {
+            allRamos.push(ramo.ramo_atendimento_id)
+        }
+        
+        return res.status(200).render('admin/editarFornecedor', { title: 'Editar Fornecedor', fornecedor: fornecedor, areas: allAreas, ramos: allRamos})
     },
     atualizarFornecedor: async (req, res) => {
         const { id } = req.params;
@@ -182,8 +198,6 @@ const adminController = {
             console.log('Erro ao atualizar Fornecedor', fornecedorAtualizado)
         });
 
-
-        const validaçãoPassword = password == "" ? password = senha : password
 
         const usuarioAtualizado = await Usuario.update({
             nome: name,

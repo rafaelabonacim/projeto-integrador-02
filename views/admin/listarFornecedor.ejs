@@ -29,7 +29,7 @@
           </div>
         </div>
 
-        <form action="/admin/listarFornecedor/resultado" method="get">
+        <form action="/admin/listarFornecedor/resultado" method="GET" novalidate>
           <div id="filterResults" class="row list-filters collapse">
             <div class="col-sm-12 col-md">
               <div class="form-group">
@@ -46,10 +46,10 @@
             <div class="col-sm-12 col-md">
               <div class="form-group">
                 <select name="choosePlan" class="form-control">
-                  <option disabled selected>Plano</option>
-                  <option value="Parafuso">Plano Parafuso</option>
-                  <option value="Porca">Plano Porca</option>
-                  <option value="Porca e Parafuso">Plano Porca e Parafuso</option>
+                  <option value="" selected>Plano</option>
+                  <option value="Parafuso">Parafuso</option>
+                  <option value="Porca">Porca</option>
+                  <option value="Porca e Parafuso">Porca e Parafuso</option>
                 </select>
               </div>
             </div>

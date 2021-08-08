@@ -24,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'ramo_atendimento_id',
             otherKey: 'fornecedor_id',
             timestamps: false,
-            onDelete: 'cascade'
         });
     };
     
