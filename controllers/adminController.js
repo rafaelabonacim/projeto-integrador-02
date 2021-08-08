@@ -150,97 +150,106 @@ const adminController = {
         return res.status(200).redirect('/admin/listarFornecedor')
     },
     editarFornecedor: async (req, res) => {
-        const {id} = req.params;
+        const { id } = req.params;
         
         const fornecedor = await Fornecedor.findByPk(id,{
             include: ['usuario','endereco', 'area', 'ramo_atendimento', 'plano_contratado']
         });
-
-        // const branchIds = [];
-        // const branchData = fornecedor.ramo_atendimento
-        
-        // for (let i = 0; i < branchData.length; i++) {
-        //     branchIds.push(fornecedor.ramo_atendimento[i].fornecedor_has_ramo.ramo_atendimento_id)
-        // };
         
         return res.status(200).render('admin/editarFornecedor', { title: 'Editar Fornecedor', fornecedor: fornecedor})
     },
     atualizarFornecedor: async (req, res) => {
         const { id } = req.params;
         const { branch, name, document, email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city, stateArea } = req.body;
-        
+        const fornecedor = await Fornecedor.findByPk(id);
+        const usuarioId = fornecedor.usuario_id;
+        const usuario = await Usuario.findByPk(usuarioId);
+        const endereco = fornecedor.endereco_id;
+        const senha = usuario.senha;
+
         const cadastroRegex = /[ \(\)\x2D-\/]/g;
 
-        console.log(req.body);
-
+        // console.log('Dados do Fornecedor:', fornecedor)
+        // console.log('Dados usuario: ', usuario)
+        
         const fornecedorAtualizado = await Fornecedor.update({
             telefone: phone.replace(cadastroRegex,''),
             whatsapp: whatsapp.replace(cadastroRegex,''),
             cnpj: document.replace(cadastroRegex, ''),
-        },
-        {
+        }, {
             where: { id }
         }).catch(function (err) {
-            console.log('Erro ao atualizar Fornecedor')
+            console.log('Erro ao atualizar Fornecedor', fornecedorAtualizado)
         });
 
-        // const usuarioAtualizado = await Usuario.update({
-        //     nome: name,
-        //     email,
-        //     senha: bcrypt.hashSync(password, 10),
-        // },
-        // {
-        //     where: { id }
-        // }).catch(function (err) {
-        //     console.log('Erro ao atualizar usuário', err)
-        // });
 
-        // const enderecoAtualizdo = await Endereco.update({
-        //     cep: zipcode.replace(cadastroRegex,''),
-        //     logradouro: address,
-        //     complemento: complement,
-        //     bairro: district,
-        //     numero: parseInt(number),
-        //     estado: state,
-        //     cidade: city
-        // },
-        // {
-        //     where: { id }
-        // }).catch(function (err) {
-        //     console.log('Erro ao atualizar Endereço', err)
-        // });
+        const validaçãoPassword = password == "" ? password = senha : password
 
-        // // Areas de atendimento
-        // const areas = Array.isArray(stateArea) ? stateArea : [stateArea]
+        const usuarioAtualizado = await Usuario.update({
+            nome: name,
+            email,
+            senha: bcrypt.hashSync(password, 10),
+        }, {
+            where: { id: usuarioId }
+        }).catch(function (err) {
+            console.log('Erro ao atualizar usuário', usuarioAtualizado)
+        });
 
-        // for(const state of areas){
-        //     await FornecedorHasArea.update({
-        //         fornecedor_id: fornecedorCriado.id,
-        //         area_de_atendimento_id: state
-        //     },
-        //     {
-        //         where: { id }
-        //     }).catch(function (err) {
-        //         console.log('Erro ao atualizar Área de Atendimento', err)
-        //     });
-        // };
+        const enderecoAtualizado = await Endereco.update({
+            cep: zipcode.replace(cadastroRegex,''),
+            logradouro: address,
+            complemento: complement,
+            bairro: district,
+            numero: parseInt(number),
+            estado: state,
+            cidade: city
+        },
+        {
+            where: { id: endereco }
+        }).catch(function (err) {
+            console.log('Erro ao atualizar Endereço', enderecoAtualizado)
+        });
 
-        // // Ramo de Atuacao
-        // const ramos = Array.isArray(branch) ? branch : [branch]
+        // Areas de atendimento
 
-        // for(const ramo of ramos){
-        //     await FornecedorHasRamo.update({
-        //         fornecedor_id: fornecedorCriado.id,
-        //         ramo_atendimento_id: ramo
-        //     },
-        //     {
-        //         where: { id }
-        //     }).catch(function (err) {
-        //         console.log('Erro ao atualizar Área de Atendimento', err)
-        //     });
-        // };
+        // deletar todas areas cadastradas
+        const deleteAreas = await FornecedorHasArea.destroy({
+            where: { fornecedor_id: id }
+        });
 
-        return res.status(200).redirect('admin/listarFornecedor')
+        // recriar todas areas com o novo array retornado
+        const areas = Array.isArray(stateArea) ? stateArea : [stateArea]
+
+        for(const state of areas){
+            await FornecedorHasArea.create({
+                fornecedor_id: id,
+                area_de_atendimento_id: state
+            }).catch(function (err) {
+                console.log('Erro ao criar Área de Atendimento', err)
+            });
+        };
+
+
+        // Ramo de Atuacao
+
+        // deletar todas ramos cadastrados
+        const deleteRamos = await FornecedorHasRamo.destroy({
+            where: { fornecedor_id: id }
+        });
+
+        // recriar todos ramos com o novo array retornado
+        const ramos = Array.isArray(branch) ? branch : [branch]
+
+        for(const ramo of ramos){
+            await FornecedorHasRamo.create({
+                fornecedor_id: id,
+                ramo_atendimento_id: ramo
+            }).catch(function (err) {
+                console.log('Erro ao criar Área de Atendimento', err)
+            });
+        };
+
+        return res.status(200).redirect('/admin/listarFornecedor')
     },
     excluirFornecedor: async (req,res) => {
         const { id } = req.params;
@@ -252,118 +261,14 @@ const adminController = {
         return res.redirect('/admin/listarFornecedor')
     },
     listarCliente: async (req, res) => {
-        const clientes = await Cliente.findAll({
-            include: ['usuario'],
-            order: [['id', 'ASC']]
-            
-        });
-
-        return res.render('admin/listarCliente', { title: 'Listar Clientes', clientes:clientes})
+        return res.render('admin/listarCliente')
     },
     adicionarCliente: async (req,res) => {
         return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
     },
-    salvarCliente: async(req, res) => {
-        const{name,email, phone, whatsapp, password, zipcode, address, numero, complement, district, state, city} = req.body
-        
-        const usuarioCriado = await Usuario.create({
-            nome: name,
-            email,
-            senha: bcrypt.hashSync(password, 10),
-            tipo_usuario_id: 1,
-        }).catch(function (err) {
-            console.log('Erro ao criar usuário', err)
-        });
-
-        const enderecoCriado = await Endereco.create({
-            cep: zipcode,
-            logradouro: address,
-            numero: Number(numero),
-            complemento: complement,
-            bairro: district, 
-            estado:state,
-            cidade: city      
-        }).catch(function (err) {
-            console.log('Erro ao criar Endereço', err)
-        });
-
-        const clienteCriado = await Cliente.create({
-            telefone: phone,
-            whatsapp: whatsapp,
-            usuario_id: usuarioCriado.id,
-            endereco_id: enderecoCriado.id
-        }).catch(function (err) {
-            console.log('Erro ao criar Fornecedor')
-            console.log(err, req.body)
-        });
-        
-        return res.redirect('/admin/listarCliente')
-    },
     editarCliente: async (req,res) => {
-        const {id} = req.params;
-        
-        const cliente = await Cliente.findByPk(id,{
-            include: ['usuario','endereco']
-        });
-        //return res.json(cliente).status(200);
-
-        return res.render('admin/editarCliente', {cliente:cliente})
-    
+        return res.render('admin/editarCliente', { title: 'Editar Cliente'})
     },
-    atualizarCliente: async (req,res) => {
-        const{name,email, phone, whatsapp, password, zipcode, address, numero, complement, district, state, city} = req.body
-        const {id} = req.params;
-
-        const usuarioAtualizado = await Usuario.update({
-            nome: name,
-            email,
-            senha: bcrypt.hashSync(password, 10),
-            tipo_usuario_id: 1,
-        },{
-            where: {id}
-        }).catch(function (err) {
-            console.log('Erro ao editar usuário', err)
-        });
-
-        const enderecoAtualizado = await Endereco.update({
-            cep: zipcode,
-            logradouro: address,
-            numero: Number(numero),
-            complemento: complement,
-            bairro: district, 
-            estado:state,
-            cidade: city      
-        },{
-            where: {id}
-        }).catch(function (err) {
-            console.log('Erro ao editar Endereço', err)
-        });
-
-        const clienteAtualizado = await Cliente.update({
-            telefone: phone,
-            whatsapp: whatsapp,
-            usuario_id: usuarioCriado.id,
-            endereco_id: enderecoCriado.id
-        }, {
-            where: {id}
-        }).catch(function (err) {
-            console.log('Erro ao criar Fornecedor')
-            console.log(err, req.body)
-        });
-        //return res.json(clienteAtualizado);
-        
-        return res.redirect('admin/listarCliente')
-    },
-    excluirCliente: async (req,res) =>{
-        const {id} = req.params;
-
-        const cliente = await Cliente.destroy({
-            where:{id}
-        });
-        return res.json(cliente);
-    
-    },
-
     listarOrcamentos:  (req, res) => {
         return res.render('admin/listarOrcamentos', { title: 'Listar Orçamentos'})
     },
