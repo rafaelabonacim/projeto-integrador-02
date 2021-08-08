@@ -18,7 +18,7 @@
   </section>
 
   <section class="admin-container admin-form-supplier">
-    <form class="needs-validation" action="/admin/adicionarFornecedor" method="POST">
+    <form class="needs-validation" action="/admin/adicionarFornecedor" method="POST" novalidate>
       <div class="container card">
         
         <div class="row">
@@ -91,12 +91,12 @@
             </div>                        
           </div>
 
-          <!-- <div class="col-sm-12 col-md-6">
+          <div class="col-sm-12 col-md-6">
               <div class="form-group">
                 <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirmar Senha" required>
                 <div class="invalid-feedback confirm-password">A senha não é igual</div>
               </div>
-          </div> -->
+          </div>
         </div>
 
         <div class="row">
@@ -240,3 +240,8 @@
 </main>
 
 <%- include('../partials/footer') -%>
+
+<script>
+  utils.formValidation();
+  utils.comparePasswords();
+</script>

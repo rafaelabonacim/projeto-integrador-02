@@ -242,6 +242,7 @@
 
 <script>
   utils.formValidation();
+  utils.comparePasswords();
   utils.selectSearch('choosePlan', '<%= fornecedor.plano_contratado.nome %>');
   utils.selectSearch('state', '<%= fornecedor.endereco.estado %>');
   utils.selectSearchMultiple('branchSelect', '<%= ramos %>');
