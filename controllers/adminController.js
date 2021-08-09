@@ -52,7 +52,16 @@ const adminController = {
         return res.status(200).render('admin/listarFornecedor', { title: 'Resultados da Busca de Fornecedores', fornecedores: buscaFornecedores})
     },
     adicionarFornecedor: async (req, res) => {
-        return res.status(200).render('admin/adicionarFornecedor', { title: 'Adicionar Fornecedor'})
+        const allUsers =[];
+        
+        // retorno dos Usuários
+        const usuarios = await Usuario.findAll();
+        
+        for (let usuario of usuarios) {
+            allUsers.push(usuario.email)
+        }
+
+        return res.status(200).render('admin/adicionarFornecedor', { title: 'Adicionar Fornecedor', usuarios: allUsers})
     },
     adicionarFornecedorCreate: async (req, res) => {
         const { plan, branch, name, document, email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city, stateArea } = req.body;
@@ -149,6 +158,7 @@ const adminController = {
         const { id } = req.params;
         const allAreas = []
         const allRamos = []
+        const allUsers =[];
         
         const fornecedor = await Fornecedor.findByPk(id,{
             include: ['usuario','endereco', 'area', 'ramo_atendimento', 'plano_contratado']
@@ -171,8 +181,15 @@ const adminController = {
         for (let ramo of ramos) {
             allRamos.push(ramo.ramo_atendimento_id)
         }
+
+        // retorno dos Usuários
+        const usuarios = await Usuario.findAll();
         
-        return res.status(200).render('admin/editarFornecedor', { title: 'Editar Fornecedor', fornecedor: fornecedor, areas: allAreas, ramos: allRamos})
+        for (let usuario of usuarios) {
+            allUsers.push(usuario.email)
+        }
+        
+        return res.status(200).render('admin/editarFornecedor', { title: 'Editar Fornecedor', fornecedor: fornecedor, areas: allAreas, ramos: allRamos, usuarios: allUsers})
     },
     atualizarFornecedor: async (req, res) => {
         const { id } = req.params;
@@ -185,9 +202,6 @@ const adminController = {
 
         const cadastroRegex = /[ \(\)\x2D-\/]/g;
 
-        // console.log('Dados do Fornecedor:', fornecedor)
-        // console.log('Dados usuario: ', usuario)
-        
         const fornecedorAtualizado = await Fornecedor.update({
             telefone: phone.replace(cadastroRegex,''),
             whatsapp: whatsapp.replace(cadastroRegex,''),

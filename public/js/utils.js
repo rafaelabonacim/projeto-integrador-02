@@ -44,10 +44,8 @@ const utils = {
             const password = document.getElementById("password");
             const confirmPassword = document.getElementById("confirmPassword");
             const confirmPasswordError = document.querySelector(".confirm-password");
-            console.log(confirmPasswordError)
             
             confirmPassword.addEventListener("keyup", function (){
-                console.log(password.value, confirmPassword.value)
                 if (password.value  !== confirmPassword.value) {
                     confirmPassword.setAttribute("isvalid", "false");
                     confirmPassword.classList.add("invalid");
@@ -59,5 +57,29 @@ const utils = {
                 };
             });
         })
+    }),
+    checkEmail: (function(dbParameter) {
+        document.addEventListener('DOMContentLoaded', function() {
+            const email = document.getElementById("email");
+            const emailError = document.querySelector(".email-in-use");
+            const dbArray = dbParameter.split(',')
+            Array.isArray(dbParameter) ? dbParameter : [dbParameter]
+
+            email.addEventListener("focusout", function (){
+                for (let i = 0; i < dbArray.length; i++) {
+                    if (email.value === dbArray[i]) {
+                        email.setAttribute("isvalid", "false");
+                        email.classList.add("invalid");
+                        emailError.style.display = "block"
+                        emailError.innerHTML = "E-mail já cadastrado"
+                    } else {
+                        email.setAttribute("isvalid", "true");
+                        email.classList.remove("invalid");
+                        emailError.style.display = "none"
+                        emailError.innerHTML = "Campo obrigatório"
+                    };
+                };
+            });
+        });
     }),
 }

@@ -52,8 +52,17 @@ const institutionalController = {
     perfil: (req, res) => {
         return res.render('perfilCadastro', { title: 'Cadastro'})
     },
-    cadastroFornecedor: (req, res) => {
-        return res.render('cadastroFornecedor', { title: 'Cadastro de Fornecedor'})
+    cadastroFornecedor: async (req, res) => {
+        const allUsers =[];
+        
+        // retorno dos Usuários
+        const usuarios = await Usuario.findAll();
+        
+        for (let usuario of usuarios) {
+            allUsers.push(usuario.email)
+        }
+
+        return res.render('cadastroFornecedor', { title: 'Cadastro de Fornecedor', usuarios: allUsers })
     },
     cadastroFornecedorCreate: async (req, res) => {
         const { plan, branch, name, document, email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city, stateArea } = req.body;

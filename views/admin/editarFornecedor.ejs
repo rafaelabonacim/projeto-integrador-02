@@ -64,7 +64,7 @@
           <div class="col-12 col-md-6">
             <div class="form-group">
               <input type="email" id="email" name="email" class="form-control" placeholder="E-mail" value="<%= fornecedor.usuario.email %>" required>
-              <div class="invalid-feedback">Campo obrigatório</div>
+              <div class="invalid-feedback email-in-use">Campo obrigatório</div>
             </div>
           </div>
 
@@ -247,4 +247,5 @@
   utils.selectSearch('state', '<%= fornecedor.endereco.estado %>');
   utils.selectSearchMultiple('branchSelect', '<%= ramos %>');
   utils.selectSearchMultiple('stateArea', '<%= areas %>');
+  utils.checkEmail('<%= usuarios %>');
 </script>

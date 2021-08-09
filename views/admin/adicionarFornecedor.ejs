@@ -68,7 +68,7 @@
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
               <input type="email" id="email" name="email" class=form-control placeholder="E-mail" required>
-              <div class="invalid-feedback">Campo obrigatório</div>
+              <div class="invalid-feedback email-in-use">Campo obrigatório</div>
             </div>
           </div>
 
@@ -244,4 +244,5 @@
 <script>
   utils.formValidation();
   utils.comparePasswords();
+  utils.checkEmail('<%= usuarios %>');
 </script>
