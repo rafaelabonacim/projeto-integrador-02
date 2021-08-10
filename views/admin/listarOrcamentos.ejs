@@ -28,13 +28,10 @@
           </div>
           
           <div class="row">
+
             <div class="col-sm-12 col-md-3">
               <div class="form-group">
-                <select name="chooseBranch" class="form-control" required>
-                  <option disabled selected>Ramo</option>
-                  <option value="usinagem">Usinagem</option>
-                  <option value="micro-usinagem">Micro usinagem</option>
-                </select>
+                <input type="date" id="date" class="form-control" placeholder="Data">
               </div> 
             </div>
 
@@ -46,36 +43,14 @@
 
             <div class="col-sm-12 col-md-3">
               <div class="form-group">
-                <input type="date" id="date" class="form-control" placeholder="Data">
-              </div> 
-            </div>
-
-            <div class="col-sm-12 col-md-3">
-              <div class="form-group">
                 <input type="email" name="email" class="form-control" placeholder="Email">
-              </div> 
+              </div>
             </div>
           </div>
           
           <div class="collapse-forms">
             <div id="filters" class="row collapse">
-              <div class="col-sm-12 col-md-3">
-                <div class="form-group">
-                  <select name="chooseMaterial" class="form-control" required>
-                    <option disabled selected>Matéria Prima</option>
-                    <option value="material-de-usinagem-1">Material de usinagem 1</option>
-                    <option value="material-de-usinagem-2">Material de usinagem 2</option>
-                    <option value="material-de-usinagem-3">Material de usinagem 3</option>
-                    <option value="material-de-usinagem-4">Material de usinagem 4</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="col-sm-12 col-md-3">
-                <div class="form-group">
-                  <input type="tel" name="phone" maxlength="16" class="form-control" placeholder="Telefone (com DDD)">
-                </div>
-              </div>
+              
             </div>
           </div>
 
@@ -92,42 +67,35 @@
               <table class="table table-bordered table-responsive-sm">
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col">Data</th>
                     <th scope="col">Cliente</th>
                     <th scope="col">E-mail</th>
-                    <th scope="col">Data</th>
                     <th scope="col">Ações</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th>1</th>
+                    <td>30/05/1678</td>
                     <td>Jojo Toddynho</td>
                     <td>Joujo@toddy.com</td>
-                    <td>30/05/1678</td>
                     <td class="table-actions">
                       <a href="/admin/orcamentoDetalhado" title="Detalhes"><i class="fas fa-info-circle color-orange2"></i></a>
-                      <a href="#" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
                     </td>
                   </tr>
                   <tr>
-                    <th scope="row">2</th>
+                    <td>30/05/1500</td>
                     <td>Sandra Lee</td>
                     <td>pimple@popper.com</td>
-                    <td>30/05/1500</td>
                     <td class="table-actions">
                       <a href="/admin/orcamentoDetalhado" title="Detalhes"><i class="fas fa-info-circle color-orange2"></i></a>
-                      <a href="#" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
                     </td>
                   </tr>                           
                   <tr>
-                    <th scope="row">3</th>
+                    <td>30/05/1997</td>
                     <td>Moda Foca</td>
                     <td>jones@bol.com.br</td>
-                    <td>30/05/1997</td>
                     <td class="table-actions">
                       <a href="/admin/orcamentoDetalhado" title="Detalhes"><i class="fas fa-info-circle color-orange2"></i></a>
-                      <a href="#" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
                     </td>
                   </tr>
                 </tbody>

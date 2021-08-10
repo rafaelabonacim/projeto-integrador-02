@@ -18,10 +18,11 @@
     </section>
 
     <section class="quote-form">
+      <% orcamento.forEach(orcamento => { %>
       <div class="container card">
         <div class="row">
           <div class="col-12 text-center mb-5">
-            <h2>Detalhes do Orçamento: ID</h2>
+            <h2>Detalhes do Orçamento: <%= orcamento.id %></h2>
           </div>
         </div>  
 
@@ -33,21 +34,21 @@
 
         <div class="row">
           <div class="col-sm-12 col-md-3 col-lg-3">
-            <p><strong class="color-blue2">Quantidade:</strong> 1000</p>
+            <p><strong class="color-blue2">Quantidade:</strong><%= orcamento.quantidade %></p>
           </div>
 
           <div class="col-sm-12 col-md-5 col-lg-4">
-            <p><strong class="color-blue2">Prazo para entrega:</strong> 24/05/2022</p>
+            <p><strong class="color-blue2">Prazo para entrega:</strong><%= orcamento.prazo %></p>
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-4">
-            <p><strong class="color-blue2">Matéria prima:</strong> Chumbo</p>
+            <p><strong class="color-blue2">Matéria prima:</strong><%= orcamento.materia_prima %></p>
           </div>
         </div> 
 
         <div class="row">
           <div class="col-12">
-            <p><strong class="color-blue2">Mais detalhes:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eleifend mauris ut lorem volutpat tristique. Duis tempus ipsum vel feugiat placerat. Sed maximus ac dui tincidunt dignissim. Donec tempus facilisis ex ut sodales. Pellentesque dui nibh, lacinia interdum magna sit amet, molestie lobortis velit. Sed vel sollicitudin est, in accumsan justo. Pellentesque sit amet iaculis lorem. </p>
+            <p><strong class="color-blue2">Mais detalhes:</strong><%= orcamento.detalhes %></p>
           </div>
         </div>
 
@@ -115,6 +116,7 @@
         </div>
 
       </div>
+      <% }); %>
 
     </section>
 

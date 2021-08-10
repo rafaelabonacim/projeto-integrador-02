@@ -49,12 +49,53 @@ const adminController = {
         
         return res.redirect('admin/listarCliente');
     },
-    listarOrcamentos:  (req, res) => {
-        return res.render('admin/listarOrcamentos', { title: 'Listar Orçamentos'})
+    listarOrcamentos:  async (req, res) => {
+        // const orcamento = await Orcamento.findAll({
+        //     include: ['orcamento_cliente'],
+        //     order: [['cliente_id', 'ASC']]
+            
+        // }); 
+
+        return res.render('admin/listarOrcamentos', { title: 'Listar Orçamentos'})    
     },
-    orcamentoDetalhado:  (req, res) => {
-        return res.render('admin/orcamentoDetalhado', { title: 'Orçamento Detalhado'})
-    },
+    // orcamentoDetalhado:  async (req, res) => {
+    //     return res.render('admin/orcamentoDetalhado', { title: 'Orçamento Detalhado'})
+    // },
+    // filtroDataOrcamento: async (req, res) => {
+    //     const { data } = req.params;
+
+    //     const orcamentosFiltrados = await Orcamento.findAll({
+    //         where: {
+    //             '?': data
+    //         }
+    //     });
+
+    //     return res.json(orcamentosFiltrados);
+    // },
+    // filtroClienteOrcamento: async (req, res) => {
+    //     const { cliente } = req.params;
+
+    //     const orcamentosFiltrados = await Orcamento.findAll({
+    //         where: {
+    //             '?': cliente
+    //         }
+    //     });
+
+    //     return res.json(orcamentosFiltrados);
+    // },
+    // filtroEmailOrcamento: async (req, res) => {
+    //     const { email } = req.params;
+
+    //     const orcamentosFiltrados = await Orcamento.findAll({
+    //         where: {
+    //             '?': email
+    //         }
+    //     });
+
+    //     return res.json(orcamentosFiltrados);
+    // },
+    
+    
 
 };
 

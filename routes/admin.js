@@ -31,6 +31,6 @@ router.put('/editarCliente', adminController.atualizarCliente);
 
 // Rotas orçamentos
 router.get('/listarOrcamentos', adminController.listarOrcamentos);
-router.get('/orcamentoDetalhado', adminController.orcamentoDetalhado);
+// router.get('/orcamentoDetalhado', adminController.orcamentoDetalhado);
 
 module.exports = router;
