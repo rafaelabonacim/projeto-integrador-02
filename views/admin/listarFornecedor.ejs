@@ -18,7 +18,6 @@
   </section>
 
   <section class="admin-container admin-list-supplier">
-    <form class="needs-validation" novalidate>
       <div class="container card">
         
         <div class="row">
@@ -30,42 +29,44 @@
           </div>
         </div>
 
-        <div id="filterResults" class="row list-filters collapse">
-          <div class="col-sm-12 col-md">
-            <div class="form-group">
-              <input type="text" name="id" class="form-control" placeholder="ID">
+        <form action="/admin/listarFornecedor/resultado" method="GET" novalidate>
+          <div id="filterResults" class="row list-filters collapse">
+            <div class="col-sm-12 col-md">
+              <div class="form-group">
+                <input type="text" name="id" class="form-control" placeholder="ID">
+              </div>
             </div>
-          </div>
 
-          <div class="col-sm-12 col-md">
-            <div class="form-group">
-              <input type="text" name="name" class="form-control" placeholder="Nome">
+            <div class="col-sm-12 col-md">
+              <div class="form-group">
+                <input type="text" name="name" class="form-control" placeholder="Nome">
+              </div>
             </div>
-          </div>
 
-          <div class="col-sm-12 col-md">
-            <div class="form-group">
-              <select name="choosePlan" class="form-control" required>
-                <option disabled selected>Plano</option>
-                <option value="parafuso">Plano Parafuso</option>
-                <option value="porca">Plano Porca</option>
-                <option value="porca-e-parafuso">Plano Porca e Parafuso</option>
-              </select>
+            <div class="col-sm-12 col-md">
+              <div class="form-group">
+                <select name="choosePlan" class="form-control">
+                  <option value="" selected>Plano</option>
+                  <option value="Parafuso">Parafuso</option>
+                  <option value="Porca">Porca</option>
+                  <option value="Porca e Parafuso">Porca e Parafuso</option>
+                </select>
+              </div>
             </div>
-          </div>
 
-          <div class="col-sm-12 col-md">
-            <div class="form-group">
-              <input type="text" name="date" class="form-control" placeholder="Data de Expiração">
+            <div class="col-sm-12 col-md">
+              <div class="form-group">
+                <input type="date" name="date" class="form-control" placeholder="Data de Expiração">
+              </div>
             </div>
-          </div>
 
-          <div class="col-sm-12 col-md-auto">
-            <div class="form-group">
-                <button type="search" class="btn btn-solid btn-blue1"><i class="fas fa-search"></i> Procurar</button>
+            <div class="col-sm-12 col-md-auto">
+              <div class="form-group">
+                  <button type="search" class="btn btn-solid btn-blue1"><i class="fas fa-search"></i> Procurar</button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
 
         <div class="row">
           <div class="col-sm-12">
@@ -77,7 +78,7 @@
                   <th scope="col">Plano</th>
                   <th scope="col">Expiração</th>
                   <th scope="col">Ações</th>
-                  <th scope="col">Status</th>
+                  <!-- <th scope="col">Status</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -90,48 +91,18 @@
                   <td class="table-actions">
                     <a href="/admin/orcamentosFornecedor/<%= fornecedor.id %>" title="Orçamentos"><i class="far fa-file-alt color-blue1"></i></a>
                     <a href="/admin/editarFornecedor/<%= fornecedor.id %>" title="Editar"><i class="far fa-edit color-orange2"></i></a>
-                    <a href="#" data-toggle="modal" data-target="#removeModal" data-url="/admin/excluirFornecedor/<%= fornecedor.id %>" class="delete-button" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
+                    <form action="/admin/deletarFornecedor/<%= fornecedor.id %>?_method=DELETE" method="POST">
+                      <a class="delete-button" title="Excluir"><i class="far fa-trash-alt color-orange1" role="button" data-toggle="modal" data-target="#removeModal"></i></a>
+                      <%- include('../partials/admin/modalExcluir') -%>
+                    </form>
+                    <!-- <a href="#" data-toggle="modal" data-target="#removeModal" data-url="/admin/excluirFornecedor/<%= // fornecedor.id %>" class="delete-button" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a> -->
                   </td>
-                  <td>
+                  <!-- <td>
                     <div class="custom-control custom-switch">
-                      <input type="checkbox" class="custom-control-input" id="status1" checked>
-                      <label class="custom-control-label" for="status1"></label>
+                      <input type="checkbox" class="custom-control-input" id="<%= //fornecedor.id %>" checked>
+                      <label class="custom-control-label" for="<%= //fornecedor.id %>"></label>
                     </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Hoja</td>
-                  <td>Parafuso</td>
-                  <td>24/05/2022</td>
-                  <td class="table-actions">
-                    <a href="#" title="Orçamentos"><i class="far fa-file-alt color-blue1"></i></a>
-                    <a href="/admin/editarFornecedor" title="Editar"><i class="far fa-edit color-orange2"></i></a>
-                    <a href="#" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
-                  </td>
-                  <td>
-                    <div class="custom-control custom-switch">
-                      <input type="checkbox" class="custom-control-input" id="status2">
-                      <label class="custom-control-label" for="status2"></label>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Aja</td>
-                  <td>Porca e Parafuso</td>
-                  <td>24/05/2022</td>
-                  <td class="table-actions">
-                    <a href="#" title="Orçamentos"><i class="far fa-file-alt color-blue1"></i></a>
-                    <a href="/admin/editarFornecedor" title="Editar"><i class="far fa-edit color-orange2"></i></a>
-                    <a href="#" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
-                  </td>
-                  <td>
-                    <div class="custom-control custom-switch">
-                      <input type="checkbox" class="custom-control-input" id="status3" checked>
-                      <label class="custom-control-label" for="status3"></label>
-                    </div>
-                  </td>
+                  </td> -->
                 </tr>
                 <% }); %>
               </tbody>
@@ -162,10 +133,7 @@
         </div>
       </div>
 
-    </form>
   </section>
 </main>
 
 <%- include('../partials/footer') -%>
-
-<%- include('../partials/admin/modalExcluir') -%>

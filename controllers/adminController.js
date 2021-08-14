@@ -1,27 +1,76 @@
 const bcrypt = require('bcrypt');
 const config = require('../database/config/config');
-const { AreaDeAtendimento, Cliente, Endereco, Fornecedor, Orcamento, Plano, PlanoFornecedor, TipoUsuario, Usuario, FornecedorHasArea } = require('../database/models');
+const { AreaDeAtendimento, Cliente, Endereco, Fornecedor, Orcamento, Plano, PlanoFornecedor, TipoUsuario, Usuario, FornecedorHasArea, FornecedorHasRamo } = require('../database/models');
 
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 const adminController = {
     index: (req, res) => {
-        return res.render('admin/index', { title: 'Painel Administrativo'})
+        const userSession = req.session
+        return res.status(200).render('admin/index', { title: 'Painel Administrativo', userSession: userSession})
     },
     listarFornecedor: async (req, res) => {
-        // Listagem de Fornecedores
+        const userSession = req.session
+
         const fornecedores = await Fornecedor.findAll({
-            include: ['usuario', 'endereco', 'plano_contratado'],
+        include: ['usuario', 'plano_contratado'],
             order: [['usuario', 'nome', 'ASC']],
             limit: 30,
-            //offset: 0
         });
 
-        return res.render('admin/listarFornecedor', { title: 'Listar de Fornecedores', fornecedores: fornecedores});
+        return res.status(200).render('admin/listarFornecedor', { title: 'Lista de Fornecedores', fornecedores: fornecedores, userSession: userSession });
+    },
+    buscarFornecedor: async (req, res) => {
+        const userSession = req.session
+        
+        let { id, name, choosePlan, date } = req.query;
+
+        console.log(req.query)
+
+        // id = id ? id : id = "";
+        // name = name ? name :  name = "";
+        // choosePlan = choosePlan ? choosePlan : choosePlan = "";
+        // date = date ? date : date = "";
+
+        const buscaFornecedores = await Fornecedor.findAll({
+            include: [ 
+                {
+                    model: Usuario,
+                    as: 'usuario',
+                    where: { nome: { [Op.like]: `%${name}%`} }
+                },
+                { model: PlanoFornecedor, as: 'plano_contratado',
+                    // where: {
+                    //     [Op.or]: [
+                    //         { nome: { [Op.like]: `${choosePlan}` }},
+                    //         { data_fim: { [Op.like]: `%${date}%`}},
+                    //     ]
+                    // }
+                }
+            ],
+            where: { id },
+            order: [['id', 'ASC']],
+        });
+
+        return res.status(200).render('admin/listarFornecedor', { title: 'Resultados da Busca de Fornecedores', fornecedores: buscaFornecedores, userSession: userSession})
     },
     adicionarFornecedor: async (req, res) => {
-        const { plan, name, document, email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city, stateArea } = req.body;
+        const userSession = req.session
+
+        const allUsers =[];
+        
+        // retorno dos Usuários
+        const usuarios = await Usuario.findAll();
+        
+        for (let usuario of usuarios) {
+            allUsers.push(usuario.email)
+        }
+
+        return res.status(200).render('admin/adicionarFornecedor', { title: 'Adicionar Fornecedor', usuarios: allUsers, userSession: userSession})
+    },
+    adicionarFornecedorCreate: async (req, res) => {
+        const { plan, branch, name, document, email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city, stateArea } = req.body;
 
         const cadastroRegex = /[ \(\)\x2D-\/]/g;
 
@@ -69,19 +118,33 @@ const adminController = {
             });
         };
 
+        // Ramo de Atuacao
+        const ramos = Array.isArray(branch) ? branch : [branch]
+
+        for(const ramo of ramos){
+            await FornecedorHasRamo.create({
+                fornecedor_id: fornecedorCriado.id,
+                ramo_atendimento_id: ramo
+            }).catch(function (err) {
+                console.log('Erro ao criar Área de Atendimento', err)
+            });
+        };
+
         // Plano
         const planoSelecionado = await Plano.findByPk(plan);
 
         // Tratamento da data
-        const dataAtual = new Date();
+        const dataAtual = () => {
+            return new Date();
+        };
 
         const dataExpiracao = () => {
-            const dataFinal = dataAtual;
+            const dataFinal = dataAtual();
             dataFinal.setFullYear(dataFinal.getFullYear() + 1);
             return dataFinal;
         };
         
-        const dataInicio = dataAtual;
+        const dataInicio = dataAtual();
         const dataFim = dataExpiracao();
 
         const planoFornecedor = await PlanoFornecedor.create({
@@ -95,143 +158,165 @@ const adminController = {
             console.log('Erro ao criar Plano', err)
         });
 
-        return res.redirect('/login')
+        return res.status(200).redirect('/admin/listarFornecedor')
+    },
+    editarFornecedor: async (req, res) => {
+        const userSession = req.session
 
-        return res.render('admin/adicionarFornecedor', { title: 'Adicionar Fornecedor'})
-    },
-    salvarFornecedor:  (req, res) => {
-        return res.render('admin/adicionarFornecedor', { title: 'Adicionar Fornecedor'})
-    },
-    editarFornecedor:  (req, res) => {
-        return res.render('admin/editarFornecedor', { title: 'Editar Fornecedor'})
-    },
-    atualizarFornecedor:  (req, res) => {
-        return res.render('admin/editarFornecedor', { title: 'Editar Fornecedor'})
-    },
-    excluirFornecedor: (req,res) => {
-        let { id } = req.params;
-        let fornecedorEncontrado = services.findIndex(fornecedor => fornecedor.id == id);
+        const { id } = req.params;
+        const allAreas = []
+        const allRamos = []
+        const allUsers =[];
         
-        return res.redirect('admin/listaServicos');
-    },
-    listarCliente: async (req, res) => {
-        const clientes = await Cliente.findAll({
-            include: ['usuario'],
-            order: [['id', 'ASC']]
-            
+        const fornecedor = await Fornecedor.findByPk(id,{
+            include: ['usuario','endereco', 'area', 'ramo_atendimento', 'plano_contratado']
         });
-
-        return res.render('admin/listarCliente', { title: 'Listar Clientes', clientes:clientes})
-    },
-    adicionarCliente: async (req,res) => {
-        return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
-    },
-    salvarCliente: async(req, res) => {
-        const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
         
-        const usuarioCriado = await Usuario.create({
-            nome: name,
-            email,
-            senha: bcrypt.hashSync(password, 10),
-            tipo_usuario_id: 3,
-        }).catch(function (err) {
-            console.log('Erro ao criar usuário', err)
+        // retorno das areas de atendimento
+        const areas = await FornecedorHasArea.findAll({
+            where: { fornecedor_id: id }
         });
-
-        const enderecoCriado = await Endereco.create({
-            cep: zipcode,
-            logradouro: address,
-            numero: parseInt(number),
-            complemento: complement,
-            bairro: district, 
-            estado:state,
-            cidade: city      
-        }).catch(function (err) {
-            console.log('Erro ao criar Endereço', err)
-        });
-
-        const clienteCriado = await Cliente.create({
-            telefone: phone,
-            whatsapp: whatsapp,
-            usuario_id: usuarioCriado.id,
-            endereco_id: enderecoCriado.id
-        }).catch(function (err) {
-            console.log('Erro ao criar Fornecedor')
-            console.log(err, req.body)
-        });
-        return res.redirect('/admin/listarCliente')
-    },
-    editarCliente: async (req,res) => {
-        const {id} = req.params;
         
-        const cliente = await Cliente.findByPk(id,{
-            include: ['usuario','endereco']
-        });
-        //return res.json(cliente).status(200);
+        for (let area of areas) {
+            allAreas.push(area.area_de_atendimento_id)
+        }
 
-        return res.render('admin/editarCliente', {cliente:cliente})
-    
+        // retorno dos ramos
+        const ramos = await FornecedorHasRamo.findAll({
+            where: { fornecedor_id: id }
+        });
+        
+        for (let ramo of ramos) {
+            allRamos.push(ramo.ramo_atendimento_id)
+        }
+
+        // retorno dos Usuários
+        const usuarios = await Usuario.findAll();
+        
+        for (let usuario of usuarios) {
+            allUsers.push(usuario.email)
+        }
+        
+        return res.status(200).render('admin/editarFornecedor', { title: 'Editar Fornecedor', fornecedor: fornecedor, areas: allAreas, ramos: allRamos, usuarios: allUsers, userSession: userSession})
     },
-    atualizarCliente: async (req,res) => {
-        const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
-        const {id} = req.params;
+    atualizarFornecedor: async (req, res) => {
+        const { id } = req.params;
+        const { branch, name, document, email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city, stateArea } = req.body;
+        const fornecedor = await Fornecedor.findByPk(id);
+        const usuarioId = fornecedor.usuario_id;
+        const usuario = await Usuario.findByPk(usuarioId);
+        const endereco = fornecedor.endereco_id;
+        const senha = usuario.senha;
+
+        const cadastroRegex = /[ \(\)\x2D-\/]/g;
+
+        const fornecedorAtualizado = await Fornecedor.update({
+            telefone: phone.replace(cadastroRegex,''),
+            whatsapp: whatsapp.replace(cadastroRegex,''),
+            cnpj: document.replace(cadastroRegex, ''),
+        }, {
+            where: { id }
+        }).catch(function (err) {
+            console.log('Erro ao atualizar Fornecedor', fornecedorAtualizado)
+        });
+
 
         const usuarioAtualizado = await Usuario.update({
             nome: name,
             email,
             senha: bcrypt.hashSync(password, 10),
-            tipo_usuario_id: 3,
-        },{where: {id}}
-        ).catch(function (err) {
-            console.log('Erro ao editar usuário', err)
+        }, {
+            where: { id: usuarioId }
+        }).catch(function (err) {
+            console.log('Erro ao atualizar usuário', usuarioAtualizado)
         });
         console.log('testeaaaaaaaaaaaaaaaaaaaaaaaaaa')
      
         const enderecoAtualizado = await Endereco.update({
-            cep: zipcode,
+            cep: zipcode.replace(cadastroRegex,''),
             logradouro: address,
-            numero: parseInt(number),
             complemento: complement,
-            bairro: district, 
-            estado:state,
-            cidade: city      
-        },{where: {id}}
-        ).catch(function (err) {
-            console.log('Erro ao editar Endereço', err)
-        });      
-        console.log('testeaaaaaaaaaaaaaaaaaaaaaaaaaa')
-
-        const clienteAtualizado = await Cliente.update({
-            telefone: phone,
-            whatsapp: whatsapp,
-            usuario_id: usuarioAtualizado.id,
-            endereco_id: enderecoAtualizado.id
-        },{where: {id}}
-        ).catch(function (err) {
-            console.log('Erro ao criar Fornecedor')
-            console.log(err, req.body)
+            bairro: district,
+            numero: parseInt(number),
+            estado: state,
+            cidade: city
+        },
+        {
+            where: { id: endereco }
+        }).catch(function (err) {
+            console.log('Erro ao atualizar Endereço', enderecoAtualizado)
         });
-        console.log('xxxxxxxxxxxxxxxxxxx')
-        return res.json(clienteAtualizado);
-        return res.render('admin/editarCliente', {cliente:clienteAtualizado})
-    },
-    excluirCliente: async (req,res) =>{
-        const {id} = req.params;
 
-        const cliente = await Cliente.destroy({
-            where:{id}
+        // Areas de atendimento
+
+        // deletar todas areas cadastradas
+        const deleteAreas = await FornecedorHasArea.destroy({
+            where: { fornecedor_id: id }
         });
-        return res.json(cliente);
-    
-    },
 
+        // recriar todas areas com o novo array retornado
+        const areas = Array.isArray(stateArea) ? stateArea : [stateArea]
+
+        for(const state of areas){
+            await FornecedorHasArea.create({
+                fornecedor_id: id,
+                area_de_atendimento_id: state
+            }).catch(function (err) {
+                console.log('Erro ao criar Área de Atendimento', err)
+            });
+        };
+
+
+        // Ramo de Atuacao
+
+        // deletar todas ramos cadastrados
+        const deleteRamos = await FornecedorHasRamo.destroy({
+            where: { fornecedor_id: id }
+        });
+
+        // recriar todos ramos com o novo array retornado
+        const ramos = Array.isArray(branch) ? branch : [branch]
+
+        for(const ramo of ramos){
+            await FornecedorHasRamo.create({
+                fornecedor_id: id,
+                ramo_atendimento_id: ramo
+            }).catch(function (err) {
+                console.log('Erro ao criar Área de Atendimento', err)
+            });
+        };
+
+        return res.status(200).redirect('/admin/listarFornecedor')
+    },
+    excluirFornecedor: async (req,res) => {
+        const { id } = req.params;
+        
+        const fornecedor = await Fornecedor.destroy({
+            where: { id }
+        });
+        
+        return res.redirect('/admin/listarFornecedor')
+    },
+    listarCliente: async (req, res) => {
+        const userSession = req.session
+        return res.render('admin/listarCliente', { title: 'Lista de Clientes', userSession: userSession})
+    },
+    adicionarCliente: (req,res) => {
+        const userSession = req.session
+        return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes', userSession: userSession})
+    },
+    editarCliente: async (req,res) => {
+        const userSession = req.session
+        return res.render('admin/editarCliente', { title: 'Editar Cliente', userSession: userSession})
+    },
     listarOrcamentos:  (req, res) => {
-        return res.render('admin/listarOrcamentos', { title: 'Listar Orçamentos'})
+        const userSession = req.session
+        return res.render('admin/listarOrcamentos', { title: 'Listar Orçamentos', userSession: userSession})
     },
     orcamentoDetalhado:  (req, res) => {
-        return res.render('admin/orcamentoDetalhado', { title: 'Orçamento Detalhado'})
-    },
-
+        const userSession = req.session
+        return res.render('admin/orcamentoDetalhado', { title: 'Orçamento Detalhado', userSession: userSession})
+    }
 };
 
 module.exports = adminController;

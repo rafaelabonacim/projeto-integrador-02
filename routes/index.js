@@ -11,6 +11,7 @@ router.get('/perfilCadastro', institutionalController.perfil);
 
 // Rotas para páginas de login
 router.get('/login', institutionalController.login);
+router.post('/login', institutionalController.auth);
 router.get('/esqueci-senha', institutionalController.forgotpassword)
 
 // Rotas para páginas de cadastro
@@ -26,5 +27,8 @@ router.get('/recuperar-senha', institutionalController.recuperarsenha);
 // Rotas para página de Parceiros
 router.get('/parceiros', institutionalController.parceiros);
 router.get('/parceiros/resultado/', institutionalController.parceirosBusca);
+
+//Logout
+router.post('/login/sair', institutionalController.sair);
 
 module.exports = router;

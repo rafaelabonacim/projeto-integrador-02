@@ -28,24 +28,25 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             tableName: 'fornecedor',
-            timestamps: true
+            timestamps: true,
+            paranoid: true
         }
     );
 
     Fornecedor.associate = function(models){
         Fornecedor.belongsTo(models.Usuario, {
             as : "usuario",
-            foreignKey: "usuario_id"
+            foreignKey: "usuario_id",
         });
 
         Fornecedor.belongsTo(models.Endereco, {
             as : "endereco",
-            foreignKey: "endereco_id"
+            foreignKey: "endereco_id",
         });
 
         Fornecedor.hasMany(models.Orcamento, {
             as : "orcamento_fornecedor",
-            foreignKey: "fornecedor_id"
+            foreignKey: "fornecedor_id",
         });
 
         Fornecedor.belongsToMany(models.Area, {
@@ -53,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
             through: 'fornecedor_has_area',
             foreignKey: 'fornecedor_id',
             otherKey: 'area_de_atendimento_id',
-            timestamps: false
+            timestamps: false,
         });
 
         Fornecedor.belongsToMany(models.RamoAtendimento, {
@@ -61,12 +62,12 @@ module.exports = (sequelize, DataTypes) => {
             through: 'fornecedor_has_ramo',
             foreignKey: 'fornecedor_id',
             otherKey: 'ramo_atendimento_id',
-            timestamps: false
+            timestamps: false,
         });
 
         Fornecedor.hasOne(models.PlanoFornecedor, {
             as : "plano_contratado",
-            foreignKey: "fornecedor_id"
+            foreignKey: "fornecedor_id",
         });
     };
 

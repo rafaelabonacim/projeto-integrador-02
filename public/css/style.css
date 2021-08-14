@@ -61,43 +61,43 @@
 }
 
 .btn-solid.btn-orange1 {
-  background: var(--orange1);
+  background: var(--orange1) !important;
 }
 
 .btn-solid.btn-orange1:hover {
-  background: var(--orange1hover);
+  background: var(--orange1hover) !important;
 }
 
 .btn-solid.btn-orange2 {
-  background: var(--orange2);
+  background: var(--orange2) !important;
 }
 
 .btn-solid.btn-orange2:hover {
-  background: var(--orange2hover);
+  background: var(--orange2hover) !important;
 }
 
 .btn-solid.btn-blue1 {
-  background: var(--blue1);
+  background: var(--blue1) !important;
 }
 
 .btn-solid.btn-blue1:hover {
-  background: var(--blue1hover);
+  background: var(--blue1hover) !important;
 }
 
 .btn-solid.btn-blue2 {
-  background: var(--blue2);
+  background: var(--blue2) !important;
 }
 
 .btn-solid.btn-blue2:hover {
-  background: var(--blue2hover);
+  background: var(--blue2hover) !important;
 }
 
 .btn-solid.btn-grey {
-  background: var(--grey1);
+  background: var(--grey1) !important;
 }
 
 .btn-solid.btn-grey:hover {
-  background: var(--grey2);
+  background: var(--grey2) !important;
 }
 
 /* Outline */
@@ -257,6 +257,10 @@ hr {
 }
 
 /*- Forms -*/
+form {
+  display: unset;
+}
+
 select {
   appearance:none;
 }
@@ -275,6 +279,15 @@ input.form-control::placeholder,
 
 .input-group-append .search-button {
   border: 1px solid #ced4da;
+}
+
+main .invalid {
+  border-color: #dc3545 !important;
+  padding-right: calc(1.5em + .75rem) !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23dc3545' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important;
+  background-position: right calc(.375em + .1875rem) center !important;
+  background-size: calc(.75em + .375rem) calc(.75em + .375rem) !important;
 }
 
 /* Multiple Select */
@@ -334,14 +347,17 @@ main {
   background: var(--blue2);
 } 
 
-#main-nav a:any-link {
-  color: var(--white);
+#main-nav a:any-link,
+#main-nav button {
+  color: var(--white) !important;
 }
 
 #main-nav a:hover,
 #main-nav a.active,
-#main-nav .navbar-toggler:hover i {
-  color: var(--orange2);
+#main-nav .navbar-toggler:hover i,
+#main-nav button:hover,
+#main-nav button:active {
+  color: var(--orange2) !important;
 }
 
 #main-nav .navbar-toggler {

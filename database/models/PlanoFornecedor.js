@@ -39,12 +39,12 @@ module.exports = (sequelize, DataTypes) => {
     PlanoFornecedor.associate = function(models){
         PlanoFornecedor.belongsTo(models.Fornecedor, {
             as : "plano_contratado",
-            foreignKey: "fornecedor_id"
+            foreignKey: "fornecedor_id",
         });
 
         PlanoFornecedor.belongsTo(models.Plano, {
             as : "plano",
-            foreignKey: "plano_id"
+            foreignKey: "plano_id",
         });
     };
 

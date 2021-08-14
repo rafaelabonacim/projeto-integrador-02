@@ -7,12 +7,16 @@ const Op = Sequelize.Op;
 
 const institutionalController = {
     index: (req, res) => {
-        return res.render('index', { title: 'Portal para Cotação em Usinagem'})
+        const userSession = req.session
+        return res.render('index', { title: 'Portal para Cotação em Usinagem', userSession: userSession})
     },
     anuncie: (req, res) => {
-        return res.render('anuncie', { title: 'Anuncie'})
+        const userSession = req.session
+        return res.render('anuncie', { title: 'Anuncie', userSession: userSession})
     },
     parceiros: async (req, res) => {
+        const userSession = req.session
+
         // Listagem de Fornecedores
         const fornecedores = await Fornecedor.findAll({
             include: ['usuario', 'endereco'],
@@ -20,16 +24,16 @@ const institutionalController = {
             limit: 20
         });
         
-        return res.render('parceiros', { title: 'Parceiros', fornecedores: fornecedores})
+        return res.render('parceiros', { title: 'Parceiros', fornecedores: fornecedores, userSession: userSession})
     },
     parceirosBusca: async (req, res) => {
+        const userSession = req.session
+
         // Busca pelo nome
-        let { name, state, city } = req.query;
+        let { name, state } = req.query;
 
+        name = name ? name : ""
         state = state ? state : ""
-        city = city ? city : ""
-
-        console.log(name, state, city)
 
         const buscaFornecedores = await Fornecedor.findAll({
             include: [{
@@ -49,13 +53,22 @@ const institutionalController = {
             order: [['usuario', 'nome', 'ASC']],
         });
 
-        return res.render('parceiros', { title: 'Parceiros', fornecedores: buscaFornecedores})
+        return res.render('parceiros', { title: 'Parceiros', fornecedores: buscaFornecedores, userSession: userSession})
     },
     perfil: (req, res) => {
-        return res.render('perfilCadastro', { title: 'Cadastro'})
+        const userSession = req.session
+        return res.render('perfilCadastro', { title: 'Cadastro', userSession: userSession})
     },
-    cadastroFornecedor: (req, res) => {
-        return res.render('cadastroFornecedor', { title: 'Cadastro de Fornecedor'})
+    cadastroFornecedor: async (req, res) => {
+        const userSession = req.session
+
+        const usuarios = await Usuario.findAll();
+        const allUsers =[];
+        for (let usuario of usuarios) {
+            allUsers.push(usuario.email)
+        }
+
+        return res.render('cadastroFornecedor', { title: 'Cadastro de Fornecedor', usuarios: allUsers, userSession: userSession})
     },
     cadastroFornecedorCreate: async (req, res) => {
         const { plan, branch, name, document, email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city, stateArea } = req.body;
@@ -188,14 +201,37 @@ const institutionalController = {
 
         return res.redirect('/login')
     },
-    login: (req, res) => {
-        return res.render('login', { title: 'Login'})
+    login: async (req, res) => {
+        const userSession = req.session
+
+        const usuarios = await Usuario.findAll();
+        return res.render('login', { title: 'Login', userSession: userSession})
+    },
+    auth: async (req, res) => {
+        const { email, password } = req.body;
+
+        const usuarioEcontrado = await Usuario.findOne({
+            where: { email }
+        });
+        
+        if (usuarioEcontrado && bcrypt.compareSync(password, usuarioEcontrado.senha)) {
+            req.session.loggedUser = usuarioEcontrado;
+            res.redirect('/admin');
+        } else {
+            res.redirect('/login')
+        }
     },
     forgotpassword: (req,res)=> {
-        return res.render('esqueci-senha', {title: 'Esqueci senha'})
+        const userSession = req.session
+        return res.render('esqueci-senha', {title: 'Esqueci senha', userSession: userSession})
     },
     recuperarsenha: (req, res) => {
-        return res.render('recuperar-senha', { title: 'Recuperar senha'})
+        const userSession = req.session
+        return res.render('recuperar-senha', { title: 'Recuperar senha', userSession: userSession})
+    },
+    sair: (req, res) => {
+        req.session.destroy(function(err) {});
+        res.redirect('/login');
     }
 };
 
