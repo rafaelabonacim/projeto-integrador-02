@@ -1,6 +1,5 @@
 const auth = (req,res,next) => {
-    if (req.session.usuarioLogado && req.session.usuarioLogado !== undefined) {
-        console.log('Você está logado')
+    if (req.session.loggedUser !== undefined) {
         next();
     } else {
         res.redirect('/login');

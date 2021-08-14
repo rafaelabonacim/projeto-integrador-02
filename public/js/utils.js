@@ -44,16 +44,19 @@ const utils = {
             const password = document.getElementById("password");
             const confirmPassword = document.getElementById("confirmPassword");
             const confirmPasswordError = document.querySelector(".confirm-password");
+            const sendButton = document.getElementById("send");
             
             confirmPassword.addEventListener("keyup", function (){
                 if (password.value  !== confirmPassword.value) {
                     confirmPassword.setAttribute("isvalid", "false");
                     confirmPassword.classList.add("invalid");
                     confirmPasswordError.style.display = "block"
+                    sendButton.disabled = true;
                 } else {
                     confirmPassword.setAttribute("isvalid", "true");
                     confirmPassword.classList.remove("invalid");
                     confirmPasswordError.style.display = "none"
+                    sendButton.disabled = false;
                 };
             });
         })
@@ -62,21 +65,22 @@ const utils = {
         document.addEventListener('DOMContentLoaded', function() {
             const email = document.getElementById("email");
             const emailError = document.querySelector(".email-in-use");
+            const sendButton = document.getElementById("send");
             const dbArray = dbParameter.split(',')
             Array.isArray(dbParameter) ? dbParameter : [dbParameter]
 
             email.addEventListener("focusout", function (){
                 for (let i = 0; i < dbArray.length; i++) {
                     if (email.value === dbArray[i]) {
-                        email.setAttribute("isvalid", "false");
                         email.classList.add("invalid");
                         emailError.style.display = "block"
                         emailError.innerHTML = "E-mail já cadastrado"
+                        sendButton.disabled = true;
                     } else {
-                        email.setAttribute("isvalid", "true");
                         email.classList.remove("invalid");
                         emailError.style.display = "none"
                         emailError.innerHTML = "Campo obrigatório"
+                        sendButton.disabled = false;
                     };
                 };
             });

@@ -4,16 +4,20 @@
             <div class="col-12">
                 <nav>
                     <div class="links-menu">
-                      <% //if (usuario.tipo_usuario.id !== 1) { %>
+                      <% if (userSession.loggedUser.tipo_usuario_id == 1) { %>
                         <a href="/admin/listarFornecedor" class="btn btn-clean btn-orange1">Fornecedores</a>
                         <a href="/admin/listarCliente" class="btn btn-clean btn-blue1">Clientes</a>
-                        <a href="/admin/listarCategorias" class="btn btn-clean btn-blue1">Categorias</a>
+                        <!-- <a href="/admin/listarCategorias" class="btn btn-clean btn-blue1">Categorias</a> -->
                         <a href="/admin/listarOrcamentos" class="btn btn-clean btn-blue1">Orçamentos</a>
-                      <% //} else { %>
-                        <a href="/admin/meusOrcamentos" class="btn btn-clean btn-blue1">Orçamentos</a>
-                        <a href="/admin/meusDados" class="btn btn-clean btn-blue1">Meus Dados</a>
-                      <% //} %>
+                      <% } else if (userSession.loggedUser.tipo_usuario_id == 2) { %>
+                        <a href="/admin/meusOrcamentos/<%= // fornecedor.id %>" class="btn btn-clean btn-blue1">Orçamentos</a>
+                        <a href="/admin/meusDados/<%= // fornecedor.id %>" class="btn btn-clean btn-blue1">Meus Dados</a>
+                      <% } else {%>
+                        <a href="/admin/meusOrcamentos/<%= // cliente.id %>" class="btn btn-clean btn-blue1">Orçamentos</a>
+                        <a href="/admin/meusDados/<%= // cliente.id %>" class="btn btn-clean btn-blue1">Meus Dados</a>
+                      <% } %> 
                     </div>
+
                     <div class="back-button">
                       <a href="/" class="btn btn-solid btn-orange1"><i class="fas fa-home"></i> Voltar</a>
                     </div>

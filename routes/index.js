@@ -28,4 +28,7 @@ router.get('/recuperar-senha', institutionalController.recuperarsenha);
 router.get('/parceiros', institutionalController.parceiros);
 router.get('/parceiros/resultado/', institutionalController.parceirosBusca);
 
+//Logout
+router.post('/login/sair', institutionalController.sair);
+
 module.exports = router;

@@ -5,21 +5,25 @@ const { AreaDeAtendimento, Cliente, Endereco, Fornecedor, Orcamento, Plano, Plan
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-
 const adminController = {
     index: (req, res) => {
-        return res.status(200).render('admin/index', { title: 'Painel Administrativo'})
+        const userSession = req.session
+        return res.status(200).render('admin/index', { title: 'Painel Administrativo', userSession: userSession})
     },
     listarFornecedor: async (req, res) => {
+        const userSession = req.session
+
         const fornecedores = await Fornecedor.findAll({
         include: ['usuario', 'plano_contratado'],
             order: [['usuario', 'nome', 'ASC']],
             limit: 30,
         });
 
-        return res.status(200).render('admin/listarFornecedor', { title: 'Lista de Fornecedores', fornecedores: fornecedores});
+        return res.status(200).render('admin/listarFornecedor', { title: 'Lista de Fornecedores', fornecedores: fornecedores, userSession: userSession });
     },
     buscarFornecedor: async (req, res) => {
+        const userSession = req.session
+        
         let { id, name, choosePlan, date } = req.query;
 
         console.log(req.query)
@@ -49,9 +53,11 @@ const adminController = {
             order: [['id', 'ASC']],
         });
 
-        return res.status(200).render('admin/listarFornecedor', { title: 'Resultados da Busca de Fornecedores', fornecedores: buscaFornecedores})
+        return res.status(200).render('admin/listarFornecedor', { title: 'Resultados da Busca de Fornecedores', fornecedores: buscaFornecedores, userSession: userSession})
     },
     adicionarFornecedor: async (req, res) => {
+        const userSession = req.session
+
         const allUsers =[];
         
         // retorno dos Usuários
@@ -61,7 +67,7 @@ const adminController = {
             allUsers.push(usuario.email)
         }
 
-        return res.status(200).render('admin/adicionarFornecedor', { title: 'Adicionar Fornecedor', usuarios: allUsers})
+        return res.status(200).render('admin/adicionarFornecedor', { title: 'Adicionar Fornecedor', usuarios: allUsers, userSession: userSession})
     },
     adicionarFornecedorCreate: async (req, res) => {
         const { plan, branch, name, document, email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city, stateArea } = req.body;
@@ -155,6 +161,8 @@ const adminController = {
         return res.status(200).redirect('/admin/listarFornecedor')
     },
     editarFornecedor: async (req, res) => {
+        const userSession = req.session
+
         const { id } = req.params;
         const allAreas = []
         const allRamos = []
@@ -189,7 +197,7 @@ const adminController = {
             allUsers.push(usuario.email)
         }
         
-        return res.status(200).render('admin/editarFornecedor', { title: 'Editar Fornecedor', fornecedor: fornecedor, areas: allAreas, ramos: allRamos, usuarios: allUsers})
+        return res.status(200).render('admin/editarFornecedor', { title: 'Editar Fornecedor', fornecedor: fornecedor, areas: allAreas, ramos: allRamos, usuarios: allUsers, userSession: userSession})
     },
     atualizarFornecedor: async (req, res) => {
         const { id } = req.params;
@@ -289,21 +297,25 @@ const adminController = {
         return res.redirect('/admin/listarFornecedor')
     },
     listarCliente: async (req, res) => {
-        return res.render('admin/listarCliente')
+        const userSession = req.session
+        return res.render('admin/listarCliente', { title: 'Lista de Clientes', userSession: userSession})
     },
-    adicionarCliente: async (req,res) => {
-        return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
+    adicionarCliente: (req,res) => {
+        const userSession = req.session
+        return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes', userSession: userSession})
     },
     editarCliente: async (req,res) => {
-        return res.render('admin/editarCliente', { title: 'Editar Cliente'})
+        const userSession = req.session
+        return res.render('admin/editarCliente', { title: 'Editar Cliente', userSession: userSession})
     },
     listarOrcamentos:  (req, res) => {
-        return res.render('admin/listarOrcamentos', { title: 'Listar Orçamentos'})
+        const userSession = req.session
+        return res.render('admin/listarOrcamentos', { title: 'Listar Orçamentos', userSession: userSession})
     },
     orcamentoDetalhado:  (req, res) => {
-        return res.render('admin/orcamentoDetalhado', { title: 'Orçamento Detalhado'})
-    },
-
+        const userSession = req.session
+        return res.render('admin/orcamentoDetalhado', { title: 'Orçamento Detalhado', userSession: userSession})
+    }
 };
 
 module.exports = adminController;

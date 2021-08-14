@@ -61,43 +61,43 @@
 }
 
 .btn-solid.btn-orange1 {
-  background: var(--orange1);
+  background: var(--orange1) !important;
 }
 
 .btn-solid.btn-orange1:hover {
-  background: var(--orange1hover);
+  background: var(--orange1hover) !important;
 }
 
 .btn-solid.btn-orange2 {
-  background: var(--orange2);
+  background: var(--orange2) !important;
 }
 
 .btn-solid.btn-orange2:hover {
-  background: var(--orange2hover);
+  background: var(--orange2hover) !important;
 }
 
 .btn-solid.btn-blue1 {
-  background: var(--blue1);
+  background: var(--blue1) !important;
 }
 
 .btn-solid.btn-blue1:hover {
-  background: var(--blue1hover);
+  background: var(--blue1hover) !important;
 }
 
 .btn-solid.btn-blue2 {
-  background: var(--blue2);
+  background: var(--blue2) !important;
 }
 
 .btn-solid.btn-blue2:hover {
-  background: var(--blue2hover);
+  background: var(--blue2hover) !important;
 }
 
 .btn-solid.btn-grey {
-  background: var(--grey1);
+  background: var(--grey1) !important;
 }
 
 .btn-solid.btn-grey:hover {
-  background: var(--grey2);
+  background: var(--grey2) !important;
 }
 
 /* Outline */
@@ -347,14 +347,17 @@ main {
   background: var(--blue2);
 } 
 
-#main-nav a:any-link {
-  color: var(--white);
+#main-nav a:any-link,
+#main-nav button {
+  color: var(--white) !important;
 }
 
 #main-nav a:hover,
 #main-nav a.active,
-#main-nav .navbar-toggler:hover i {
-  color: var(--orange2);
+#main-nav .navbar-toggler:hover i,
+#main-nav button:hover,
+#main-nav button:active {
+  color: var(--orange2) !important;
 }
 
 #main-nav .navbar-toggler {
