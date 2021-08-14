@@ -12,6 +12,7 @@ const adminController = {
     },
     listarFornecedor: async (req, res) => {
         const userSession = req.session
+        const userId = userSession.loggedUser.id;
 
         const fornecedores = await Fornecedor.findAll({
         include: ['usuario', 'plano_contratado'],
@@ -288,6 +289,25 @@ const adminController = {
 
         return res.status(200).redirect('/admin/listarFornecedor')
     },
+    listarOrcamentosFornecedor: async (req,res) => {
+        const userSession = req.session
+        const { id } = req.params;
+
+        const fornecedor = await Fornecedor.findOne({
+            include: ['usuario'],
+            where: { id }
+        });
+
+        const orcamentos = await Orcamento.findAll({
+                order: [['id', 'ASC']],
+                limit: 30,
+                where: {
+                    fornecedor_id: id
+                }
+        });
+
+        return res.render('admin/listarOrcamentos', { title: 'Orçamento', orcamentos: orcamentos, fornecedor: fornecedor, userSession: userSession})
+    },
     excluirFornecedor: async (req,res) => {
         const { id } = req.params;
         
@@ -309,8 +329,8 @@ const adminController = {
         const userSession = req.session
         return res.render('admin/editarCliente', { title: 'Editar Cliente', userSession: userSession})
     },
-    listarOrcamentos:  (req, res) => {
-        const userSession = req.session
+    listarOrcamentos: async (req, res) => {
+        const userSession = req.session;
         return res.render('admin/listarOrcamentos', { title: 'Listar Orçamentos', userSession: userSession})
     },
     orcamentoDetalhado:  (req, res) => {

@@ -28,6 +28,8 @@ router.get('/editarCliente/:id', adminController.editarCliente);
 
 // Rotas orçamentos
 router.get('/listarOrcamentos', adminController.listarOrcamentos);
-router.get('/orcamentoDetalhado', adminController.orcamentoDetalhado);
+router.get('/orcamentoDetalhado/:id', adminController.orcamentoDetalhado);
+
+router.get('/orcamentosFornecedor/:id', adminController.listarOrcamentosFornecedor);
 
 module.exports = router;
