@@ -213,11 +213,11 @@ const adminController = {
     },
     excluirCliente: async (req,res) =>{
         const {id} = req.params;
-
-        const cliente = await Cliente.destroy({
+     
+        await Cliente.destroy({
             where:{id}
         });
-        return res.json(cliente);
+        return res.redirect('/admin/listarCliente')
     
     },
 
