@@ -318,16 +318,19 @@ const adminController = {
         return res.redirect('/admin/listarFornecedor')
     },
     listarCliente: async (req, res) => {
+        const userSession = req.session
+
         const clientes = await Cliente.findAll({
             include: ['usuario'],
             order: [['id', 'ASC']]
             
         });
 
-        return res.render('admin/listarCliente', { title: 'Listar Clientes', clientes:clientes})
+        return res.render('admin/listarCliente', { title: 'Listar Clientes', userSession: userSession, clientes:clientes})
     },
     adicionarCliente: async (req,res) => {
-        return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
+        const userSession = req.session
+        return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes', userSession: userSession})
     },
     salvarCliente: async(req, res) => {
         const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
@@ -365,6 +368,8 @@ const adminController = {
         return res.redirect('/admin/listarCliente')
     },
     editarCliente: async (req,res) => {
+        const userSession = req.session
+
         const {id} = req.params;
         
         const cliente = await Cliente.findByPk(id,{
@@ -372,7 +377,7 @@ const adminController = {
         });
         //return res.json(cliente).status(200);
 
-        return res.render('admin/editarCliente', {cliente:cliente})
+        return res.render('admin/editarCliente', {cliente:cliente, userSession: userSession})
     
     },
     atualizarCliente: async (req,res) => {
