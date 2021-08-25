@@ -23,8 +23,12 @@ router.delete('/deletarFornecedor/:id', adminController.excluirFornecedor);
 router.get('/listarCliente', adminController.listarCliente);
 
 router.get('/adicionarCliente', adminController.adicionarCliente);
+router.post('/adicionarCliente', adminController.salvarCliente);
 
 router.get('/editarCliente/:id', adminController.editarCliente);
+router.put('/editarCliente/:id', adminController.atualizarCliente);
+
+router.delete('/listarCliente/deletar/:id', adminController.excluirCliente);
 
 // Rotas orçamentos
 router.get('/listarOrcamentos', adminController.listarOrcamentos);

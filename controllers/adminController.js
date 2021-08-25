@@ -318,16 +318,110 @@ const adminController = {
         return res.redirect('/admin/listarFornecedor')
     },
     listarCliente: async (req, res) => {
-        const userSession = req.session
-        return res.render('admin/listarCliente', { title: 'Lista de Clientes', userSession: userSession})
+        const clientes = await Cliente.findAll({
+            include: ['usuario'],
+            order: [['id', 'ASC']]
+            
+        });
+
+        return res.render('admin/listarCliente', { title: 'Listar Clientes', clientes:clientes})
     },
-    adicionarCliente: (req,res) => {
-        const userSession = req.session
-        return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes', userSession: userSession})
+    adicionarCliente: async (req,res) => {
+        return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes'})
+    },
+    salvarCliente: async(req, res) => {
+        const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
+        
+        const usuarioCriado = await Usuario.create({
+            nome: name,
+            email,
+            senha: bcrypt.hashSync(password, 10),
+            tipo_usuario_id: 3,
+        }).catch(function (err) {
+            console.log('Erro ao criar usuário', err)
+        });
+
+        const enderecoCriado = await Endereco.create({
+            cep: zipcode,
+            logradouro: address,
+            numero: parseInt(number),
+            complemento: complement,
+            bairro: district, 
+            estado:state,
+            cidade: city      
+        }).catch(function (err) {
+            console.log('Erro ao criar Endereço', err)
+        });
+
+        const clienteCriado = await Cliente.create({
+            telefone: phone,
+            whatsapp: whatsapp,
+            usuario_id: usuarioCriado.id,
+            endereco_id: enderecoCriado.id
+        }).catch(function (err) {
+            console.log('Erro ao criar Fornecedor')
+            console.log(err, req.body)
+        });
+        return res.redirect('/admin/listarCliente')
     },
     editarCliente: async (req,res) => {
-        const userSession = req.session
-        return res.render('admin/editarCliente', { title: 'Editar Cliente', userSession: userSession})
+        const {id} = req.params;
+        
+        const cliente = await Cliente.findByPk(id,{
+            include: ['usuario','endereco']
+        });
+        //return res.json(cliente).status(200);
+
+        return res.render('admin/editarCliente', {cliente:cliente})
+    
+    },
+    atualizarCliente: async (req,res) => {
+        const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
+        const {id} = req.params;
+
+        await Cliente.update({
+            telefone: phone,
+            whatsapp: whatsapp
+        },{where: {id}}
+        ).catch(function (err) {
+            console.log('Erro ao criar Fornecedor')
+            console.log(err, req.body)
+        });
+        const clienteAtualizado = await Cliente.findByPk(id);
+
+        await Usuario.update({
+            nome: name,
+            email,
+            senha: bcrypt.hashSync(password, 10),
+            tipo_usuario_id: 3,
+        },{where: {id:clienteAtualizado.usuario_id}}
+        ).catch(function (err) {
+            console.log('Erro ao editar usuário', err)
+        });     
+
+        await Endereco.update({
+            cep: zipcode,
+            logradouro: address,
+            numero: parseInt(number),
+            complemento: complement,
+            bairro: district, 
+            estado:state,
+            cidade: city      
+        },{where: {id:clienteAtualizado.endereco_id}}
+        ).catch(function (err) {
+            console.log('Erro ao editar Endereço', err)
+        });      
+        
+        return res.redirect('/admin/listarCliente')
+    },
+    excluirCliente: async (req,res) =>{
+        const {id} = req.params;
+     
+        await Cliente.destroy({
+            where:{id}
+        });
+        return res.redirect('/admin/listarCliente')
+    
     },
     listarOrcamentos: async (req, res) => {
         const userSession = req.session;
