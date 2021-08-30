@@ -328,6 +328,26 @@ const adminController = {
 
         return res.render('admin/listarCliente', { title: 'Listar Clientes', userSession: userSession, clientes:clientes})
     },
+    buscarCliente: async (req, res) => {
+        const userSession = req.session;
+        
+        const { id, name, email } = req.query;
+       
+        const buscaClientes = await Cliente.findAll({
+            include: [ 
+                {
+                    model: Usuario,
+                    as: 'usuario',
+                    where: {nome: { [Op.like]: `%${name}%`}, email: { [Op.like]: `%${email}%`}},
+                    required: true
+                }
+            ],
+            where: id ? { id } : { },
+            order: [['id', 'ASC']],
+        });
+
+        return res.render('admin/listarCliente', { title: 'Resultados da Busca de Clientes', userSession: userSession, clientes: buscaClientes})
+    },
     adicionarCliente: async (req,res) => {
         const userSession = req.session
         return res.render('admin/adicionarCliente', { title: 'Adicionar Clientes', userSession: userSession})

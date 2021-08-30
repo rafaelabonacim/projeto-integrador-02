@@ -21,7 +21,7 @@ router.delete('/deletarFornecedor/:id', adminController.excluirFornecedor);
 
 // Rotas de Clientes
 router.get('/listarCliente', adminController.listarCliente);
-
+router.get('/listarCliente/resultado', adminController.buscarCliente);
 router.get('/adicionarCliente', adminController.adicionarCliente);
 router.post('/adicionarCliente', adminController.salvarCliente);
 
