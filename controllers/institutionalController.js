@@ -162,8 +162,14 @@ const institutionalController = {
         return res.redirect('/login')
         
     },
-    cadastrocliente: (req, res) => {
-        return res.render('cadastroCliente', { title: 'Cadastro'})
+    cadastrocliente: async(req, res) => {
+        const userSession = req.session
+        const usuarios = await Usuario.findAll();
+        const allUsers =[];
+        for (let usuario of usuarios) {
+            allUsers.push(usuario.email)
+        }
+        return res.render('cadastroCliente', { title: 'Cadastro', usuarios: allUsers, userSession: userSession})
     },
     cadastroclienteCreate: async(req, res) => {
         const{name,email, phone, whatsapp, password, zipcode, address, number, complement, district, state, city} = req.body
