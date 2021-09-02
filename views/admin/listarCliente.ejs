@@ -118,16 +118,21 @@
             <div class="col-sm-12">
               <nav class="pagination-container">
                 <ul class="pagination">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                  <li class="page-item ">
+                    <a class="page-link" href="?page=<%= Number(paginaAtual)==1 ? 1 : paginaAtual-1 %>" tabindex="-1" aria-disabled="true">Anterior</a>
                   </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+
+                  <% for (let i=1;i<=quantidadePaginas;i++){ %>
+                    <li class="page-item <%= Number(paginaAtual)==i ? 'active' : '' %>"><a class="page-link" href="?page=<%= i %>"><%= i%></a></li>
+                  <%}%>
+
+                  <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
                   <li class="page-item active" aria-current="page">
                     <a class="page-link" href="#">2</a>
                   </li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li> -->
                   <li class="page-item">
-                    <a class="page-link" href="#">Próxima</a>
+                    <a class="page-link" href="?page=<%= Number(paginaAtual)==quantidadePaginas ? paginaAtual : Number(paginaAtual)+Number(1) %>">Próxima</a>
                   </li>
                 </ul>
               </nav>
