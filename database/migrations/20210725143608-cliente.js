@@ -5,23 +5,23 @@ module.exports = {
     await queryInterface.createTable('cliente', {
       id: {
         primaryKey: true,
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false
     },
     telefone: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: true
     },
     whatsapp: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: true
     },
     usuario_id: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
     },
     endereco_id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
     },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE

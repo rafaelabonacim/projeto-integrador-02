@@ -5,31 +5,31 @@ module.exports = {
     await queryInterface.createTable('orcamento', {
       id: {
         primaryKey: true,
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false
       },
       quantidade: {
-          type: DataTypes.INTEGER,
+          type: Sequelize.INTEGER,
           allowNull: false
       },
       prazo: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           allowNull: false
       },
       materia_prima: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           allowNull: false
       },
       detalhes: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           allowNull: false
       },
       fornecedor_id: {
-          type: DataTypes.INTEGER,
+          type: Sequelize.INTEGER,
       },
       cliente_id: {
-          type: DataTypes.INTEGER,
+          type: Sequelize.INTEGER,
       },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE

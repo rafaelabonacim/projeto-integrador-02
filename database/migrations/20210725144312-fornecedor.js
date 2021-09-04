@@ -5,27 +5,27 @@ module.exports = {
     await queryInterface.createTable('fornecedor', {
       id: {
         primaryKey: true,
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false
       },
       telefone: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           allowNull: true
       },
       whatsapp: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           allowNull: true
       },
       cnpj: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           allowNull: false
       },
       endereco_id: {
-          type: DataTypes.INTEGER,
+          type: Sequelize.INTEGER,
       },
       usuario_id: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
       },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE
@@ -52,7 +52,15 @@ module.exports = {
           through: 'fornecedor_has_area',
           foreignKey: 'fornecedor_id',
           otherKey: 'area_de_atendimento_id',
-          timestamps: true
+          timestamps: false
+      });
+
+      Fornecedor.belongsToMany(models.RamoAtendimento, {
+        as : 'ramo_atendimento',
+        through: 'fornecedor_has_ramo',
+        foreignKey: 'fornecedor_id',
+        otherKey: 'ramo_atendimento_id',
+        timestamps: false
       });
 
       Fornecedor.hasOne(models.PlanoFornecedor, {

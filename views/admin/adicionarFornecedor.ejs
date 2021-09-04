@@ -7,7 +7,7 @@
         <div class="row">
           <div class="col-12">
             <h1>ÁREA DO CLIENTE</h1>
-            <h2>Escolha abaixo qual informção deseja consultar ou editar.</h2>
+            <h2>Escolha abaixo qual informação deseja consultar ou editar.</h2>
           </div>
         </div>
       </div>
@@ -18,7 +18,7 @@
   </section>
 
   <section class="admin-container admin-form-supplier">
-    <form class="needs-validation" novalidate>
+    <form class="needs-validation" action="/admin/adicionarFornecedor" method="POST" novalidate>
       <div class="container card">
         
         <div class="row">
@@ -31,59 +31,71 @@
         <div class="row">
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <select id="choosePlan" class="form-control" required>
-                <option disabled selected>Escolha o Plano</option>
-                <option value="parafuso">Plano Parafuso</option>
-                <option value="porca">Plano Porca</option>
-                <option value="porca-e-parafuso">Plano Porca e Parafuso</option>
+              <select id="planSelect" name="plan" class="form-control" required>
+                  <option disabled selected>Escolha um Plano</option>
+                  <option value="1">Parafuso</option>
+                  <option value="2">Porca</option>
+                  <option value="3">Porca e Parafuso</option>
               </select>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <select id="choosePlan" class="form-control" required>
-                <option disabled selected>Escolha o Ramo</option>
-                <option value="micro-usinagem">Micro Usinagem</option>
-                <option value="usinagem">Usinagem</option>
-              </select>
+                <select id="branchSelect" name="branch" class="form-control multi-select" title="Ramo de Atuação" data-selected-text-format="count > 3" data-size="5" data-actions-box="true"  data-dropup-auto="false" multiple required>
+                    <option value="1">Usinagem</option>
+                    <option value="2">Micro Usinagem</option>
+                </select>
+                <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-12">
             <div class="form-group">
-              <input type="text" name="name" class="form-control" placeholder="Nome do Responsável" required>
+              <input type="text" id="name" name="name" class=form-control placeholder="Nome da Empresa" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
-          <div class="col-12">
+          <div class="col-12 col-md-6">
             <div class="form-group">
-              <input type="email" name="email" class="form-control" placeholder="E-mail" required>
-            </div>
-          </div>
-
-          <div class="col-sm-12 col-md-6">
-            <div class="form-group">
-              <input type="text" name="phone" class="form-control" placeholder="Telefone (Opcional)">
+              <input type="text" id="document" name="document" class=form-control placeholder="CNPJ" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <input type="text" name="whatsapp" class="form-control" placeholder="WhatsApp (Opcional)">
+              <input type="email" id="email" name="email" class=form-control placeholder="E-mail" required>
+              <div class="invalid-feedback email-in-use">Campo obrigatório</div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+                <input type="tel" id="phone" name="phone" class=form-control placeholder="Telefone (Opcional)">
             </div>
           </div>
 
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <input type="password" name="password" class="form-control" placeholder="Senha">
+              <input type="tel" id="whatsapp" name="whatsapp" class=form-control placeholder="Whatsapp (Opcional)">
             </div>
           </div>
 
-          <div class="col-sm-12 col-md-6">
+          <div class="col-12 col-md-6">
             <div class="form-group">
-              <input type="password" name="confirmPassword" class="form-control" placeholder="Confirmar Senha">
-            </div>
+                <input type="password" id="password" name="password" class=form-control placeholder="Senha" required>
+                <div class="invalid-feedback">Campo obrigatório</div>
+            </div>                        
+          </div>
+
+          <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirmar Senha" required>
+                <div class="invalid-feedback confirm-password">A senha não é igual</div>
+              </div>
           </div>
         </div>
 
@@ -95,37 +107,41 @@
 
           <div class="col-sm-12 col-md-4">
             <div class="form-group">
-              <input type="text" name="zipcode" class="form-control" placeholder="CEP">
+              <input type="text" id="zipcode" name="zipcode" class="form-control" placeholder="CEP" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-8">
             <div class="form-group">
-              <input type="text" name="address" class="form-control" placeholder="Logradouro">
+              <input type="text" id="address" name="address" class="form-control" placeholder="Logradouro" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4">
             <div class="form-group">
-              <input type="number" name="Número " class="form-control" placeholder="Número">
+              <input type="number" id="Número" name="number" class="form-control" placeholder="Número" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4">
             <div class="form-group">
-              <input type="text" name="complement" class="form-control" placeholder="Complemento">
+              <input type="text" id="complement" name="complement" class="form-control" placeholder="Complemento">
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4">
             <div class="form-group">
-              <input type="text" name="district" class="form-control" placeholder="Bairro">
+              <input type="text" id="district" name="district" class="form-control" placeholder="Bairro" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4">
             <div class="form-group">
-              <select name="state" class="form-control" required>
+              <select id="state" name="state" class="form-control" required>
                 <option disabled selected>Estado</option>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
@@ -160,7 +176,8 @@
 
           <div class="col-sm-12 col-md-8">
             <div class="form-group">
-              <input type="text" name="city" class="form-control" placeholder="Cidades">
+              <input type="text" id="city" name="city" class="form-control" placeholder="Cidade">
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
         </div>
@@ -173,7 +190,36 @@
 
           <div class="col-sm-12">
             <div class="form-group">
-              <input type="text" name="deliverZone" class="form-control" placeholder="Faixa de CEP" required>
+              <select id="stateArea" name="stateArea" class="form-control multi-select" title="Estados que atende" data-selected-text-format="count > 3" data-size="5" data-actions-box="true"  data-dropup-auto="false" multiple required>
+                <option value="1">AC</option>
+                <option value="2">AL</option>
+                <option value="3">AP</option>
+                <option value="4">AM</option>
+                <option value="5">BA</option>
+                <option value="6">CE</option>
+                <option value="7">DF</option>
+                <option value="8">ES</option>
+                <option value="9">GO</option>
+                <option value="10">MA</option>
+                <option value="11">MT</option>
+                <option value="12">MS</option>
+                <option value="13">MG</option>
+                <option value="14">PA</option>
+                <option value="15">PB</option>
+                <option value="16">PR</option>
+                <option value="17">PE</option>
+                <option value="18">PI</option>
+                <option value="19">RJ</option>
+                <option value="20">RN</option>
+                <option value="21">RS</option>
+                <option value="22">RO</option>
+                <option value="23">RR</option>
+                <option value="24">SC</option>
+                <option value="25">SP</option>
+                <option value="26">SE</option>
+                <option value="27">TO</option>
+              </select>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
         </div>
@@ -183,7 +229,7 @@
             <a href="/admin/listarFornecedor" class="btn btn-solid btn-orange2"><i class="fas fa-arrow-left"></i> Voltar</a>
           </div>
           <div class="col-sm-12 col-md-6 text-right">
-            <button class="btn btn-solid btn-blue1"><i class="far fa-save"></i> Adicionar</button>
+            <button type="submit" id="send" class="btn btn-solid btn-blue1"><i class="far fa-save"></i> Adicionar</button>
           </div>
         </div>
       </div>
@@ -194,3 +240,9 @@
 </main>
 
 <%- include('../partials/footer') -%>
+
+<script>
+  utils.formValidation();
+  utils.comparePasswords();
+  utils.checkEmail('<%= usuarios %>');
+</script>

@@ -15,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
             },
             email: {
                 type: DataTypes.STRING,
-                allowNull: false
+                allowNull: false,
+                unique: true,
+                isEmail: true
             },
             senha: {
                 type: DataTypes.STRING,
@@ -34,12 +36,12 @@ module.exports = (sequelize, DataTypes) => {
     Usuario.associate = function(models){
         Usuario.belongsTo(models.TipoUsuario, {
             as : "tipo_usuario",
-            foreignKey: "tipo_usuario_id"
+            foreignKey: "tipo_usuario_id",
         });
 
         Usuario.hasOne(models.Fornecedor, {
             as : "fornecedor",
-            foreignKey: "usuario_id"
+            foreignKey: "usuario_id",
         });
 
         Usuario.hasOne(models.Cliente, {

@@ -1,22 +1,22 @@
 module.exports = (sequelize, DataTypes) => {
-    const FornecedorHasArea = sequelize.define("FornecedorHasArea",
+    const FornecedorHasRamo = sequelize.define("FornecedorHasRamo",
         {
             fornecedor_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false
             },
-            area_de_atendimento_id: {
+            ramo_atendimento_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false
             }
         },
         {
-            tableName: 'fornecedor_has_area',
+            tableName: 'fornecedor_has_ramo',
             timestamps: false,
         }
     );
 
-    FornecedorHasArea.removeAttribute('id');
+    FornecedorHasRamo.removeAttribute('id');
 
-    return FornecedorHasArea;
+    return FornecedorHasRamo;
 };

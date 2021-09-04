@@ -39,12 +39,12 @@ module.exports = (sequelize, DataTypes) => {
     Orcamento.associate = function(models){
         Orcamento.belongsTo(models.Fornecedor, {
             as : "orcamento_fornecedor",
-            foreignKey: "fornecedor_id"
+            foreignKey: "fornecedor_id",
         });
 
         Orcamento.belongsTo(models.Cliente, {
             as : "orcamento_cliente",
-            foreignKey: "cliente_id"
+            foreignKey: "cliente_id",
         });
     };
 
