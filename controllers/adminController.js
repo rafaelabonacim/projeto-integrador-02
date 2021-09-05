@@ -30,33 +30,38 @@ const adminController = {
   listarFornecedor: async (req, res) => {
     const userSession = req.session;
     const userId = userSession.loggedUser.id;
+    
+    // Paginacao
+    const paginaAtual = req.query.page ? req.query.page : 1;
+    const quantidadeFornecedores = await Fornecedor.count();
+    const limit = 5;
+    const quantidadePaginas = Math.ceil(quantidadeFornecedores / limit);
+    const calcOffset = paginaAtual <= 1 ? 0 : ((paginaAtual * limit) - limit) ;
 
     const fornecedores = await Fornecedor.findAll({
       include: ["usuario", "plano_contratado"],
       order: [["usuario", "nome", "ASC"]],
-      limit: 30,
+      offset: calcOffset,
+      limit,
     });
 
-    return res
-      .status(200)
-      .render("admin/listarFornecedor", {
-        title: "Lista de Fornecedores",
-        fornecedores: fornecedores,
-        userSession: userSession,
-      });
+    return res.status(200).render("admin/listarFornecedor", {
+      title: "Lista de Fornecedores",
+      fornecedores: fornecedores,
+      userSession: userSession,
+      quantidadePaginas: quantidadePaginas,
+      paginaAtual: paginaAtual
+    });
   },
   buscarFornecedor: async (req, res) => {
     const userSession = req.session;
-
     let { id, name, choosePlan, date } = req.query;
 
-    console.log(req.query);
-
-    // id = id ? id : id = "";
-    // name = name ? name :  name = "";
-    // choosePlan = choosePlan ? choosePlan : choosePlan = "";
-    // date = date ? date : date = "";
-
+    id = id ? id : ""
+    name = name ? name : ""
+    choosePlan = choosePlan ? choosePlan : ""
+    date = date ? date : ""
+    
     const buscaFornecedores = await Fornecedor.findAll({
       include: [
         {
@@ -67,25 +72,19 @@ const adminController = {
         {
           model: PlanoFornecedor,
           as: "plano_contratado",
-          // where: {
-          //     [Op.or]: [
-          //         { nome: { [Op.like]: `${choosePlan}` }},
-          //         { data_fim: { [Op.like]: `%${date}%`}},
-          //     ]
-          // }
+          where: {
+              [Op.or]: [
+                  { nome: { [Op.like]: `${choosePlan}` }},
+                  { data_fim: { [Op.like]: `%${date}%`}},
+              ]
+          }
         },
       ],
       where: { id },
       order: [["id", "ASC"]],
     });
 
-    return res
-      .status(200)
-      .render("admin/listarFornecedor", {
-        title: "Resultados da Busca de Fornecedores",
-        fornecedores: buscaFornecedores,
-        userSession: userSession,
-      });
+    return res.status(200).render("admin/listarFornecedor", { title: "Resultados da Busca de Fornecedores", fornecedores: buscaFornecedores, userSession: userSession});
   },
   adicionarFornecedor: async (req, res) => {
     const userSession = req.session;
@@ -407,7 +406,7 @@ const adminController = {
   excluirFornecedor: async (req, res) => {
     const { id } = req.params;
 
-    const fornecedor = await Fornecedor.destroy({
+    await Fornecedor.destroy({
       where: { id },
     });
 

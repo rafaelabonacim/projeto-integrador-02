@@ -125,12 +125,7 @@
                   <% for (let i=1;i<=quantidadePaginas;i++){ %>
                     <li class="page-item <%= Number(paginaAtual)==i ? 'active' : '' %>"><a class="page-link" href="?page=<%= i %>"><%= i%></a></li>
                   <%}%>
-
-                  <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">2</a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                  
                   <li class="page-item">
                     <a class="page-link" href="?page=<%= Number(paginaAtual)==quantidadePaginas ? paginaAtual : Number(paginaAtual)+Number(1) %>">Próxima</a>
                   </li>
@@ -145,5 +140,4 @@
   </main>
 
   <%- include('../partials/footer') -%>
-
-    <%- include('../partials/admin/modalExcluir') -%>
+  <%- include('../partials/admin/modalExcluir') -%>

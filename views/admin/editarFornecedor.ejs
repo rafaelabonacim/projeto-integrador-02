@@ -82,14 +82,16 @@
 
           <div class="col-12 col-md-6">
             <div class="form-group">
-                <input type="password" id="password" name="password" class="form-control" value="<%= fornecedor.usuario.senha %>" placeholder="Senha" required>
+                <!-- <input type="password" id="password" name="password" class="form-control" value="<%= fornecedor.usuario.senha %>" placeholder="Senha" required>  -->
+                <input type="password" id="password" name="password" class="form-control" placeholder="Nova Senha" required>
                 <div class="invalid-feedback">Campo obrigatório</div>
             </div>                        
           </div>
 
           <div class="col-sm-12 col-md-6">
               <div class="form-group">
-                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" value="<%= fornecedor.usuario.senha %>" placeholder="Confirmar Senha" required>
+                <!-- <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" value="<%= fornecedor.usuario.senha %>" placeholder="Confirmar Senha" required> -->
+                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirmar Senha" required>
                 <div class="invalid-feedback confirm-password">A senha não é igual</div>
               </div>
           </div>
