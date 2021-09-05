@@ -360,6 +360,10 @@ main {
   color: var(--orange2) !important;
 }
 
+#main-nav a.btn-orange2:hover {
+  color: var(--white) !important;
+}
+
 #main-nav .navbar-toggler {
   color: var(--white)
 }
