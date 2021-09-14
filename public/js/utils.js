@@ -71,15 +71,16 @@ const utils = {
 
             email.addEventListener("focusout", function (){
                 for (let i = 0; i < dbArray.length; i++) {
-                    if (email.value === dbArray[i]) {
+                    if (email.value == dbArray[i]) {
                         email.classList.add("invalid");
-                        emailError.style.display = "block"
-                        emailError.innerHTML = "E-mail já cadastrado"
+                        emailError.style.display = "block";
+                        emailError.innerHTML = "E-mail já cadastrado";
                         sendButton.disabled = true;
+                        break;
                     } else {
                         email.classList.remove("invalid");
-                        emailError.style.display = "none"
-                        emailError.innerHTML = "Campo obrigatório"
+                        emailError.style.display = "none";
+                        emailError.innerHTML = "Campo obrigatório";
                         sendButton.disabled = false;
                     };
                 };

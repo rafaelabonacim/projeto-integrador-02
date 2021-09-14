@@ -12,10 +12,7 @@ router.get('/', adminController.index);
 // Rotas de Fornecedores
 router.get('/listarFornecedor', adminController.listarFornecedor);
 router.get('/listarFornecedor/resultado', adminController.listarFornecedor);
-router.delete(
-  '/listarFornecedor/deletar/:id',
-  adminController.excluirFornecedor,
-);
+router.delete('/listarFornecedor/deletar/:id', adminController.excluirFornecedor);
 router.get('/adicionarFornecedor', adminController.adicionarFornecedor);
 router.post('/adicionarFornecedor', adminController.adicionarFornecedorCreate);
 router.get('/editarFornecedor/:id', adminController.editarFornecedor);
