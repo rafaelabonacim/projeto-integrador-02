@@ -91,18 +91,8 @@
                   <td class="table-actions">
                     <a href="/admin/orcamentosFornecedor/<%= fornecedor.id %>" title="Orçamentos"><i class="far fa-file-alt color-blue1"></i></a>
                     <a href="/admin/editarFornecedor/<%= fornecedor.id %>" title="Editar"><i class="far fa-edit color-orange2"></i></a>
-                    <form action="/admin/deletarFornecedor/<%= fornecedor.id %>?_method=DELETE" method="POST">
-                      <a class="delete-button" title="Excluir"><i class="far fa-trash-alt color-orange1" role="button" data-toggle="modal" data-target="#removeModal"></i></a>
-                      <%- include('../partials/admin/modalExcluir') -%>
-                    </form>
-                    <!-- <a href="#" data-toggle="modal" data-target="#removeModal" data-url="/admin/excluirFornecedor/<%= // fornecedor.id %>" class="delete-button" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a> -->
+                    <a href=# data-toggle="modal" data-target="#removeModal" onclick="deleteFornecedor(`/admin/listarFornecedor/deletar/<%= fornecedor.id %>?_method=DELETE`)" class="delete-button" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
                   </td>
-                  <!-- <td>
-                    <div class="custom-control custom-switch">
-                      <input type="checkbox" class="custom-control-input" id="<%= //fornecedor.id %>" checked>
-                      <label class="custom-control-label" for="<%= //fornecedor.id %>"></label>
-                    </div>
-                  </td> -->
                 </tr>
                 <% }); %>
               </tbody>
@@ -116,16 +106,16 @@
           <div class="col-sm-12">
             <nav class="pagination-container">
               <ul class="pagination">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                <li class="page-item ">
+                  <a class="page-link" href="?page=<%= Number(paginaAtual)==1 ? 1 : paginaAtual-1 %>" tabindex="-1" aria-disabled="true">Anterior</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active" aria-current="page">
-                  <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+                <% for (let i=1;i<=quantidadePaginas;i++){ %>
+                  <li class="page-item <%= Number(paginaAtual)==i ? 'active' : '' %>"><a class="page-link" href="?page=<%= i %>"><%= i%></a></li>
+                <%}%>
+
                 <li class="page-item">
-                  <a class="page-link" href="#">Próxima</a>
+                  <a class="page-link" href="?page=<%= Number(paginaAtual)==quantidadePaginas ? paginaAtual : Number(paginaAtual)+Number(1) %>">Próxima</a>
                 </li>
               </ul>
             </nav>
@@ -137,3 +127,10 @@
 </main>
 
 <%- include('../partials/footer') -%>
+<%- include('../partials/admin/modalExcluir') -%>
+
+<script>
+  const deleteFornecedor = (url) => {
+    document.getElementById("modal-excluir").action = url;
+  }
+</script>

@@ -1,5 +1,5 @@
-const bcrypt = require("bcrypt");
-const config = require("../database/config/config");
+const bcrypt = require('bcrypt');
+const config = require('../database/config/config');
 const {
   AreaDeAtendimento,
   Cliente,
@@ -12,100 +12,82 @@ const {
   Usuario,
   FornecedorHasArea,
   FornecedorHasRamo,
-} = require("../database/models");
+} = require('../database/models');
 
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
 const institutionalController = {
   index: (req, res) => {
-    const userSession = req.session;
-
-    return res.render("index", {
-      title: "Portal para Cotação em Usinagem",
-      userSession: userSession,
-      sucesso: false,
-      erro: false,
+    return res.render('index', {
+      title: 'Portal para Cotação em Usinagem',
     });
   },
   anuncie: (req, res) => {
-    const userSession = req.session;
-    return res.render("anuncie", {
-      title: "Anuncie",
-      userSession: userSession,
+    return res.render('anuncie', {
+      title: 'Anuncie',
     });
   },
   parceiros: async (req, res) => {
-    const userSession = req.session;
-
     // Listagem de Fornecedores
     const fornecedores = await Fornecedor.findAll({
-      include: ["usuario", "endereco"],
-      order: [["usuario", "nome", "ASC"]],
+      include: ['usuario', 'endereco'],
+      order: [['usuario', 'nome', 'ASC']],
       limit: 20,
     });
 
-    return res.render("parceiros", {
-      title: "Parceiros",
+    return res.render('parceiros', {
+      title: 'Parceiros',
       fornecedores: fornecedores,
-      userSession: userSession,
     });
   },
   parceirosBusca: async (req, res) => {
-    const userSession = req.session;
-
     // Busca pelo nome
     let { name, state } = req.query;
 
-    name = name ? name : "";
-    state = state ? state : "";
+    name = name ? name : '';
+    state = state ? state : '';
 
     const buscaFornecedores = await Fornecedor.findAll({
       include: [
         {
           model: Usuario,
-          as: "usuario",
+          as: 'usuario',
           where: {
             nome: { [Op.like]: `%${name}%` },
           },
         },
         {
           model: Endereco,
-          as: "endereco",
+          as: 'endereco',
           where: {
             estado: { [Op.like]: `%${state}%` },
           },
         },
       ],
-      order: [["usuario", "nome", "ASC"]],
+      order: [['usuario', 'nome', 'ASC']],
     });
 
-    return res.render("parceiros", {
-      title: "Parceiros",
+    return res.render('parceiros', {
+      title: 'Parceiros',
       fornecedores: buscaFornecedores,
-      userSession: userSession,
     });
   },
   perfil: (req, res) => {
-    const userSession = req.session;
-    return res.render("perfilCadastro", {
-      title: "Cadastro",
-      userSession: userSession,
+    return res.render('perfilCadastro', {
+      title: 'Cadastro',
     });
   },
   cadastroFornecedor: async (req, res) => {
-    const userSession = req.session;
-
     const usuarios = await Usuario.findAll();
     const allUsers = [];
     for (let usuario of usuarios) {
       allUsers.push(usuario.email);
     }
 
-    return res.render("cadastroFornecedor", {
-      title: "Cadastro de Fornecedor",
+    return res.render('cadastroFornecedor', {
+      title: 'Cadastro de Fornecedor',
       usuarios: allUsers,
-      userSession: userSession,
     });
   },
   cadastroFornecedorCreate: async (req, res) => {
@@ -136,11 +118,11 @@ const institutionalController = {
       senha: bcrypt.hashSync(password, 10),
       tipo_usuario_id: 2,
     }).catch(function (err) {
-      console.log("Erro ao criar usuário", err);
+      console.log('Erro ao criar usuário', err);
     });
 
     const enderecoCriado = await Endereco.create({
-      cep: zipcode.replace(cadastroRegex, ""),
+      cep: zipcode.replace(cadastroRegex, ''),
       logradouro: address,
       complemento: complement,
       bairro: district,
@@ -148,17 +130,17 @@ const institutionalController = {
       estado: state,
       cidade: city,
     }).catch(function (err) {
-      console.log("Erro ao criar Endereço", err);
+      console.log('Erro ao criar Endereço', err);
     });
 
     const fornecedorCriado = await Fornecedor.create({
-      telefone: phone.replace(cadastroRegex, ""),
-      whatsapp: whatsapp.replace(cadastroRegex, ""),
-      cnpj: document.replace(cadastroRegex, ""),
+      telefone: phone.replace(cadastroRegex, ''),
+      whatsapp: whatsapp.replace(cadastroRegex, ''),
+      cnpj: document.replace(cadastroRegex, ''),
       usuario_id: usuarioCriado.id,
       endereco_id: enderecoCriado.id,
     }).catch(function (err) {
-      console.log("Erro ao criar Fornecedor");
+      console.log('Erro ao criar Fornecedor');
       console.log(err, req.body);
     });
 
@@ -170,7 +152,7 @@ const institutionalController = {
         fornecedor_id: fornecedorCriado.id,
         area_de_atendimento_id: state,
       }).catch(function (err) {
-        console.log("Erro ao criar Área de Atendimento", err);
+        console.log('Erro ao criar Área de Atendimento', err);
       });
     }
 
@@ -182,7 +164,7 @@ const institutionalController = {
         fornecedor_id: fornecedorCriado.id,
         ramo_atendimento_id: ramo,
       }).catch(function (err) {
-        console.log("Erro ao criar Área de Atendimento", err);
+        console.log('Erro ao criar Área de Atendimento', err);
       });
     }
 
@@ -211,22 +193,20 @@ const institutionalController = {
       plano_id: planoSelecionado.id,
       fornecedor_id: fornecedorCriado.id,
     }).catch(function (err) {
-      console.log("Erro ao criar Plano", err);
+      console.log('Erro ao criar Plano', err);
     });
 
-    return res.redirect("/login");
+    return res.redirect('/login');
   },
   cadastrocliente: async (req, res) => {
-    const userSession = req.session;
     const usuarios = await Usuario.findAll();
     const allUsers = [];
     for (let usuario of usuarios) {
       allUsers.push(usuario.email);
     }
-    return res.render("cadastroCliente", {
-      title: "Cadastro",
+    return res.render('cadastroCliente', {
+      title: 'Cadastro',
       usuarios: allUsers,
-      userSession: userSession,
     });
   },
   cadastroclienteCreate: async (req, res) => {
@@ -251,7 +231,7 @@ const institutionalController = {
       senha: bcrypt.hashSync(password, 10),
       tipo_usuario_id: 3,
     }).catch(function (err) {
-      console.log("Erro ao criar usuário", err);
+      console.log('Erro ao criar usuário', err);
     });
 
     const enderecoCriado = await Endereco.create({
@@ -263,7 +243,7 @@ const institutionalController = {
       estado: state,
       cidade: city,
     }).catch(function (err) {
-      console.log("Erro ao criar Endereço", err);
+      console.log('Erro ao criar Endereço', err);
     });
 
     const clienteCriado = await Cliente.create({
@@ -272,17 +252,15 @@ const institutionalController = {
       usuario_id: usuarioCriado.id,
       endereco_id: enderecoCriado.id,
     }).catch(function (err) {
-      console.log("Erro ao criar Fornecedor");
+      console.log('Erro ao criar Fornecedor');
       console.log(err, req.body);
     });
 
-    return res.redirect("/login");
+    return res.redirect('/login');
   },
   login: async (req, res) => {
-    const userSession = req.session;
-
     const usuarios = await Usuario.findAll();
-    return res.render("login", { title: "Login", userSession: userSession });
+    return res.render('login', { title: 'Login' });
   },
   auth: async (req, res) => {
     const { email, password } = req.body;
@@ -296,23 +274,19 @@ const institutionalController = {
       bcrypt.compareSync(password, usuarioEcontrado.senha)
     ) {
       req.session.loggedUser = usuarioEcontrado;
-      res.redirect("/admin");
+      res.redirect('/admin');
     } else {
-      res.redirect("/login");
+      res.redirect('/login');
     }
   },
   forgotpassword: (req, res) => {
-    const userSession = req.session;
-    return res.render("esqueci-senha", {
-      title: "Esqueci senha",
-      userSession: userSession,
+    return res.render('esqueci-senha', {
+      title: 'Esqueci senha',
     });
   },
   recuperarsenha: (req, res) => {
-    const userSession = req.session;
-    return res.render("recuperar-senha", {
-      title: "Recuperar senha",
-      userSession: userSession,
+    return res.render('recuperar-senha', {
+      title: 'Recuperar senha',
     });
   },
   sair: (req, res) => {
