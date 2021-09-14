@@ -17,8 +17,8 @@
 
     </section>
 
-    <section class="admin-container admin-list-client">
-      <form class="needs-validation" novalidate>
+    <section class="admin-container admin-list-client"> 
+      <form action="/admin/listarOrcamentos/resultados" method="GET" novalidate>
         <div class="container card">
           
           <div class="row">
@@ -28,61 +28,27 @@
           </div>
           
           <div class="row">
-            <div class="col-sm-12 col-md-3">
+            <!-- <div class="col-sm-12 col-md-3">
               <div class="form-group">
-                <select name="chooseBranch" class="form-control" required>
-                  <option disabled selected>Ramo</option>
-                  <option value="usinagem">Usinagem</option>
-                  <option value="micro-usinagem">Micro usinagem</option>
-                </select>
+                <input type="date" id="date" class="form-control" placeholder="Data">
               </div> 
-            </div>
+            </div> -->
 
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-12 col-md">
               <div class="form-group">
                 <input type="name" name="name" class="form-control" placeholder="Cliente">
               </div> 
             </div>
 
-            <div class="col-sm-12 col-md-3">
-              <div class="form-group">
-                <input type="date" id="date" class="form-control" placeholder="Data">
-              </div> 
-            </div>
-
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-12 col-md">
               <div class="form-group">
                 <input type="email" name="email" class="form-control" placeholder="Email">
-              </div> 
-            </div>
-          </div>
-          
-          <div class="collapse-forms">
-            <div id="filters" class="row collapse">
-              <div class="col-sm-12 col-md-3">
-                <div class="form-group">
-                  <select name="chooseMaterial" class="form-control" required>
-                    <option disabled selected>Matéria Prima</option>
-                    <option value="material-de-usinagem-1">Material de usinagem 1</option>
-                    <option value="material-de-usinagem-2">Material de usinagem 2</option>
-                    <option value="material-de-usinagem-3">Material de usinagem 3</option>
-                    <option value="material-de-usinagem-4">Material de usinagem 4</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="col-sm-12 col-md-3">
-                <div class="form-group">
-                  <input type="tel" name="phone" maxlength="16" class="form-control" placeholder="Telefone (com DDD)">
-                </div>
               </div>
             </div>
-          </div>
-
-          <div class="row">
-            <div class="col-12">
+            
+            <div class="col-sm-12 col-md-auto">
               <div class="form-group">
-                <a class="btn btn-solid btn-orange1 my-3" data-toggle="collapse" href="#filters" role="button" aria-expanded="false" aria-controls="filters"><i class="fas fa-plus"></i> Filtros</a>
+                <button type="search" class="btn btn-solid btn-blue1"><i class="fas fa-search"></i> Procurar</button>
               </div>
             </div>
           </div>
@@ -92,44 +58,22 @@
               <table class="table table-bordered table-responsive-sm">
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
+                    <!-- <th scope="col">Data</th> -->
                     <th scope="col">Cliente</th>
                     <th scope="col">E-mail</th>
-                    <th scope="col">Data</th>
                     <th scope="col">Ações</th>
                   </tr>
                 </thead>
                 <tbody>
+                  <% orcamentos.forEach(orcamento => { %>                
                   <tr>
-                    <th>1</th>
-                    <td>Jojo Toddynho</td>
-                    <td>Joujo@toddy.com</td>
-                    <td>30/05/1678</td>
+                    <td><%= orcamento.orcamento_cliente.usuario.nome %></td>
+                    <td><%= orcamento.orcamento_cliente.usuario.email %></td>
                     <td class="table-actions">
-                      <a href="/admin/orcamentoDetalhado" title="Detalhes"><i class="fas fa-info-circle color-orange2"></i></a>
-                      <a href="#" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
+                      <a href="/admin/orcamentoDetalhado/<%= orcamento.id %>" title="Detalhes"><i class="fas fa-info-circle color-orange2"></i></a>
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Sandra Lee</td>
-                    <td>pimple@popper.com</td>
-                    <td>30/05/1500</td>
-                    <td class="table-actions">
-                      <a href="/admin/orcamentoDetalhado" title="Detalhes"><i class="fas fa-info-circle color-orange2"></i></a>
-                      <a href="#" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
-                    </td>
-                  </tr>                           
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Moda Foca</td>
-                    <td>jones@bol.com.br</td>
-                    <td>30/05/1997</td>
-                    <td class="table-actions">
-                      <a href="/admin/orcamentoDetalhado" title="Detalhes"><i class="fas fa-info-circle color-orange2"></i></a>
-                      <a href="#" title="Excluir"><i class="far fa-trash-alt color-orange1"></i></a>
-                    </td>
-                  </tr>
+                  <% }); %>
                 </tbody>
               </table>
             </div>
@@ -141,16 +85,14 @@
             <div class="col-sm-12">
               <nav class="pagination-container">
                 <ul class="pagination">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">2</a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
                   <li class="page-item">
-                    <a class="page-link" href="#">Próxima</a>
+                    <a class="page-link" href="?page=<%= Number(paginaAtual)==1 ? 1 : paginaAtual-1 %>" tabindex="-1" aria-disabled="true">Anterior</a>
+                  </li>
+                  <% for (let i=1;i<=quantidadePaginas;i++){ %>
+                    <li class="page-item <%= Number(paginaAtual)==i ? 'active' : '' %>"><a class="page-link" href="?page=<%= i %>"><%= i%></a></li>
+                  <%}%>
+                  <li class="page-item">
+                    <a class="page-link" href="?page=<%= Number(paginaAtual)==quantidadePaginas ? paginaAtual : Number(paginaAtual)+Number(1) %>">Próxima</a>
                   </li>
                 </ul>
               </nav>

@@ -25,7 +25,9 @@ router.post(
 );
 
 router.get('/cadastro-cliente', institutionalController.cadastrocliente);
-router.post('/cadastro-cliente', institutionalController.cadastroclienteCreate);
+router.post('/cadastro-cliente',institutionalController.cadastroclienteCreate);
+
+router.post('/cadastro-orcamento', institutionalController.orcamentoCreate);
 
 // Rotas do link que será enviado para o email
 router.get('/recuperar-senha', institutionalController.recuperarsenha);

@@ -592,16 +592,70 @@ const adminController = {
   },
   listarOrcamentos: async (req, res) => {
     const userSession = req.session;
-    return res.render('admin/listarOrcamentos', {
-      title: 'Listar Orçamentos',
-      userSession: userSession,
+    const userId = userSession.loggedUser.id;
+    let { name, email } = req.query;
+
+    // Paginacao
+    const paginaAtual = req.query.page ? req.query.page : 1;
+    const limit = 5;
+    const calcOffset = paginaAtual <= 1 ? 0 : paginaAtual * limit - limit;
+
+    const whereName = name
+      ? [Sequelize.literal(`nome like '%${name}%' `)]
+      : [];
+    const whereEmail = email
+      ? [Sequelize.literal(`email like '%${email}%' `)]
+      : [];
+
+    const conditions = [
+      ...whereName,
+      ...whereEmail,
+    ];
+    const where = conditions.length > 0 ? { [Op.or]: conditions } : {};
+    
+    const buscaOrcamentos = await Orcamento.findAndCountAll({
+      include: [
+        {
+          model: Cliente, as: "orcamento_cliente",
+          include: ["usuario"]
+        },
+      ],
+      where,
+      offset: calcOffset,
+      limit,
+      order: [['createdAt', 'DESC']],
     });
-  },
-  orcamentoDetalhado: (req, res) => {
-    const userSession = req.session;
-    return res.render('admin/orcamentoDetalhado', {
-      title: 'Orçamento Detalhado',
+    
+    const quantidadeOrcamentos = buscaOrcamentos.count;
+    const quantidadePaginas = Math.ceil(quantidadeOrcamentos / limit);
+
+    return res.status(200).render('admin/listarOrcamentos', {
+      title: 'Resultados da Busca de Orçamentos',
       userSession: userSession,
+      orcamentos: buscaOrcamentos.rows,
+      quantidadePaginas: quantidadePaginas,
+      paginaAtual: paginaAtual,
+    });
+
+  },
+  orcamentoDetalhado: async (req, res) => {
+    const userSession = req.session;
+    const userId = userSession.loggedUser.id;
+    const { id } = req.params;
+
+    const orcamento = await Orcamento.findByPk(id, {
+      include: [
+        {
+          model: Cliente, as: "orcamento_cliente",
+          include: ["usuario"]
+        }
+      ]
+    });
+
+    return res.render("admin/orcamentoDetalhado", {
+      title: "Orçamento Detalhado",
+      userSession: userSession,
+      orcamento: orcamento,
     });
   },
 };

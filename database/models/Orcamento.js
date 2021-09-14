@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
             },
             cliente_id: {
                 type: DataTypes.INTEGER,
-            }
+            },
         },
         {
             tableName: 'orcamento',

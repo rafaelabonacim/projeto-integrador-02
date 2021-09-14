@@ -14,13 +14,15 @@ const {
   FornecedorHasRamo,
 } = require('../database/models');
 
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
 const institutionalController = {
   index: (req, res) => {
     return res.render('index', {
       title: 'Portal para Cotação em Usinagem',
+      sucesso: false,
+      erro: false,
     });
   },
   anuncie: (req, res) => {
@@ -291,7 +293,36 @@ const institutionalController = {
   },
   sair: (req, res) => {
     req.session.destroy(function (err) {});
-    res.redirect('/login');
+    res.redirect("/login");
+  },
+  orcamentoCreate: async (req, res) => {
+    const userSession = req.session;
+    console.log(userSession);
+    const userId = userSession.loggedUser.id;
+    const { quantidade, materia_prima, prazo, detalhes, } = req.body;
+
+    const orcamentoCriado = await Orcamento.create({
+      quantidade,
+      materia_prima,
+      prazo,
+      detalhes,
+      cliente_id: 3,
+      fornecedor_id: 94,
+    }).catch(function (err) {
+      return res.render("index", {
+          title: "Portal para Cotação em Usinagem",
+          userSession: userSession,
+          sucesso: false,
+          erro: true,
+        });
+  });
+
+    return res.render("index", {
+      title: "Portal para Cotação em Usinagem",
+      userSession: userSession,
+      sucesso: true,
+      erro: false,
+    });
   },
 };
 

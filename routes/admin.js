@@ -31,6 +31,7 @@ router.delete('/listarCliente/deletar/:id', adminController.excluirCliente);
 
 // Rotas orçamentos
 router.get('/listarOrcamentos', adminController.listarOrcamentos);
+router.get('/listarOrcamentos/resultados', adminController.listarOrcamentos);
 router.get('/orcamentoDetalhado/:id', adminController.orcamentoDetalhado);
 
 router.get(
