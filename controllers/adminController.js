@@ -600,27 +600,50 @@ const adminController = {
   listarOrcamentos: async (req, res) => {
     const userSession = req.session;
     const userId = userSession.loggedUser.id;
+    let { name, email } = req.query;
 
-    // const orcamentos = await Orcamento.findAll({
-    //   include: ["orcamento_cliente", "orcamento_fornecedor"],
-    //   order: [["orcamento_cliente", "id", "ASC"]],
-    //   limit: 30,
-    // });
+    // Paginacao
+    const paginaAtual = req.query.page ? req.query.page : 1;
+    const limit = 5;
+    const calcOffset = paginaAtual <= 1 ? 0 : paginaAtual * limit - limit;
 
-    const orcamentos = await Orcamento.findAll({
+    const whereName = name
+      ? [Sequelize.literal(`nome like '%${name}%' `)]
+      : [];
+    const whereEmail = email
+      ? [Sequelize.literal(`email like '%${email}%' `)]
+      : [];
+
+    const conditions = [
+      ...whereName,
+      ...whereEmail,
+    ];
+    const where = conditions.length > 0 ? { [Op.or]: conditions } : {};
+    
+    const buscaOrcamentos = await Orcamento.findAndCountAll({
       include: [
         {
           model: Cliente, as: "orcamento_cliente",
           include: ["usuario"]
-        }
-      ]
+        },
+      ],
+      where,
+      offset: calcOffset,
+      limit,
+      order: [['createdAt', 'DESC']],
+    });
+    
+    const quantidadeOrcamentos = buscaOrcamentos.count;
+    const quantidadePaginas = Math.ceil(quantidadeOrcamentos / limit);
+
+    return res.status(200).render('admin/listarOrcamentos', {
+      title: 'Resultados da Busca de Orçamentos',
+      userSession: userSession,
+      orcamentos: buscaOrcamentos.rows,
+      quantidadePaginas: quantidadePaginas,
+      paginaAtual: paginaAtual,
     });
 
-    return res.render("admin/listarOrcamentos", {
-      title: "Listar Orçamentos",
-      userSession: userSession,
-      orcamentos: orcamentos, 
-    });
   },
   orcamentoDetalhado: async (req, res) => {
     const userSession = req.session;
@@ -640,49 +663,6 @@ const adminController = {
       title: "Orçamento Detalhado",
       userSession: userSession,
       orcamento: orcamento,
-    });
-  },
-  // filtroDataOrcamento: async (req, res) => {
-  //   const userSession = req.session;
-
-  //   const { date } = req.query;
-
-  //   const orcamentoFiltrado = await Orcamento.findAll({
-  //     where: {
-  //       'createdAt': date
-  //   }
-  //   });
-
-  //   return res.render("admin/listarOrcamentos", {
-  //     title: "Resultados",
-  //     userSession: userSession,
-  //     orcamentos: orcamentoFiltrado,
-  //   });
-  // },
-  filtroNomeOrcamento: async (req, res) => {
-    const userSession = req.session;
-    const { nome, email, id } = req.query;
-
-    const orcamentoFiltrado = await Orcamento.findAll({
-        include: [
-          {
-            model: Cliente, as: "orcamento_cliente",
-            include: ["usuario"],
-            where: {
-              nome: { [Op.like]: `%${nome}%` },
-              email: { [Op.like]: `%${email}%` },
-            },
-            required: true,
-          },
-        ],
-        where: id ? { id } : {},
-        order: [["id", "ASC"]],
-    });
-
-    return res.render("admin/listarOrcamentos", {
-      title: "Resultados",
-      userSession: userSession,
-      orcamentos: orcamentoFiltrado,
     });
   },
 };

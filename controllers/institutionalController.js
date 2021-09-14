@@ -21,6 +21,8 @@ const institutionalController = {
   index: (req, res) => {
     return res.render('index', {
       title: 'Portal para Cotação em Usinagem',
+      sucesso: false,
+      erro: false,
     });
   },
   anuncie: (req, res) => {
@@ -304,23 +306,23 @@ const institutionalController = {
       materia_prima,
       prazo,
       detalhes,
-      cliente_id: 2,
+      cliente_id: 3,
       fornecedor_id: 94,
     }).catch(function (err) {
-        return res.render("index", {
-            title: "Portal para Cotação em Usinagem",
-            userSession: userSession,
-            sucesso: false,
-            erro: true,
-          });
-    });
+      return res.render("index", {
+          title: "Portal para Cotação em Usinagem",
+          userSession: userSession,
+          sucesso: false,
+          erro: true,
+        });
+  });
 
     return res.render("index", {
-        title: "Portal para Cotação em Usinagem",
-        userSession: userSession,
-        sucesso: true,
-        erro: false,
-      });
+      title: "Portal para Cotação em Usinagem",
+      userSession: userSession,
+      sucesso: true,
+      erro: false,
+    });
   },
 };
 

@@ -327,34 +327,34 @@
             </div>
           </section>
         <% } %>
-      <% } %>
+      
+        <% if(sucesso){ %>
+          <form action="/" name="home" method="GET">
+            <section class="quote-form sucess">
+              <div class="container card">
+                <div class="row">
+                  <div class="col-12">
+                    <h2>Orçamento enviado com Sucesso!</h2>
+                    <i class="fas fa-check-circle success-quote mt-3 mb-4"></i>
+                  </div>
 
-      <% if(sucesso){ %>
-        <form action="/" name="home" method="GET">
-          <section class="quote-form sucess">
-            <div class="container card">
-              <div class="row">
-                <div class="col-12">
-                  <h2>Orçamento enviado com Sucesso!</h2>
-                  <i class="fas fa-check-circle success-quote mt-3 mb-4"></i>
-                </div>
-
-                <div class="col-12">
-                  <button class="btn btn-solid btn-orange1" type="submit">
-                    <i class="fas fa-file"></i> Novo Orçamento
-                  </button>
+                  <div class="col-12">
+                    <button class="btn btn-solid btn-orange1" type="submit">
+                      <i class="fas fa-file"></i> Novo Orçamento
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
-        </form>
+            </section>
+          </form>
+        <% } %>
       <% } %>
 
-            <div class="container know-how-cta">
-              <p>Ainda não conhece nossa ferramenta? Clique aqui para saber mais!</p>
-              <a href="#how-it-works"><i class="fas fa-chevron-down"></i></a>
-            </div>
-      </section>
+      <div class="container know-how-cta">
+        <p>Ainda não conhece nossa ferramenta? Clique aqui para saber mais!</p>
+        <a href="#how-it-works"><i class="fas fa-chevron-down"></i></a>
+      </div>
+      
     </section>
 
     <section id="how-it-works">
