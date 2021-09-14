@@ -28,7 +28,6 @@
           </div>
           
           <div class="row">
-
             <div class="col-sm-12 col-md-3">
               <div class="form-group">
                 <input type="date" id="date" class="form-control" placeholder="Data">
@@ -46,18 +45,10 @@
                 <input type="email" name="email" class="form-control" placeholder="Email">
               </div>
             </div>
-          </div>
-          
-          <div class="collapse-forms">
-            <div id="filters" class="row collapse">
-              
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-12">
+            
+            <div class="col-sm-12 col-md-3">
               <div class="form-group">
-                <a class="btn btn-solid btn-orange1 my-3" data-toggle="collapse" href="#filters" role="button" aria-expanded="false" aria-controls="filters"><i class="fas fa-plus"></i> Filtros</a>
+                <button type="submit" class="btn btn-solid btn-blue1"><i class="fas fa-search"></i> Procurar</button>
               </div>
             </div>
           </div>
@@ -74,30 +65,16 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <% orcamentos.forEach(orcamento => { %>                
                   <tr>
-                    <td>30/05/1678</td>
-                    <td>Jojo Toddynho</td>
-                    <td>Joujo@toddy.com</td>
+                    <td><%= orcamento.createdAt %></td>
+                    <td><%= orcamento.orcamento_cliente.usuario.nome %></td>
+                    <td><%= orcamento.orcamento_cliente.usuario.email %></td>
                     <td class="table-actions">
-                      <a href="/admin/orcamentoDetalhado" title="Detalhes"><i class="fas fa-info-circle color-orange2"></i></a>
+                      <a href="/admin/orcamentoDetalhado/<%= orcamento.id %>" title="Detalhes"><i class="fas fa-info-circle color-orange2"></i></a>
                     </td>
                   </tr>
-                  <tr>
-                    <td>30/05/1500</td>
-                    <td>Sandra Lee</td>
-                    <td>pimple@popper.com</td>
-                    <td class="table-actions">
-                      <a href="/admin/orcamentoDetalhado" title="Detalhes"><i class="fas fa-info-circle color-orange2"></i></a>
-                    </td>
-                  </tr>                           
-                  <tr>
-                    <td>30/05/1997</td>
-                    <td>Moda Foca</td>
-                    <td>jones@bol.com.br</td>
-                    <td class="table-actions">
-                      <a href="/admin/orcamentoDetalhado" title="Detalhes"><i class="fas fa-info-circle color-orange2"></i></a>
-                    </td>
-                  </tr>
+                  <% }); %>
                 </tbody>
               </table>
             </div>

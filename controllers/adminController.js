@@ -607,16 +607,90 @@ const adminController = {
   },
   listarOrcamentos: async (req, res) => {
     const userSession = req.session;
+    const userId = userSession.loggedUser.id;
+
+    // const orcamentos = await Orcamento.findAll({
+    //   include: ["orcamento_cliente", "orcamento_fornecedor"],
+    //   order: [["orcamento_cliente", "id", "ASC"]],
+    //   limit: 30,
+    // });
+
+    const orcamentos = await Orcamento.findAll({
+      include: [
+        {
+          model: Cliente, as: "orcamento_cliente",
+          include: ["usuario"]
+        }
+      ]
+    });
+
     return res.render("admin/listarOrcamentos", {
       title: "Listar Orçamentos",
       userSession: userSession,
+      orcamentos: orcamentos, 
     });
   },
-  orcamentoDetalhado: (req, res) => {
+  orcamentoDetalhado: async (req, res) => {
     const userSession = req.session;
+    const userId = userSession.loggedUser.id;
+    const { id } = req.params;
+
+    const orcamento = await Orcamento.findByPk(id, {
+      include: [
+        {
+          model: Cliente, as: "orcamento_cliente",
+          include: ["usuario"]
+        }
+      ]
+    });
+
     return res.render("admin/orcamentoDetalhado", {
       title: "Orçamento Detalhado",
       userSession: userSession,
+      orcamento: orcamento,
+    });
+  },
+  // filtroDataOrcamento: async (req, res) => {
+  //   const userSession = req.session;
+
+  //   const { date } = req.query;
+
+  //   const orcamentoFiltrado = await Orcamento.findAll({
+  //     where: {
+  //       'createdAt': date
+  //   }
+  //   });
+
+  //   return res.render("admin/listarOrcamentos", {
+  //     title: "Resultados",
+  //     userSession: userSession,
+  //     orcamentos: orcamentoFiltrado,
+  //   });
+  // },
+  filtroNomeOrcamento: async (req, res) => {
+    const userSession = req.session;
+    const { nome, email, id } = req.query;
+
+    const orcamentoFiltrado = await Orcamento.findAll({
+        include: [
+          {
+            model: Cliente, as: "orcamento_cliente",
+            include: ["usuario"],
+            where: {
+              nome: { [Op.like]: `%${nome}%` },
+              email: { [Op.like]: `%${email}%` },
+            },
+            required: true,
+          },
+        ],
+        where: id ? { id } : {},
+        order: [["id", "ASC"]],
+    });
+
+    return res.render("admin/listarOrcamentos", {
+      title: "Resultados",
+      userSession: userSession,
+      orcamentos: orcamentoFiltrado,
     });
   },
 };

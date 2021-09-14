@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02-Ago-2021 às 02:22
+-- Tempo de geração: 04-Set-2021 às 22:04
 -- Versão do servidor: 10.4.20-MariaDB
 -- versão do PHP: 8.0.8
 
@@ -105,8 +105,14 @@ CREATE TABLE `endereco` (
 --
 
 INSERT INTO `endereco` (`id`, `cep`, `logradouro`, `complemento`, `bairro`, `numero`, `estado`, `cidade`, `createdAt`, `updatedAt`) VALUES
-(112, '02265005', 'Rua Nova', 'Galpão 500', 'Bairro Novo', '4545', 'SP', 'São Paulo', '2021-08-01 02:31:55', '2021-08-01 02:31:55'),
-(113, '05425001', 'Rua Velha', '', 'Pinheiros', '582', 'SP', 'São Paulo', '2021-08-01 22:11:34', '2021-08-01 22:11:34');
+(112, '02265005', 'Rua Nova', 'Galpão 500', 'Bairro Novo', '4545', 'SP', 'São Paulo', '2021-08-01 02:31:55', '2021-08-08 17:55:06'),
+(113, '05425001', 'Rua Velha', '', 'Pinheiros', '582', 'SP', 'São Paulo', '2021-08-01 22:11:34', '2021-08-08 00:51:49'),
+(114, '02265001', 'Av Guapira', 'Casa 3', 'Tucuruvi', '945', 'MG', 'Poços de Caldas', '2021-08-02 23:50:50', '2021-08-09 00:09:28'),
+(115, '52024444', 'Rua das Peripercias', 'Casa 100', 'Peri', '1000', 'AL', 'Alagoas', '2021-08-08 13:29:01', '2021-08-09 00:15:22'),
+(119, '05698555', 'Rua das Rafildas', '', 'Filda', '68', 'BA', 'Salvador', '2021-08-08 18:22:26', '2021-08-08 18:22:26'),
+(120, '02265001', 'Rua Metálica', 'Bomba Atômica', 'Metal', '300', 'CE', 'Fortaleza', '2021-08-09 00:13:36', '2021-08-09 00:13:36'),
+(121, '02265001', 'Rua Metálica', 'Bomba Atômica', 'Metal', '300', 'CE', 'Fortaleza', '2021-08-09 00:14:21', '2021-08-09 00:14:21'),
+(122, '05500000', 'Rua Porcine', 'Chiqueiro 2', 'Porcolin', '66', 'SC', 'Joinville', '2021-08-14 19:44:26', '2021-08-14 19:45:25');
 
 -- --------------------------------------------------------
 
@@ -131,8 +137,13 @@ CREATE TABLE `fornecedor` (
 --
 
 INSERT INTO `fornecedor` (`id`, `telefone`, `whatsapp`, `cnpj`, `endereco_id`, `usuario_id`, `createdAt`, `updatedAt`, `deletedAt`) VALUES
-(88, '11111111111', '11111111111', '11111111111111', 112, '16395921-06ef-4420-aa73-dace2883923d', '2021-08-01 02:31:55', '2021-08-01 02:31:55', NULL),
-(89, '22222222222', '22222222222', '22222222222222', 113, '6c991008-580a-4c21-b574-ecc8623b5aa1', '2021-08-01 22:11:34', '2021-08-01 22:11:34', NULL);
+(88, '11111111111', '11111111111', '11111111111111', 112, '16395921-06ef-4420-aa73-dace2883923d', '2021-08-01 02:31:55', '2021-08-08 17:55:06', NULL),
+(89, '22222222222', '22222222222', '22222222222222', 113, '6c991008-580a-4c21-b574-ecc8623b5aa1', '2021-08-01 22:11:34', '2021-08-08 00:51:49', NULL),
+(90, '33333333333', '33333333333', '33333333333333', 114, 'f24b301e-05ed-4705-8cd3-221ca8a88ad4', '2021-08-02 23:50:50', '2021-08-09 00:09:28', NULL),
+(91, '44444444444', '44444444444', '44444444444444', 115, '888d00d8-e397-4f06-a502-846882a1262b', '2021-08-08 13:29:01', '2021-08-09 00:15:22', NULL),
+(93, '55555555555', '55555555555', '55555555555555', 119, '5c4ad7d7-951d-4aa9-8d0d-67b47af82c87', '2021-08-08 18:22:26', '2021-08-08 18:22:26', NULL),
+(94, '66666666666', '66666666666', '66666666666666', 121, 'a01dd9c2-7e20-4306-b66e-e36d77c302b4', '2021-08-09 00:14:21', '2021-08-09 00:14:21', NULL),
+(95, '77777777777', '77777777777', '77777777777777', 122, '6c737967-ad56-4308-a99b-c265acac214a', '2021-08-14 19:44:26', '2021-08-14 19:45:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -177,7 +188,16 @@ INSERT INTO `fornecedor_has_area` (`fornecedor_id`, `area_de_atendimento_id`) VA
 (88, 25),
 (88, 26),
 (88, 27),
-(89, 25);
+(89, 3),
+(90, 27),
+(91, 1),
+(93, 5),
+(94, 2),
+(94, 3),
+(94, 6),
+(95, 14),
+(95, 15),
+(95, 16);
 
 -- --------------------------------------------------------
 
@@ -198,7 +218,15 @@ INSERT INTO `fornecedor_has_ramo` (`fornecedor_id`, `ramo_atendimento_id`) VALUE
 (88, 1),
 (88, 2),
 (89, 1),
-(89, 2);
+(90, 1),
+(91, 1),
+(91, 2),
+(93, 1),
+(93, 2),
+(94, 1),
+(94, 2),
+(95, 1),
+(95, 2);
 
 -- --------------------------------------------------------
 
@@ -270,7 +298,12 @@ CREATE TABLE `plano_fornecedor` (
 
 INSERT INTO `plano_fornecedor` (`id`, `nome`, `preco`, `data_inicio`, `data_fim`, `plano_id`, `fornecedor_id`, `createdAt`, `updatedAt`) VALUES
 (7, 'Parafuso', '550', '2021-07-31', '2022-07-31', 1, 88, '2021-08-01 02:31:55', '2021-08-01 02:31:55'),
-(8, 'Porca e Parafuso', '800', '2021-08-01', '2022-08-01', 3, 89, '2021-08-01 22:11:34', '2021-08-01 22:11:34');
+(8, 'Porca e Parafuso', '800', '2021-08-01', '2022-08-01', 3, 89, '2021-08-01 22:11:34', '2021-08-01 22:11:34'),
+(9, 'Parafuso', '550', '2021-08-02', '2022-08-02', 1, 90, '2021-08-02 23:50:50', '2021-08-02 23:50:50'),
+(10, 'Parafuso', '550', '2021-08-08', '2022-08-08', 1, 91, '2021-08-08 13:29:01', '2021-08-08 13:29:01'),
+(11, 'Parafuso', '550', '2021-08-08', '2022-08-08', 1, 93, '2021-08-08 18:22:26', '2021-08-08 18:22:26'),
+(12, 'Porca', '680', '2021-08-08', '2022-08-08', 2, 94, '2021-08-09 00:14:21', '2021-08-09 00:14:21'),
+(13, 'Porca', '680', '2021-08-14', '2022-08-14', 2, 95, '2021-08-14 19:44:26', '2021-08-14 19:44:26');
 
 -- --------------------------------------------------------
 
@@ -332,9 +365,14 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `tipo_usuario_id`, `createdAt`, `updatedAt`) VALUES
-('16395921-06ef-4420-aa73-dace2883923d', 'Usinagem Nova', 'contato@usinagemnova.com.br', '$2b$10$Dc.KdIxpFfhGhe07S2ZWeOOjDj3mFEhV.XSEY3zhpyh9GD66KnfF.', 2, '2021-08-01 02:31:55', '2021-08-01 02:31:55'),
-('6c991008-580a-4c21-b574-ecc8623b5aa1', 'Usinagem da Selva', 'contato@usinagemselva.com.br', '$2b$10$kZ8Xd8NkxC6DuM/w0NOYK.k4C6DflRJOiwDPf/m9wCMoOzeEuV4DK', 2, '2021-08-01 22:11:34', '2021-08-01 22:11:34'),
-('ecc8623b5aa1-4c21-b574-580a-6c991008', 'admin', 'aporcaeoparafuso@gmail.com', 'aporca5896', 1, NULL, NULL);
+('16395921-06ef-4420-aa73-dace2883923d', 'Usinagem Nova', 'contato@usinagemnova.com.br', '$2b$10$.jvuIWhyjDgdYUUIBJMgweB.Gvpbnj6jDwkHVtQJ0ER5Czszm5dSC', 2, '2021-08-01 02:31:55', '2021-08-08 17:55:06'),
+('5c4ad7d7-951d-4aa9-8d0d-67b47af82c87', 'Usinagem Rafilda', 'rafilda@usinagem.com.br', '$2b$10$v6KrJXRNUlWVJs6u3NoRf.qV.opIj5n3vkPbNaPZ4FGJ3GDMasp6i', 2, '2021-08-08 18:22:26', '2021-08-08 18:22:26'),
+('6c737967-ad56-4308-a99b-c265acac214a', 'Empresa Porcolina', 'porca@porcona.com.br', '$2b$10$A/1xOmGg2uv9dXFt0nyCGeKzfEf6GY5SxjQVmBSaN8Fnt6Rh8NVFO', 2, '2021-08-14 19:44:26', '2021-08-14 19:45:25'),
+('6c991008-580a-4c21-b574-ecc8623b5aa1', 'Usinagem da Selva', 'contato@usinagemselva.com.br', '$2b$10$bZEna9nvW1YBX03NfNnVJuebt.Lv.CZwrcMvbRjsouWraKEdTxaPO', 2, '2021-08-01 22:11:34', '2021-08-08 00:51:49'),
+('888d00d8-e397-4f06-a502-846882a1262b', 'Usinagem da Ginca', 'contato@gincausinagem.com', '$2b$10$Vk12NCfUutCSXzpIbrlphOD.8VF9CflTaYV9UMTkUykO5SVTKgJ4C', 2, '2021-08-08 13:29:01', '2021-08-09 00:15:22'),
+('a01dd9c2-7e20-4306-b66e-e36d77c302b4', 'Usinagem Metálica', 'metalica@usinagem.com.br', '$2b$10$tbTmAqt65TMUD6x3IcDa2usi7WkWeLLIdcS9ksD5uO96oz8qRtpem', 2, '2021-08-09 00:14:21', '2021-08-09 00:14:21'),
+('ecc8623b5aa1-4c21-b574-580a-6c991008', 'admin', 'aporcaeoparafuso@gmail.com', '$2b$10$Dc.KdIxpFfhGhe07S2ZWeOOjDj3mFEhV.XSEY3zhpyh9GD66KnfF.', 1, '2021-01-01 03:00:00', '2021-01-01 03:00:00'),
+('f24b301e-05ed-4705-8cd3-221ca8a88ad4', 'Usinagem do Victor', 'victoramota@gmail.com', '$2b$10$KcgXALf9545jLEOWjILws.VFhdgvHye0Rr6hlBN6iDns81kkfQZ3O', 2, '2021-08-02 23:50:50', '2021-08-09 00:09:28');
 
 --
 -- Índices para tabelas despejadas
@@ -455,13 +493,13 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de tabela `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
 -- AUTO_INCREMENT de tabela `fornecedor`
 --
 ALTER TABLE `fornecedor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT de tabela `orcamento`
@@ -479,7 +517,7 @@ ALTER TABLE `plano`
 -- AUTO_INCREMENT de tabela `plano_fornecedor`
 --
 ALTER TABLE `plano_fornecedor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de tabela `ramo_atendimento`
