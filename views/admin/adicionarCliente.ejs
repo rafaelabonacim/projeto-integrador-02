@@ -32,37 +32,41 @@
         
           <div class="col-12">
             <div class="form-group">
-              <input type="text" name="name" class="form-control" placeholder="Nome do Responsável" required>
+              <input type="text" id="name" name="name" class="form-control" placeholder="Nome do Responsável" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-12">
             <div class="form-group">
-              <input type="email" name="email" class="form-control" placeholder="E-mail" required>
+              <input type="email" name="email" id="email" class="form-control" placeholder="E-mail" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <input type="text" name="phone" class="form-control" placeholder="Telefone (Opcional)">
+              <input type="tel" name="phone" id="phone" class="form-control" placeholder="Telefone (Opcional)">
             </div>
           </div>
 
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <input type="text" name="whatsapp" class="form-control" placeholder="WhatsApp (Opcional)">
+              <input type="tel" id="whatsapp" name="whatsapp" class="form-control" placeholder="WhatsApp (Opcional)">
             </div>
           </div>
 
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <input type="password" name="password" class="form-control" placeholder="Senha" required >
+              <input type="password" id="password" name="password" class="form-control" placeholder="Senha" required >
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <input type="password" name="confirmPassword" class="form-control" placeholder="Confirmar Senha" required>
+              <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirmar Senha" required>
+              <div class="invalid-feedback confirm-password">A senha não é igual</div>
             </div>
           </div>
         </div>
@@ -75,37 +79,41 @@
 
           <div class="col-sm-12 col-md-4">
             <div class="form-group">
-              <input type="text" name="zipcode" class="form-control" placeholder="CEP">
+              <input type="text" id="zipcode" name="zipcode" class="form-control" placeholder="CEP" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-8">
             <div class="form-group">
-              <input type="text" name="address" class="form-control" placeholder="Logradouro">
+              <input type="text" id="address" name="address" class="form-control" placeholder="Logradouro" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4">
             <div class="form-group">
-              <input type="number" name="number" class="form-control" placeholder="Número">
+              <input type="number" id="numero" name="number" class="form-control" placeholder="Número" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4">
             <div class="form-group">
-              <input type="text" name="complement" class="form-control" placeholder="Complemento">
+              <input type="text" id="complement" name="complement" class="form-control" placeholder="Complemento">
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4">
             <div class="form-group">
-              <input type="text" name="district" class="form-control" placeholder="Bairro">
+              <input type="text" id="district" name="district" class="form-control" placeholder="Bairro" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4">
             <div class="form-group">
-              <select name="state" class="form-control" required>
+              <select id="state" name="state" class="form-control" required>
                 <option disabled selected>Estado</option>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
@@ -135,12 +143,14 @@
                 <option value="SE">Sergipe</option>
                 <option value="TO">Tocantins</option>
               </select>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-8">
             <div class="form-group">
-              <input type="text" name="city" class="form-control" placeholder="Cidade">
+              <input type="text" id="city" name="city" class="form-control" placeholder="Cidade" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
         </div>
@@ -163,3 +173,8 @@
 </main>
 
 <%- include('../partials/footer') -%>
+
+<script>
+  utils.formValidation();
+  utils.comparePasswords();
+</script>

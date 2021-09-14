@@ -408,6 +408,8 @@ const adminController = {
   listarCliente: async (req, res) => {
     const userSession = req.session;
 
+    const { id, name, email } = req.query;
+
     const paginaAtual = req.query.page ? req.query.page : 1;
 
     const quantidadeCliente = await Cliente.count();
@@ -426,20 +428,7 @@ const adminController = {
       limit,
     });
 
-    return res.render('admin/listarCliente', {
-      title: 'Listar Clientes',
-      userSession: userSession,
-      clientes: clientes,
-      quantidadePaginas: quantidadePaginas,
-      paginaAtual: paginaAtual,
-    });
-  },
-  buscarCliente: async (req, res) => {
-    const userSession = req.session;
-
-    const { id, name, email } = req.query;
-
-    const buscaClientes = await Cliente.findAll({
+    const buscaClientes = await Cliente.findAndCountAll({
       include: [
         {
           model: Usuario,
@@ -456,9 +445,11 @@ const adminController = {
     });
 
     return res.render('admin/listarCliente', {
-      title: 'Resultados da Busca de Clientes',
+      title: 'Listar Clientes',
       userSession: userSession,
-      clientes: buscaClientes,
+      clientes: buscaClientes.rows,
+      quantidadePaginas: quantidadePaginas,
+      paginaAtual: paginaAtual,
     });
   },
   adicionarCliente: async (req, res) => {
@@ -484,6 +475,8 @@ const adminController = {
       city,
     } = req.body;
 
+    const cadastroRegex = /[ \(\)\x2D-\/]/g;
+
     const usuarioCriado = await Usuario.create({
       nome: name,
       email,
@@ -494,7 +487,7 @@ const adminController = {
     });
 
     const enderecoCriado = await Endereco.create({
-      cep: zipcode,
+      cep: zipcode.replace(cadastroRegex, ''),
       logradouro: address,
       numero: parseInt(number),
       complemento: complement,
@@ -506,12 +499,12 @@ const adminController = {
     });
 
     const clienteCriado = await Cliente.create({
-      telefone: phone,
-      whatsapp: whatsapp,
+      telefone: phone.replace(cadastroRegex, ''),
+      whatsapp: whatsapp.replace(cadastroRegex, ''),
       usuario_id: usuarioCriado.id,
       endereco_id: enderecoCriado.id,
     }).catch(function (err) {
-      console.log('Erro ao criar Fornecedor');
+      console.log('Erro ao criar Cliente');
       console.log(err, req.body);
     });
     return res.redirect('/admin/listarCliente');

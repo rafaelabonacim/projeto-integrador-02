@@ -33,37 +33,42 @@
         
           <div class="col-12">
             <div class="form-group">
-              <input type="text" name="name" class="form-control" placeholder="Nome do Responsável" required value= "<%= cliente.usuario.nome %>">
+              <input type="text" id="name" name="name" class="form-control" placeholder="Nome do Responsável" value= "<%= cliente.usuario.nome %>" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
+
             </div>
           </div>
 
           <div class="col-12">
             <div class="form-group">
-              <input type="email" name="email" class="form-control" placeholder="E-mail" value= "<%= cliente.usuario.email %>"required>
+              <input type="email" name="email" id="email" class="form-control" placeholder="E-mail" value= "<%= cliente.usuario.email %>"required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <input type="text" name="phone" class="form-control" placeholder="Telefone (Opcional)" value= "<%= cliente.usuario.telefone %>">
+              <input type="text" name="phone" id="phone" class="form-control" placeholder="Telefone (Opcional)" value= "<%= cliente.telefone %>">
             </div>
           </div>
 
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <input type="text" name="whatsapp" class="form-control" placeholder="WhatsApp (Opcional)"  value= "<%= cliente.usuario.whatsapp %>">
+              <input type="text" name="whatsapp" id="whatsapp" class="form-control" placeholder="WhatsApp (Opcional)"  value= "<%= cliente.whatsapp %>">
             </div>
           </div>
 
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <input type="password" name="password" class="form-control" placeholder="Senha" required value= "<%= cliente.usuario.senha %>" >
+              <input type="password" id="password" name="password" class="form-control" placeholder="Senha" value= "<%= cliente.usuario.senha %>" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <input type="password" name="confirmPassword" class="form-control" placeholder="Confirmar Senha" required value= "<%= cliente.usuario.senha %>">
+              <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirmar Senha" value= "<%= cliente.usuario.senha %>" required>
+              <div class="invalid-feedback confirm-password">A senha não é igual</div>
             </div>
           </div>
         </div>
@@ -76,37 +81,41 @@
 
           <div class="col-sm-12 col-md-4">
             <div class="form-group">
-              <input type="text" name="zipcode" class="form-control" placeholder="CEP" value= "<%= cliente.endereco.cep %>">
+              <input type="text" id="zipcode" name="zipcode" class="form-control" placeholder="CEP" value= "<%= cliente.endereco.cep %>" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-8">
             <div class="form-group">
-              <input type="text" name="address" class="form-control" placeholder="Logradouro" value= "<%= cliente.endereco.logradouro %>">
+              <input type="text" id="address" name="address" class="form-control" placeholder="Logradouro" value= "<%= cliente.endereco.logradouro %>" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4">
             <div class="form-group">
-              <input type="number" name="number" class="form-control" placeholder="Número" value= "<%= cliente.endereco.numero %>">
+              <input type="number" id="numero" name="number" class="form-control" placeholder="Número" value= "<%= cliente.endereco.numero %>" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4">
             <div class="form-group">
-              <input type="text" name="complement" class="form-control" placeholder="Complemento" value= "<%= cliente.endereco.complemento %>">
+              <input type="text" id="complement" name="complement" class="form-control" placeholder="Complemento" value= "<%= cliente.endereco.complemento %>">
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4">
             <div class="form-group">
-              <input type="text" name="district" class="form-control" placeholder="Bairro" value= "<%= cliente.endereco.estado %>">
+              <input type="text" id="district" name="district" class="form-control" placeholder="Bairro" value= "<%= cliente.endereco.estado %>" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4">
             <div class="form-group">
-              <select name="state" class="form-control" required>
+              <select id="state" name="state" class="form-control" required>
                 <option disabled >Estado</option>
                 <option value="AC" <% (cliente.endereco.estado === 'AC')? 'selected':'' %>>Acre</option>
                 <option value="AL" <% (cliente.endereco.estado === 'AL')?'selected':'' %>>Alagoas</option>
@@ -136,12 +145,14 @@
                 <option value="SE" <% (cliente.endereco.estado === 'SE')?'selected':'' %>>Sergipe</option>
                 <option value="TO" <% (cliente.endereco.estado === 'TO')?'selected':'' %>>Tocantins</option>
               </select>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-8">
             <div class="form-group">
-              <input type="text" name="city" class="form-control" placeholder="Cidade" value= "<%= cliente.endereco.cidade %>">
+              <input type="text" id="city" name="city" class="form-control" placeholder="Cidade" value= "<%= cliente.endereco.cidade %>" required>
+              <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
         </div>
@@ -165,3 +176,8 @@
 </main>
 
 <%- include('../partials/footer') -%>
+
+<script>
+  utils.formValidation();
+  utils.comparePasswords();
+</script>

@@ -20,7 +20,7 @@ router.put('/editarFornecedor/:id', adminController.atualizarFornecedor);
 
 // Rotas de Clientes
 router.get('/listarCliente', adminController.listarCliente);
-router.get('/listarCliente/resultado', adminController.buscarCliente);
+router.get('/listarCliente/resultado', adminController.listarCliente);
 router.get('/adicionarCliente', adminController.adicionarCliente);
 router.post('/adicionarCliente', adminController.salvarCliente);
 
