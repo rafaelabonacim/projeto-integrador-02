@@ -60,14 +60,14 @@
 
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <input type="password" id="password" name="password" class="form-control" placeholder="Senha" value= "<%= cliente.usuario.senha %>" required>
+              <input type="password" id="password" name="password" class="form-control" placeholder="Senha"  required>
               <div class="invalid-feedback">Campo obrigatório</div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-6">
             <div class="form-group">
-              <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirmar Senha" value= "<%= cliente.usuario.senha %>" required>
+              <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirmar Senha"  required>
               <div class="invalid-feedback confirm-password">A senha não é igual</div>
             </div>
           </div>
@@ -165,7 +165,7 @@
             <button class="btn btn-solid btn-orange1"><i class="far fa-trash-alt"></i> Excluir</button>
           </div>
           <div class="col-sm-12 col-md-6 text-right">
-            <button class="btn btn-solid btn-blue1"><i class="far fa-save"></i> Salvar</button>
+            <button id="send" class="btn btn-solid btn-blue1"><i class="far fa-save"></i> Salvar</button>
           </div>
         </div>
       </div>

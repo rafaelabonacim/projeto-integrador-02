@@ -411,40 +411,44 @@ const adminController = {
     const { id, name, email } = req.query;
 
     const paginaAtual = req.query.page ? req.query.page : 1;
-
-    const quantidadeCliente = await Cliente.count();
-
-    const limit = 3;
-
-    const quantidadePaginas = Math.ceil(quantidadeCliente / limit);
-
+    const limit = 5;
     const calcOffset = paginaAtual <= 1 ? 0 : paginaAtual * limit - limit;
 
-    console.log(quantidadePaginas, 'quantidade');
-    const clientes = await Cliente.findAll({
-      include: ['usuario'],
-      order: [['id', 'ASC']],
-      offset: calcOffset,
-      limit,
-    });
+    const whereId = id
+      ? [Sequelize.literal(`cliente.id like '%${id}%' `)]
+      : [];
+    const whereName = name
+      ? [Sequelize.literal(`usuario.nome like '%${name}%' `)]
+      : [];
+    const whereEmail = email
+      ? [Sequelize.literal(`usuario.email like '%${email}%' `)]
+      : [];
+
+    const conditions = [
+      ...whereId,
+      ...whereName,
+      ...whereEmail
+    ]
+
+    const where = conditions.length > 0 ? { [Op.or]: conditions } : {};
 
     const buscaClientes = await Cliente.findAndCountAll({
       include: [
         {
           model: Usuario,
           as: 'usuario',
-          where: {
-            nome: { [Op.like]: `%${name}%` },
-            email: { [Op.like]: `%${email}%` },
-          },
-          required: true,
         },
       ],
-      where: id ? { id } : {},
+      where,
+      offset: calcOffset,
+      limit,
       order: [['id', 'ASC']],
     });
 
-    return res.render('admin/listarCliente', {
+    const quantidadeCliente = buscaClientes.count;
+    const quantidadePaginas = Math.ceil(quantidadeCliente / limit);
+
+    return res.status(200).render('admin/listarCliente', {
       title: 'Listar Clientes',
       userSession: userSession,
       clientes: buscaClientes.rows,
