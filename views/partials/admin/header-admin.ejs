@@ -7,7 +7,6 @@
                       <% if (userSession.loggedUser.tipo_usuario_id == 1) { %>
                         <a href="/admin/listarFornecedor" class="btn btn-clean btn-blue1">Fornecedores</a>
                         <a href="/admin/listarCliente" class="btn btn-clean btn-blue1">Clientes</a>
-                        <!-- <a href="/admin/listarCategorias" class="btn btn-clean btn-blue1">Categorias</a> -->
                         <a href="/admin/listarOrcamentos" class="btn btn-clean btn-blue1">Orçamentos</a>
                       <% } else if (userSession.loggedUser.tipo_usuario_id == 2) { %>
                         <a href="/admin/meusOrcamentos/<%= // fornecedor.id %>" class="btn btn-clean btn-blue1">Orçamentos</a>

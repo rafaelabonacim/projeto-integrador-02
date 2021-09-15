@@ -19,10 +19,7 @@ router.get('/esqueci-senha', institutionalController.forgotpassword);
 
 // Rotas para páginas de cadastro
 router.get('/cadastro-fornecedor', institutionalController.cadastroFornecedor);
-router.post(
-  '/cadastro-fornecedor',
-  institutionalController.cadastroFornecedorCreate,
-);
+router.post('/cadastro-fornecedor', institutionalController.cadastroFornecedorCreate);
 
 router.get('/cadastro-cliente', institutionalController.cadastrocliente);
 router.post('/cadastro-cliente',institutionalController.cadastroclienteCreate);

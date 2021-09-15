@@ -201,15 +201,8 @@ const institutionalController = {
     return res.redirect('/login');
   },
   cadastrocliente: async (req, res) => {
-    const usuarios = await Usuario.findAll();
-    const allUsers = [];
-    for (let usuario of usuarios) {
-      allUsers.push(usuario.email);
-    }
-    return res.render('cadastroCliente', {
-      title: 'Cadastro',
-      usuarios: allUsers,
-    });
+    const userSession = req.session;
+    return res.render('cadastroCliente', { title: 'Adicionar Clientes', userSession: userSession});
   },
   cadastroclienteCreate: async (req, res) => {
     const {
@@ -227,6 +220,8 @@ const institutionalController = {
       city,
     } = req.body;
 
+    const cadastroRegex = /[ \(\)\x2D-\/]/g;
+
     const usuarioCriado = await Usuario.create({
       nome: name,
       email,
@@ -237,7 +232,7 @@ const institutionalController = {
     });
 
     const enderecoCriado = await Endereco.create({
-      cep: zipcode,
+      cep: zipcode.replace(cadastroRegex, ''),
       logradouro: address,
       numero: parseInt(number),
       complemento: complement,
@@ -249,15 +244,14 @@ const institutionalController = {
     });
 
     const clienteCriado = await Cliente.create({
-      telefone: phone,
-      whatsapp: whatsapp,
+      telefone: phone.replace(cadastroRegex, ''),
+      whatsapp: whatsapp.replace(cadastroRegex, ''),
       usuario_id: usuarioCriado.id,
       endereco_id: enderecoCriado.id,
     }).catch(function (err) {
-      console.log('Erro ao criar Fornecedor');
+      console.log('Erro ao criar Cliente');
       console.log(err, req.body);
     });
-
     return res.redirect('/login');
   },
   login: async (req, res) => {
